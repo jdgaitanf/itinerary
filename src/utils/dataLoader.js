@@ -92,6 +92,10 @@ export class DataLoader {
       throw new Error('Los datos no han sido cargados');
     }
 
+    // Construir el orden cronológico siguiendo las aristas
+    const orden = [];
+    const visitados = new Set();
+
     // Encontrar el nodo inicial (sin aristas entrantes)
     const nodosIds = new Set(this.nodos.keys());
     const destinosIds = new Set(
@@ -103,41 +107,123 @@ export class DataLoader {
       throw new Error('No se encontró un nodo inicial');
     }
 
-    // Construir el orden cronológico siguiendo las aristas
-    const orden = [];
-    const visitados = new Set();
-    let idActual = nodoInicialId;
+    console.log('Nodo inicial:', nodoInicialId);
 
-    while (idActual && !visitados.has(idActual)) {
-      visitados.add(idActual);
-      orden.push(idActual);
+    // Crear un mapa de aristas por origen para acceso rápido
+    const aristasPorOrigen = new Map();
+    this.aristas.forEach(arista => {
+      if (!aristasPorOrigen.has(arista.origen_id)) {
+        aristasPorOrigen.set(arista.origen_id, []);
+      }
+      aristasPorOrigen.get(arista.origen_id).push(arista);
+    });
 
-      // Buscar arista que sale de este nodo
-      const siguienteArista = Array.from(this.aristas.values()).find(
-        a => a.origen_id === idActual
-      );
+    // Guardar referencias para usar en la función navegar
+    const self = this;
+
+    // Función para navegar recursivamente (usando función normal pero con self)
+    function navegar(nodoId) {
+      if (visitados.has(nodoId)) return;
       
-      if (siguienteArista) {
-        idActual = siguienteArista.destino_id;
-      } else {
-        break;
+      visitados.add(nodoId);
+      orden.push(nodoId);
+      console.log(`Agregando nodo: ${nodoId} (${orden.length})`);
+
+      const aristasSalida = aristasPorOrigen.get(nodoId) || [];
+      
+      // Primero, procesar las aristas que van a nodos que NO son atracciones (hoteles, aeropuertos, etc.)
+      // y luego las atracciones
+      const aristasPrincipales = aristasSalida.filter(a => {
+        const destino = self.nodos.get(a.destino_id);
+        return destino && destino.tipo !== 'atraccion';
+      });
+      
+      const aristasAtracciones = aristasSalida.filter(a => {
+        const destino = self.nodos.get(a.destino_id);
+        return destino && destino.tipo === 'atraccion';
+      });
+
+      // Procesar aristas principales primero
+      for (const arista of aristasPrincipales) {
+        if (!visitados.has(arista.destino_id)) {
+          navegar(arista.destino_id);
+        }
+      }
+
+      // Luego procesar atracciones
+      for (const arista of aristasAtracciones) {
+        if (!visitados.has(arista.destino_id)) {
+          navegar(arista.destino_id);
+        }
       }
     }
+
+    // Iniciar navegación desde el nodo inicial
+    navegar(nodoInicialId);
+
+    // Verificar si hay nodos que no fueron visitados
+    const nodosNoVisitados = Array.from(this.nodos.keys()).filter(
+      id => !visitados.has(id)
+    );
+
+    if (nodosNoVisitados.length > 0) {
+      console.warn('Nodos no visitados:', nodosNoVisitados);
+      
+      // Intentar insertarlos en el orden correcto según sus aristas entrantes
+      for (const nodoId of nodosNoVisitados) {
+        const aristaEntrante = Array.from(this.aristas.values()).find(
+          a => a.destino_id === nodoId
+        );
+        if (aristaEntrante) {
+          const padreId = aristaEntrante.origen_id;
+          const padreIndex = orden.indexOf(padreId);
+          if (padreIndex !== -1) {
+            orden.splice(padreIndex + 1, 0, nodoId);
+            visitados.add(nodoId);
+          }
+        }
+      }
+    }
+
+    console.log('Orden final de nodos:', orden);
+    console.log('Total nodos:', orden.length);
 
     // Construir los días agrupando nodos por fecha
     const diasMap = new Map();
 
     orden.forEach((nodoId, index) => {
       const nodo = this.nodos.get(nodoId);
-      if (!nodo) return;
+      if (!nodo) {
+        console.warn(`Nodo ${nodoId} no encontrado`);
+        return;
+      }
 
       // Determinar la fecha del nodo
       let fecha = null;
       let horaInicio = null;
       let horaFin = null;
 
+      // 1. Primero intentar con fechas_estadia
       if (nodo.fechas_estadia && nodo.fechas_estadia.entrada) {
         fecha = nodo.fechas_estadia.entrada;
+      }
+
+      // 2. Si no tiene fecha, buscar en arista entrante
+      if (!fecha) {
+        const aristaEntrante = Array.from(this.aristas.values()).find(
+          a => a.destino_id === nodoId
+        );
+        if (aristaEntrante && aristaEntrante.logistica_salida && aristaEntrante.logistica_salida.fecha_salida) {
+          fecha = aristaEntrante.logistica_salida.fecha_salida;
+        }
+      }
+
+      // 3. Si aún no tiene fecha, usar la fecha de inicio del viaje + el índice
+      if (!fecha) {
+        const fechaInicio = new Date(this.raiz.fechas.inicio);
+        const fechaNueva = new Date(fechaInicio);
+        fechaNueva.setDate(fechaNueva.getDate() + index);
+        fecha = fechaNueva.toISOString().split('T')[0];
       }
 
       // Buscar arista que llega a este nodo para obtener la hora de llegada
@@ -151,19 +237,6 @@ export class DataLoader {
         }
         if (aristaEntrante.logistica_salida.hora_salida_origen) {
           horaFin = aristaEntrante.logistica_salida.hora_salida_origen;
-        }
-      }
-
-      // Si no hay fecha, usar la fecha del día anterior + 1
-      if (!fecha) {
-        const ultimaFecha = Array.from(diasMap.keys()).pop();
-        if (ultimaFecha) {
-          const d = new Date(ultimaFecha);
-          d.setDate(d.getDate() + 1);
-          fecha = d.toISOString().split('T')[0];
-        } else {
-          // Si es el primer nodo, usar la fecha de inicio del viaje
-          fecha = this.raiz.fechas.inicio;
         }
       }
 
@@ -191,7 +264,6 @@ export class DataLoader {
         aristaSalida: aristaSalida || null,
         horaInicio: horaInicio,
         horaFin: horaFin,
-        // Información de holgura
         holgura: this._calcularHolgura(aristaEntrante, aristaSalida),
       };
 
@@ -206,6 +278,9 @@ export class DataLoader {
         numeroDia: index + 1,
         eventos: this._ordenarEventosPorHora(dia.eventos),
       }));
+
+    console.log('Días construidos:', this.dias.length);
+    console.log('Fechas:', this.dias.map(d => d.fecha));
 
     return this.dias;
   }

@@ -1,7 +1,6 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import Dia from '../components/Dia.astro';
 ---
 
 <Layout title="Itinerary - Tu Viaje">
@@ -26,15 +25,31 @@ import Dia from '../components/Dia.astro';
         this.observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting && !$store.itinerary.todosLosDiasCargados) {
+              console.log('Cargando más días...');
               $store.itinerary.cargarMasDias();
             }
           });
-        }, { rootMargin: '100px' });
+        }, { rootMargin: '200px' });
         
-        // Observar el elemento de carga
+        // Observar el elemento de carga después de que se renderice
+        this.$watch('$store.itinerary.diasCargados.length', () => {
+          this.$nextTick(() => {
+            this.loaderRef = document.getElementById('loading-more');
+            if (this.loaderRef) {
+              console.log('Observando loading-more (reconectado)');
+              this.observer.observe(this.loaderRef);
+            }
+          });
+        });
+        
         this.$nextTick(() => {
           this.loaderRef = document.getElementById('loading-more');
-          if (this.loaderRef) this.observer.observe(this.loaderRef);
+          if (this.loaderRef) {
+            console.log('Observando loading-more (inicial)');
+            this.observer.observe(this.loaderRef);
+          } else {
+            console.log('No se encontró loading-more inicial');
+          }
         });
       }
     }"
@@ -67,7 +82,7 @@ import Dia from '../components/Dia.astro';
     <!-- Días -->
     <template x-for="(dia, index) in $store.itinerary.diasCargados" :key="dia.fecha">
       <div class="dia-card" x-data="{ expandido: true }">
-        <!-- Header -->
+        <!-- Header del día -->
         <div 
           class="dia-card-header"
           @click="expandido = !expandido"
@@ -104,7 +119,7 @@ import Dia from '../components/Dia.astro';
           </div>
         </div>
         
-        <!-- Content -->
+        <!-- Content del día -->
         <div 
           class="dia-card-content"
           x-show="expandido"
@@ -471,7 +486,7 @@ import Dia from '../components/Dia.astro';
       </div>
     </template>
     
-    <!-- Loading more -->
+    <!-- Loading more - SIEMPRE visible si hay más días por cargar -->
     <div 
       id="loading-more"
       x-show="$store.itinerary.hayMasDias"

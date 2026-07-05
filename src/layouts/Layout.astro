@@ -36,10 +36,17 @@ const { title = 'Itinerary', description = 'Tu itinerario de viaje personal' } =
       <slot />
     </div>
     
-    <!-- Bottom Navigation -->
-    <nav class="bottom-nav" x-data="{ active: $store.itinerary?.vistaActiva || 'itinerario' }" @click.away>
+       <!-- Bottom Navigation -->
+    <nav class="bottom-nav" x-data="{
+      active: $store.itinerary?.vistaActiva || 'itinerario',
+      init() {
+        this.$watch('$store.itinerary.vistaActiva', (value) => {
+          this.active = value;
+        });
+      }
+    }" x-init="init()">
       <button 
-        @click="$store.itinerary?.cambiarVista('itinerario')"
+        @click="$store.itinerary?.cambiarVista('itinerario'); window.location.href = '/'"
         :class="{ 'active': active === 'itinerario' }"
         aria-label="Itinerario"
       >
@@ -48,7 +55,7 @@ const { title = 'Itinerary', description = 'Tu itinerario de viaje personal' } =
       </button>
       
       <button 
-        @click="$store.itinerary?.cambiarVista('finanzas')"
+        @click="$store.itinerary?.cambiarVista('finanzas'); window.location.href = '/finanzas'"
         :class="{ 'active': active === 'finanzas' }"
         aria-label="Finanzas"
       >
@@ -57,7 +64,7 @@ const { title = 'Itinerary', description = 'Tu itinerario de viaje personal' } =
       </button>
       
       <button 
-        @click="$store.itinerary?.cambiarVista('ajustes')"
+        @click="$store.itinerary?.cambiarVista('ajustes'); window.location.href = '/ajustes'"
         :class="{ 'active': active === 'ajustes' }"
         aria-label="Ajustes"
       >
