@@ -3,7 +3,7 @@ title: "Wacken 2026 - Travel Itinerary"
 description: "Interactive travel itinerary for Wacken Open Air 2026"
 author: "David G. & Steven Espinel"
 url: "https://yourusername.github.io"
-baseurl: "/wacken-itinerary"
+baseurl: "/itinerary"
 
 # Build settings
 remote_theme: "mmistakes/minimal-mistakes@4.26.2"
