@@ -1,0 +1,177 @@
+---
+// src/components/FinanzasResumen.astro
+export interface Props {
+  finanzas: any;
+  moneda: string;
+}
+
+const { finanzas, moneda } = Astro.props;
+---
+
+<div x-data="{
+  finanzas: null,
+  moneda: '',
+  init() {
+    this.finanzas = finanzas;
+    this.moneda = moneda;
+  },
+  getPorcentajeClase(porcentaje) {
+    if (porcentaje < 70) return 'green';
+    if (porcentaje < 90) return 'yellow';
+    return 'red';
+  }
+}">
+  <div x-show="finanzas">
+    <!-- Totales principales -->
+    <div class="grid grid-cols-3 gap-3 mt-4">
+      <div 
+        class="rounded-xl p-4 text-center"
+        style="background: var(--color-card-bg);"
+      >
+        <span class="text-xs font-medium" style="color: var(--color-text-muted);">Presupuesto</span>
+        <p class="text-lg font-bold mt-1" style="color: var(--color-text-primary);">
+          {$store.itinerary.formatearMonto(finanzas.totalPresupuesto, 'COP')}
+        </p>
+      </div>
+      
+      <div 
+        class="rounded-xl p-4 text-center"
+        style="background: var(--color-card-bg);"
+      >
+        <span class="text-xs font-medium" style="color: var(--color-text-muted);">Gastado</span>
+        <p class="text-lg font-bold mt-1" style="color: var(--color-primary);">
+          {$store.itinerary.formatearMonto(finanzas.totalGastado, 'COP')}
+        </p>
+      </div>
+      
+      <div 
+        class="rounded-xl p-4 text-center"
+        style="background: var(--color-card-bg);"
+      >
+        <span class="text-xs font-medium" style="color: var(--color-text-muted);">Saldo</span>
+        <p class="text-lg font-bold mt-1" style="color: #2ECC71;">
+          {$store.itinerary.formatearMonto(finanzas.saldoRestante, 'COP')}
+        </p>
+      </div>
+    </div>
+
+    <!-- Barra de progreso -->
+    <div class="mt-4">
+      <div class="flex justify-between text-sm mb-1">
+        <span style="color: var(--color-text-secondary);">
+          Progreso de gasto
+        </span>
+        <span class="font-medium" style="color: var(--color-text-primary);">
+          {Math.round(finanzas.porcentajeGastado)}%
+        </span>
+      </div>
+      <div class="progress-bar">
+        <div 
+          class="progress-bar-fill"
+          :class="getPorcentajeClase(finanzas.porcentajeGastado)"
+          :style="`width: ${Math.min(finanzas.porcentajeGastado, 100)}%;`"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Gastos pendientes -->
+    <div 
+      x-show="finanzas.gastosPendientes > 0"
+      class="mt-4 p-4 rounded-xl"
+      style="background: rgba(231, 76, 60, 0.1); border: 1px solid rgba(231, 76, 60, 0.2);"
+    >
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-rounded" style="color: #E74C3C;">warning</span>
+        <span class="text-sm" style="color: #E74C3C;">
+          Gastos pendientes: 
+          <strong>{$store.itinerary.formatearMonto(finanzas.gastosPendientes, 'COP')}</strong>
+        </span>
+      </div>
+    </div>
+
+    <!-- Desglose por categoría -->
+    <div class="mt-6">
+      <h3 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+        <span class="material-symbols-rounded text-base align-middle mr-1">category</span>
+        Gastos por categoría
+      </h3>
+      <div class="space-y-3">
+        <template x-for="(categoria, nombre) in finanzas.gastosPorCategoria" :key="nombre">
+          <div>
+            <div class="flex justify-between text-sm">
+              <span style="color: var(--color-text-secondary);">
+                <span 
+                  class="material-symbols-rounded text-sm align-middle"
+                  x-html="{
+                    'Transporte': 'directions_car',
+                    'Alojamiento': 'bed',
+                    'Festival': 'music_note',
+                    'Entretenimiento': 'theater_comedy',
+                    'Comida': 'restaurant',
+                    'Otros': 'more_horiz'
+                  }[nombre] || 'more_horiz'"
+                ></span>
+                {nombre}
+              </span>
+              <span class="font-medium" style="color: var(--color-text-primary);">
+                {$store.itinerary.formatearMonto(categoria.total, 'COP')}
+              </span>
+            </div>
+            <div class="progress-bar mt-1">
+              <div 
+                class="progress-bar-fill"
+                style="background: var(--color-primary);"
+                :style="`width: ${(categoria.total / finanzas.totalGastado) * 100}%;`"
+              ></div>
+            </div>
+            <span class="text-xs" style="color: var(--color-text-muted);">
+              {categoria.items.length} {categoria.items.length === 1 ? 'gasto' : 'gastos'}
+            </span>
+          </div>
+        </template>
+      </div>
+    </div>
+
+    <!-- Desglose por persona -->
+    <div class="mt-6">
+      <h3 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+        <span class="material-symbols-rounded text-base align-middle mr-1">group</span>
+        Gastos por persona
+      </h3>
+      <div class="space-y-3">
+        <template x-for="(persona, nombre) in finanzas.gastosPorPersona" :key="nombre">
+          <div 
+            class="p-3 rounded-xl flex items-center justify-between"
+            style="background: var(--color-card-bg);"
+          >
+            <div class="flex items-center gap-3">
+              <div 
+                class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white"
+                :style="`background: ${['#4A6CF7', '#2ECC71', '#F39C12', '#E74C3C', '#9B59B6', '#1ABC9C'][Object.keys(finanzas.gastosPorPersona).indexOf(nombre) % 6]};`"
+              >
+                {nombre.charAt(0)}
+              </div>
+              <div>
+                <span class="text-sm font-medium" style="color: var(--color-text-primary);">
+                  {nombre}
+                </span>
+                <span class="text-xs block" style="color: var(--color-text-muted);">
+                  {persona.items.length} {persona.items.length === 1 ? 'gasto' : 'gastos'}
+                </span>
+              </div>
+            </div>
+            <span class="font-medium" style="color: var(--color-text-primary);">
+              {$store.itinerary.formatearMonto(persona.total, 'COP')}
+            </span>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div x-show="!finanzas" class="empty-state">
+    <span class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">finance</span>
+    <p class="mt-4">No hay datos financieros disponibles</p>
+  </div>
+</div>

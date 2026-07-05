@@ -1,0 +1,26 @@
+{
+  "id": "zrh-casa-amiga-to-zrh-airport",
+  "origen_id": "zrh-casa-amiga-steven",
+  "destino_id": "zrh-airport",
+  "modo": "tren",
+  "transporte": {
+    "compania": "SBB",
+    "tipo_vehiculo": "Tren",
+    "detalles": "Tren S-Bahn o tranvía hacia el aeropuerto."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "25-35",
+    "con_holgura": 35
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-25",
+    "hora_salida_origen": "06:20",
+    "hora_llegada_destino": "06:50"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2.5h",
+    "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo KL1918."
+  },
+  "notas": "Salir de la casa a las 06:20 para llegar al aeropuerto a las 06:50 (2.5 horas antes del vuelo)."
+}

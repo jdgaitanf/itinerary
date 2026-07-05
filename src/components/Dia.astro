@@ -1,0 +1,83 @@
+---
+// src/components/Dia.astro
+import Evento from './Evento.astro';
+
+export interface Props {
+  dia: any;
+  index: number;
+  expandido: boolean;
+}
+
+const { dia, index, expandido } = Astro.props;
+---
+
+{dia ? (
+  <div class="dia-card" x-data="{ expandido: true }">
+    <!-- Header -->
+    <div 
+      class="dia-card-header"
+      @click="expandido = !expandido"
+    >
+      <div>
+        <h2 class="font-semibold text-base" style="color: var(--color-text-primary);">
+          <span class="material-symbols-rounded text-lg align-middle mr-1" style="color: var(--color-primary);">calendar_today</span>
+          <span>Día {dia.numeroDia || '?'}</span>
+          <span class="text-sm font-normal" style="color: var(--color-text-secondary);">
+            · {dia.fecha ? new Date(dia.fecha).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Fecha no especificada'}
+          </span>
+        </h2>
+        <div class="flex items-center gap-2 mt-1">
+          <span class="text-sm" style="color: var(--color-text-secondary);">
+            <span class="material-symbols-rounded text-sm align-middle">location_on</span>
+            {dia.ciudad || 'Ciudad no especificada'}
+          </span>
+          {dia.clima && (
+            <span class="text-sm" style="color: var(--color-text-secondary);">
+              <span class="material-symbols-rounded text-sm align-middle">wb_sunny</span>
+              {dia.clima.temperatura ? `${dia.clima.temperatura}°C` : ''}
+              {dia.clima.condiciones ? ` · ${dia.clima.condiciones}` : ''}
+            </span>
+          )}
+        </div>
+      </div>
+      <div>
+        <span 
+          class="material-symbols-rounded text-xl transition-transform duration-200"
+          :style="`transform: rotate(${expandido ? '180deg' : '0deg'});`"
+        >
+          expand_more
+        </span>
+      </div>
+    </div>
+    
+    <!-- Content -->
+    <div 
+      class="dia-card-content"
+      x-show="expandido"
+      x-collapse.duration.200ms
+    >
+      {dia.eventos && dia.eventos.length > 0 ? (
+        dia.eventos.map((evento, idx) => (
+          <Evento 
+            evento={evento}
+            diaIndex={index}
+            eventoIndex={idx}
+            estaExpandido={$store.itinerary.estaExpandido(index, evento.id)}
+          />
+        ))
+      ) : (
+        <div class="text-center py-4 text-sm" style="color: var(--color-text-muted);">
+          <span class="material-symbols-rounded">event_busy</span>
+          <p>No hay eventos programados para este día</p>
+        </div>
+      )}
+    </div>
+  </div>
+) : (
+  <div class="dia-card">
+    <div class="text-center py-8 text-sm" style="color: var(--color-text-muted);">
+      <span class="material-symbols-rounded">error</span>
+      <p>Error cargando el día</p>
+    </div>
+  </div>
+)}

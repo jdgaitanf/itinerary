@@ -1,0 +1,51 @@
+{
+  "id": "zrh-airport",
+  "tipo": "aeropuerto",
+  "nombre": "Aeropuerto de Zúrich",
+  "codigo_iata": "ZRH",
+  "direccion": {
+    "calle": "ZRH Flughafenstrasse",
+    "ciudad": "Kloten",
+    "codigo_postal": "8058",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 47.4506,
+      "lng": 8.5614
+    },
+    "maps_link": "https://www.google.com/maps?q=Zurich+Airport+ZRH"
+  },
+  "contacto": {
+    "telefono": "+41 43 816 22 11",
+    "web": "https://www.zurich-airport.com"
+  },
+  "reserva": {
+    "codigo_reserva": "LX1727-2026",
+    "confirmada": true,
+    "nombre_titular": "Juan David",
+    "plataforma": "Swiss"
+  },
+  "fechas_estadia": {
+    "entrada": "2026-07-21",
+    "salida": "2026-07-21"
+  },
+  "horarios": {
+    "atencion": "24h"
+  },
+  "clima_esperado": {
+    "temperatura_promedio": "18°C - 25°C",
+    "condiciones": "Parcialmente nublado",
+    "probabilidad_lluvia": "30%",
+    "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+  },
+  "idioma_principal": "Alemán, Francés, Italiano, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "Revisión de pasaportes para viajeros extracomunitarios."
+  ],
+  "tiempo_estimado_visita": "2h",
+  "notas_adicionales": "Swiss llega a la Terminal 1 (T1). La conexión con la ciudad es en tren (S-Bahn) o tranvía."
+}

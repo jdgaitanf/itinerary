@@ -1,0 +1,27 @@
+{
+  "id": "ham-sixt-to-ham-airport",
+  "origen_id": "ham-sixt-gansemarkt",
+  "destino_id": "ham-airport",
+  "modo": "tren",
+  "transporte": {
+    "compania": "S-Bahn Hamburg",
+    "tipo_vehiculo": "S-Bahn",
+    "linea": "S1",
+    "detalles": "Caminata a Jungfernstieg + S-Bahn S1 al aeropuerto."
+  },
+  "tiempo_estimado": {
+    "minutos": 25,
+    "rango": "20-30",
+    "con_holgura": 30
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "12:30",
+    "hora_llegada_destino": "12:55"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2.5h",
+    "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo IB774."
+  },
+  "notas": "Salir de Sixt a las 12:30 para llegar al aeropuerto a las 12:55 (2.5 horas antes del vuelo)."
+}

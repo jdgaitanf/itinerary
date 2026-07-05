@@ -1,0 +1,36 @@
+{
+  "id": "bog-casa-david",
+  "tipo": "casa",
+  "nombre": "Casa de Juan David (David G.)",
+  "direccion": {
+    "ciudad": "Bogotá",
+    "pais": "Colombia"
+  },
+  "reserva": {
+    "confirmada": true,
+    "nombre_titular": "Juan David"
+  },
+  "fechas_estadia": {
+    "entrada": "2026-07-17",
+    "salida": "2026-07-17"
+  },
+  "clima_esperado": {
+    "temperatura_promedio": "8°C - 18°C",
+    "condiciones": "Soleado / Lluvias esporádicas",
+    "probabilidad_lluvia": "40%",
+    "recomendacion_vestimenta": "Abrigo ligero, impermeable"
+  },
+  "equipaje_recomendado": [
+    "Pasaporte",
+    "Tarjetas de crédito",
+    "Adaptador de corriente (tipo C/F para Europa)",
+    "Maleta con candado"
+  ],
+  "idioma_principal": "Español",
+  "moneda_local": {
+    "codigo": "COP",
+    "simbolo": "$",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "notas_adicionales": "Salir con tiempo para evitar trancones en Bogotá."
+}

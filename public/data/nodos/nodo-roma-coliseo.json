@@ -1,0 +1,54 @@
+{
+  "id": "roma-coliseo",
+  "tipo": "atraccion",
+  "nombre": "Coliseo Romano",
+  "direccion": {
+    "calle": "Piazza del Colosseo, 1",
+    "ciudad": "Roma",
+    "codigo_postal": "00184",
+    "pais": "Italia",
+    "coordenadas": {
+      "lat": 41.8902,
+      "lng": 12.4922
+    },
+    "maps_link": "https://www.google.com/maps?q=Colosseo+Roma+Italy"
+  },
+  "contacto": {
+    "web": "https://www.coopculture.it"
+  },
+  "horarios": {
+    "horario_apertura": "08:30",
+    "horario_cierre": "19:15"
+  },
+  "actividades": [
+    {
+      "id": "visita-coliseo",
+      "nombre": "Visita al Coliseo",
+      "tipo": "tour",
+      "duracion_estimada": "2h",
+      "horario_recomendado": "11:00",
+      "url_oficial": "https://www.coopculture.it",
+      "reserva": {
+        "requiere_reserva": true
+      },
+      "notas": "La entrada incluye el Foro Romano y el Palatino. Se recomienda comprar en línea."
+    }
+  ],
+  "clima_esperado": {
+    "temperatura_promedio": "30°C - 35°C",
+    "condiciones": "Soleado",
+    "probabilidad_lluvia": "5%",
+    "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero, protector solar"
+  },
+  "idioma_principal": "Italiano, Inglés",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "Último ingreso: 18:15.",
+    "Prohibido ingresar con mochilas grandes."
+  ],
+  "tiempo_estimado_visita": "2h"
+}

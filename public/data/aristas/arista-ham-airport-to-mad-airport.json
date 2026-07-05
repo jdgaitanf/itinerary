@@ -1,0 +1,31 @@
+{
+  "id": "ham-airport-to-mad-airport",
+  "origen_id": "ham-airport",
+  "destino_id": "mad-airport",
+  "modo": "avion",
+  "transporte": {
+    "compania": "Iberia",
+    "tipo_vehiculo": "Airbus A320",
+    "numero_vuelo": "IB774",
+    "terminal_origen": "T1",
+    "terminal_destino": "T4",
+    "codigo_reserva_confirmacion": "IB774-2026",
+    "detalles": "Vuelo directo Hamburgo - Madrid."
+  },
+  "tiempo_estimado": {
+    "minutos": 180,
+    "rango": "3h 0min",
+    "con_holgura": 180
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "15:45",
+    "hora_llegada_destino": "18:45",
+    "hora_salida_efectiva_transporte": "15:45"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 261000
+  },
+  "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+}

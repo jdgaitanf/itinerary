@@ -1,0 +1,27 @@
+{
+  "id": "ams-airport-to-ams-hotel",
+  "origen_id": "ams-airport",
+  "destino_id": "ams-zaan-hotel",
+  "modo": "tren",
+  "transporte": {
+    "compania": "NS",
+    "tipo_vehiculo": "Tren",
+    "linea": "Sprinter",
+    "detalles": "Tren directo desde Schiphol hasta Zaandam (21 min)."
+  },
+  "tiempo_estimado": {
+    "minutos": 21,
+    "rango": "20-25",
+    "con_holgura": 25
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-25",
+    "hora_salida_origen": "11:30",
+    "hora_llegada_destino": "11:51"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 6.00
+  },
+  "notas": "Comprar ticket en la estación del aeropuerto. El hotel está junto a la estación de Zaandam."
+}

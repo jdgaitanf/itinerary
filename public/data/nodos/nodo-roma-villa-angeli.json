@@ -1,0 +1,88 @@
+{
+  "id": "roma-villa-angeli",
+  "tipo": "hotel",
+  "nombre": "Villa Angeli",
+  "direccion": {
+    "calle": "Via Paolo Bentivoglio, 12",
+    "ciudad": "Roma",
+    "codigo_postal": "00165",
+    "pais": "Italia",
+    "coordenadas": {
+      "lat": 41.9025,
+      "lng": 12.4532
+    },
+    "maps_link": "https://www.google.com/maps?q=Via+Paolo+Bentivoglio+12+00165+Roma+Italy"
+  },
+  "contacto": {
+    "telefono": "+39 06 3938 1234",
+    "web": "https://www.villaangeliroma.it"
+  },
+  "reserva": {
+    "codigo_reserva": "VILLA-2026",
+    "confirmada": true,
+    "nombre_titular": "Steven Espinel",
+    "plataforma": "Booking.com"
+  },
+  "fechas_estadia": {
+    "entrada": "2026-07-19",
+    "salida": "2026-07-21"
+  },
+  "horarios": {
+    "check_in": "14:00",
+    "check_out": "10:30",
+    "atencion": "07:00 - 23:00"
+  },
+  "actividades": [
+    {
+      "id": "coliseo-roma",
+      "nombre": "Visita al Coliseo Romano",
+      "tipo": "tour",
+      "duracion_estimada": "2h",
+      "horario_recomendado": "11:00",
+      "url_oficial": "https://www.coopculture.it",
+      "reserva": {
+        "requiere_reserva": true,
+        "notas": "Se recomienda comprar la entrada con anticipación en línea para evitar filas."
+      },
+      "notas": "La entrada al Coliseo incluye el acceso al Foro Romano y al Palatino."
+    },
+    {
+      "id": "roma-tours",
+      "nombre": "Tours por Roma",
+      "tipo": "tour",
+      "duracion_estimada": "3h",
+      "horario_recomendado": "15:00",
+      "reserva": {
+        "requiere_reserva": false
+      },
+      "notas": "Recorrer la Fontana di Trevi, el Panteón, la Piazza Navona y el Vaticano."
+    }
+  ],
+  "clima_esperado": {
+    "temperatura_promedio": "30°C - 35°C",
+    "condiciones": "Soleado, caluroso",
+    "probabilidad_lluvia": "5%",
+    "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero, protector solar"
+  },
+  "equipaje_recomendado": [
+    "Ropa muy ligera",
+    "Protector solar",
+    "Gafas de sol",
+    "Sombrero",
+    "Cargador de viaje"
+  ],
+  "idioma_principal": "Italiano",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "Horario de silencio: 22:00 - 08:00"
+  ],
+  "imagenes": [
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/5c/4d/villa-angeli.jpg"
+  ],
+  "tiempo_estimado_visita": "2 noches",
+  "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, jardín, terraza."
+}

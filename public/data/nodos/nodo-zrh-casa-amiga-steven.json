@@ -1,0 +1,31 @@
+{
+  "id": "zrh-casa-amiga-steven",
+  "tipo": "casa_amigo",
+  "nombre": "Casa de la amiga de Steven (Zúrich)",
+  "direccion": {
+    "ciudad": "Zúrich",
+    "pais": "Suiza"
+  },
+  "reserva": {
+    "confirmada": true,
+    "nombre_titular": "Amiga de Steven"
+  },
+  "fechas_estadia": {
+    "entrada": "2026-07-21",
+    "salida": "2026-07-25"
+  },
+  "clima_esperado": {
+    "temperatura_promedio": "18°C - 25°C",
+    "condiciones": "Parcialmente nublado",
+    "probabilidad_lluvia": "30%",
+    "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+  },
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4500 COP"
+  },
+  "tiempo_estimado_visita": "4 noches",
+  "notas_adicionales": "La dirección exacta y la logística de llegada se coordinarán directamente con la amiga de Steven."
+}

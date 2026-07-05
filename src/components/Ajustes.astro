@@ -1,0 +1,203 @@
+---
+// src/components/Ajustes.astro
+// Componente de configuración y ajustes de la aplicación
+// Este componente se utiliza dentro de la página de ajustes
+---
+
+export interface Props {
+  // No se requieren props específicas, usa el store global
+}
+
+const {} = Astro.props;
+---
+
+<div class="space-y-4">
+  <!-- Tema -->
+  <section 
+    class="rounded-xl p-4"
+    style="background: var(--color-card-bg);"
+  >
+    <h2 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+      <span class="material-symbols-rounded text-base align-middle mr-2">palette</span>
+      Apariencia
+    </h2>
+    
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="text-sm" style="color: var(--color-text-primary);">Tema oscuro</span>
+        <span class="text-xs block" style="color: var(--color-text-muted);">
+          <span x-text="$store.itinerary.tema === 'oscuro' ? 'Activado' : 'Desactivado'"></span>
+        </span>
+      </div>
+      <button 
+        class="theme-toggle"
+        :class="{ 'active': $store.itinerary.tema === 'oscuro' }"
+        @click="$store.itinerary.toggleTema()"
+        aria-label="Cambiar tema"
+      >
+        <span class="toggle-knob"></span>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-4 mt-3 text-xs" style="color: var(--color-text-muted);">
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-rounded text-sm">light_mode</span>
+        Claro
+      </span>
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-rounded text-sm">dark_mode</span>
+        Oscuro
+      </span>
+    </div>
+  </section>
+
+  <!-- Información del viaje -->
+  <section 
+    class="rounded-xl p-4"
+    style="background: var(--color-card-bg);"
+  >
+    <h2 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+      <span class="material-symbols-rounded text-base align-middle mr-2">info</span>
+      Información del viaje
+    </h2>
+    
+    <div class="space-y-2 text-sm">
+      <div class="flex justify-between">
+        <span style="color: var(--color-text-secondary);">Nombre</span>
+        <span style="color: var(--color-text-primary);" x-text="$store.itinerary.dataLoader?.raiz?.nombre_viaje || 'Cargando...'"></span>
+      </div>
+      <div class="flex justify-between">
+        <span style="color: var(--color-text-secondary);">Fechas</span>
+        <span style="color: var(--color-text-primary);">
+          <span x-text="$store.itinerary.dataLoader?.raiz?.fechas?.inicio || '...'"></span>
+          <span> → </span>
+          <span x-text="$store.itinerary.dataLoader?.raiz?.fechas?.fin || '...'"></span>
+        </span>
+      </div>
+      <div class="flex justify-between">
+        <span style="color: var(--color-text-secondary);">Días totales</span>
+        <span style="color: var(--color-text-primary);" x-text="$store.itinerary.totalDias"></span>
+      </div>
+      <div class="flex justify-between">
+        <span style="color: var(--color-text-secondary);">Días cargados</span>
+        <span style="color: var(--color-text-primary);" x-text="$store.itinerary.diasCargados.length"></span>
+      </div>
+      <div class="flex justify-between">
+        <span style="color: var(--color-text-secondary);">Versión</span>
+        <span style="color: var(--color-text-primary);" x-text="$store.itinerary.dataLoader?.raiz?.version || '2.0'"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Viajeros -->
+  <section 
+    class="rounded-xl p-4"
+    style="background: var(--color-card-bg);"
+  >
+    <h2 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+      <span class="material-symbols-rounded text-base align-middle mr-2">group</span>
+      Viajeros
+    </h2>
+    
+    <div 
+      x-show="$store.itinerary.getFinanzas()"
+      class="flex flex-wrap gap-2"
+    >
+      <template x-for="(persona, nombre) in $store.itinerary.getFinanzas()?.gastosPorPersona" :key="nombre">
+        <span 
+          class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm"
+          :style="`background: ${['#4A6CF7', '#2ECC71', '#F39C12', '#E74C3C', '#9B59B6', '#1ABC9C'][Object.keys($store.itinerary.getFinanzas()?.gastosPorPersona || {}).indexOf(nombre) % 6]}22; color: ${['#4A6CF7', '#2ECC71', '#F39C12', '#E74C3C', '#9B59B6', '#1ABC9C'][Object.keys($store.itinerary.getFinanzas()?.gastosPorPersona || {}).indexOf(nombre) % 6]}; border: 1px solid currentColor;`"
+        >
+          <span x-text="nombre.charAt(0)"></span>
+          <span x-text="nombre"></span>
+        </span>
+      </template>
+    </div>
+    <p x-show="!$store.itinerary.getFinanzas()" class="text-sm" style="color: var(--color-text-muted);">
+      Cargando información de viajeros...
+    </p>
+  </section>
+
+  <!-- Estadísticas -->
+  <section 
+    class="rounded-xl p-4"
+    style="background: var(--color-card-bg);"
+  >
+    <h2 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+      <span class="material-symbols-rounded text-base align-middle mr-2">analytics</span>
+      Estadísticas
+    </h2>
+    
+    <div class="grid grid-cols-2 gap-2">
+      <div class="text-center p-3 rounded-lg" style="background: var(--color-bg);">
+        <span class="text-2xl font-bold" style="color: var(--color-primary);" x-text="$store.itinerary.dias.length"></span>
+        <span class="text-xs block" style="color: var(--color-text-muted);">Días</span>
+      </div>
+      <div class="text-center p-3 rounded-lg" style="background: var(--color-bg);">
+        <span class="text-2xl font-bold" style="color: var(--color-primary);" x-text="$store.itinerary.dias.reduce((total, dia) => total + dia.eventos.length, 0)"></span>
+        <span class="text-xs block" style="color: var(--color-text-muted);">Eventos</span>
+      </div>
+      <div class="text-center p-3 rounded-lg" style="background: var(--color-bg);">
+        <span class="text-2xl font-bold" style="color: #2ECC71;" x-text="$store.itinerary.getFinanzas()?.gastos?.length || 0"></span>
+        <span class="text-xs block" style="color: var(--color-text-muted);">Gastos</span>
+      </div>
+      <div class="text-center p-3 rounded-lg" style="background: var(--color-bg);">
+        <span class="text-2xl font-bold" style="color: #F39C12;" x-text="`${$store.itinerary.porcentajeCargado}%`"></span>
+        <span class="text-xs block" style="color: var(--color-text-muted);">Cargado</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Acciones -->
+  <section 
+    class="rounded-xl p-4"
+    style="background: var(--color-card-bg);"
+  >
+    <h2 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+      <span class="material-symbols-rounded text-base align-middle mr-2">build</span>
+      Acciones
+    </h2>
+    
+    <button 
+      @click="
+        location.reload();
+        $store.itinerary.init();
+      "
+      class="w-full py-2.5 px-4 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2"
+      style="background: var(--color-primary); color: white;"
+    >
+      <span class="material-symbols-rounded text-base">refresh</span>
+      Recargar datos
+    </button>
+    
+    <button 
+      @click="
+        $store.itinerary.eventosExpandidos = {};
+        $store.itinerary.scrollPositions = {};
+        $store.itinerary.ultimaInteraccion = Date.now();
+      "
+      class="w-full py-2.5 px-4 rounded-xl text-sm font-medium transition-all mt-2 flex items-center justify-center gap-2"
+      style="background: var(--color-border); color: var(--color-text-secondary);"
+    >
+      <span class="material-symbols-rounded text-base">restart_alt</span>
+      Resetear estado
+    </button>
+  </section>
+
+  <!-- Acerca de -->
+  <section 
+    class="rounded-xl p-4 text-center"
+    style="background: var(--color-card-bg);"
+  >
+    <div class="flex items-center justify-center gap-2 mb-2">
+      <span class="material-symbols-rounded" style="color: var(--color-primary);">luggage</span>
+      <span class="text-sm font-medium" style="color: var(--color-text-primary);">Itinerary</span>
+    </div>
+    <p class="text-xs" style="color: var(--color-text-muted);">
+      v1.0 · Tu itinerario de viaje personal
+    </p>
+    <p class="text-xs mt-1" style="color: var(--color-text-muted);">
+      Hecho con ❤️ para viajeros
+    </p>
+  </section>
+</div>

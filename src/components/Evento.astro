@@ -1,0 +1,105 @@
+---
+// src/components/Evento.astro
+import EventoDetalle from './EventoDetalle.astro';
+
+export interface Props {
+  evento: any;
+  diaIndex: number;
+  eventoIndex: number;
+  estaExpandido: boolean;
+}
+
+const { evento, diaIndex, eventoIndex, estaExpandido } = Astro.props;
+const colorClass = evento.colorClass || 'event-color-actividad';
+const icon = evento.icon || 'help';
+---
+
+<div 
+  class="evento-item"
+  :class="{ 'expandido': $store.itinerary.estaExpandido(diaIndex, evento.id) }"
+  class:list={[colorClass, estaExpandido ? 'expandido' : '']}
+  @click="$store.itinerary.toggleEvento(diaIndex, evento.id)"
+>
+  <!-- Contenido del evento -->
+  <div class="flex items-start gap-3">
+    <!-- Ícono -->
+    <span 
+      class="material-symbols-rounded text-xl flex-shrink-0"
+      style="color: var(--event-color, var(--color-primary)); margin-top: 1px;"
+    >
+      {icon}
+    </span>
+    
+    <!-- Info principal -->
+    <div class="flex-1 min-w-0">
+      <div class="flex items-start justify-between gap-2">
+        <span class="text-sm font-medium truncate" style="color: var(--color-text-primary);">
+          {evento.displayName || evento.nombre}
+        </span>
+        {evento.displayTime && (
+          <span class="text-xs font-medium flex-shrink-0" style="color: var(--color-text-secondary);">
+            {evento.displayTime}
+          </span>
+        )}
+      </div>
+      
+      <!-- Subtipo o detalle adicional -->
+      {evento.tipo === 'vuelo' && evento.nodo?.codigo_iata && (
+        <div class="text-xs" style="color: var(--color-text-muted);">
+          <span class="material-symbols-rounded text-xs align-middle">flight_takeoff</span>
+          {evento.nodo.codigo_iata}
+          {evento.aristaSalida?.transporte?.numero_vuelo && (
+            <span> · Vuelo {evento.aristaSalida.transporte.numero_vuelo}</span>
+          )}
+        </div>
+      )}
+      
+      {evento.tipo === 'hotel' && (
+        <div class="text-xs" style="color: var(--color-text-muted);">
+          <span class="material-symbols-rounded text-xs align-middle">bed</span>
+          {evento.nodo.direccion?.ciudad || ''}
+          {evento.nodo.reserva?.codigo_reserva && (
+            <span> · Reserva: {evento.nodo.reserva.codigo_reserva}</span>
+          )}
+        </div>
+      )}
+      
+      <!-- Holgura -->
+      {evento.holgura && (
+        <div class="text-xs mt-1 flex items-center gap-1" style="color: #E74C3C;">
+          <span class="material-symbols-rounded text-sm">warning</span>
+          <span>⚠️ Salir {evento.holgura.tiempoRequerido} antes ({evento.holgura.horaSalidaRecomendada})</span>
+        </div>
+      )}
+      
+      <!-- Dirección resumida -->
+      {evento.direccion && evento.tipo !== 'vuelo' && (
+        <div class="text-xs mt-1 flex items-center gap-1" style="color: var(--color-text-muted);">
+          <span class="material-symbols-rounded text-sm">location_on</span>
+          <span class="truncate">{evento.direccion}</span>
+        </div>
+      )}
+    </div>
+    
+    <!-- Indicador de expansión -->
+    <span 
+      class="material-symbols-rounded text-lg flex-shrink-0 transition-transform duration-200"
+      :style="`transform: rotate(${$store.itinerary.estaExpandido(diaIndex, evento.id) ? '180deg' : '0deg'});`"
+      style="color: var(--color-text-muted);"
+    >
+      expand_more
+    </span>
+  </div>
+</div>
+
+<!-- Detalle expandido -->
+<div 
+  x-show="$store.itinerary.estaExpandido(diaIndex, evento.id)"
+  x-collapse.duration.250ms
+>
+  <EventoDetalle 
+    evento={evento}
+    diaIndex={diaIndex}
+    colorClass={colorClass}
+  />
+</div>

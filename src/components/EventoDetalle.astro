@@ -1,0 +1,281 @@
+---
+// src/components/EventoDetalle.astro
+export interface Props {
+  evento: any;
+  diaIndex: number;
+  colorClass: string;
+}
+
+const { evento, diaIndex, colorClass } = Astro.props;
+const detalles = evento.detalles || {};
+const costo = evento.costo;
+---
+
+<div class="evento-detalle" class:list={[colorClass]}>
+  <!-- Título -->
+  <div class="flex items-start justify-between pt-1">
+    <div>
+      <h3 class="text-base font-semibold" style="color: var(--color-text-primary);">
+        <span 
+          class="material-symbols-rounded text-xl align-middle mr-1"
+          style="color: var(--event-color, var(--color-primary));"
+        >
+          {evento.icon}
+        </span>
+        {evento.nombre}
+      </h3>
+      {detalles.fecha && (
+        <p class="text-sm mt-1" style="color: var(--color-text-secondary);">
+          <span class="material-symbols-rounded text-sm align-middle">event</span>
+          {new Date(detalles.fecha).toLocaleDateString('es-ES', { 
+            weekday: 'long', 
+            day: 'numeric', 
+            month: 'long', 
+            year: 'numeric' 
+          })}
+          {detalles.horaInicio && (
+            <span> · {detalles.horaInicio}</span>
+          )}
+          {detalles.horaFin && (
+            <span> - {detalles.horaFin}</span>
+          )}
+        </p>
+      )}
+    </div>
+    <button 
+      @click="$store.itinerary.toggleEvento(diaIndex, evento.id)"
+      class="text-sm p-1 hover:opacity-70 transition-opacity"
+      style="color: var(--color-text-muted);"
+      aria-label="Cerrar detalles"
+    >
+      <span class="material-symbols-rounded">close</span>
+    </button>
+  </div>
+  
+  <div class="divider"></div>
+  
+  <!-- Detalles específicos -->
+  <div class="space-y-2 text-sm">
+    <!-- Vuelo -->
+    {evento.tipo === 'vuelo' && (
+      <div class="grid grid-cols-2 gap-1">
+        <div>
+          <span class="text-xs" style="color: var(--color-text-muted);">Aerolínea</span>
+          <p style="color: var(--color-text-primary);">{detalles.aerolinea || 'No especificada'}</p>
+        </div>
+        <div>
+          <span class="text-xs" style="color: var(--color-text-muted);">Número de vuelo</span>
+          <p style="color: var(--color-text-primary);">{detalles.numeroVuelo || 'N/A'}</p>
+        </div>
+        <div>
+          <span class="text-xs" style="color: var(--color-text-muted);">Terminal</span>
+          <p style="color: var(--color-text-primary);">{detalles.terminal || 'N/A'}</p>
+        </div>
+        <div>
+          <span class="text-xs" style="color: var(--color-text-muted);">Puerta</span>
+          <p style="color: var(--color-text-primary);">{detalles.puerta || 'N/A'}</p>
+        </div>
+        {detalles.codigoReserva && (
+          <div class="col-span-2">
+            <span class="text-xs" style="color: var(--color-text-muted);">Código de reserva</span>
+            <p style="color: var(--color-text-primary);" class="font-mono">{detalles.codigoReserva}</p>
+          </div>
+        )}
+      </div>
+    )}
+    
+    <!-- Hotel -->
+    {evento.tipo === 'hotel' && (
+      <div>
+        {detalles.checkIn && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Check-in</span>
+            <span style="color: var(--color-text-primary);">{detalles.checkIn}</span>
+          </div>
+        )}
+        {detalles.checkOut && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Check-out</span>
+            <span style="color: var(--color-text-primary);">{detalles.checkOut}</span>
+          </div>
+        )}
+        {detalles.titular && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Titular</span>
+            <span style="color: var(--color-text-primary);">{detalles.titular}</span>
+          </div>
+        )}
+        {detalles.plataforma && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Plataforma</span>
+            <span style="color: var(--color-text-primary);">{detalles.plataforma}</span>
+          </div>
+        )}
+      </div>
+    )}
+    
+    <!-- Festival -->
+    {evento.tipo === 'festival' && (
+      <div>
+        {detalles.apertura && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Apertura</span>
+            <span style="color: var(--color-text-primary);">{detalles.apertura}</span>
+          </div>
+        )}
+        {detalles.cierre && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Cierre</span>
+            <span style="color: var(--color-text-primary);">{detalles.cierre}</span>
+          </div>
+        )}
+        {detalles.lineup && detalles.lineup.length > 0 && (
+          <div>
+            <span class="text-xs" style="color: var(--color-text-muted);">Lineup</span>
+            <p style="color: var(--color-text-primary);">{detalles.lineup.join(' · ')}</p>
+          </div>
+        )}
+      </div>
+    )}
+    
+    <!-- Actividad -->
+    {evento.tipo === 'actividad' && (
+      <div>
+        {detalles.duracion && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Duración estimada</span>
+            <span style="color: var(--color-text-primary);">{detalles.duracion}</span>
+          </div>
+        )}
+        {detalles.horarioRecomendado && (
+          <div class="flex justify-between">
+            <span class="text-xs" style="color: var(--color-text-muted);">Horario recomendado</span>
+            <span style="color: var(--color-text-primary);">{detalles.horarioRecomendado}</span>
+          </div>
+        )}
+        {detalles.urlOficial && (
+          <div>
+            <a 
+              href={detalles.urlOficial}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm underline hover:opacity-70 transition-opacity"
+              style="color: var(--color-primary);"
+            >
+              <span class="material-symbols-rounded text-sm align-middle">link</span>
+              Sitio web oficial
+            </a>
+          </div>
+        )}
+      </div>
+    )}
+    
+    <!-- Actividades dentro del nodo -->
+    {detalles.actividades && detalles.actividades.length > 0 && (
+      <div>
+        <span class="text-xs" style="color: var(--color-text-muted);">Actividades planificadas</span>
+        <ul class="mt-1 space-y-1">
+          {detalles.actividades.map((act: any) => (
+            <li key={act.id} class="text-sm flex items-start gap-2" style="color: var(--color-text-primary);">
+              <span class="material-symbols-rounded text-sm" style="color: var(--color-text-muted);">check_circle</span>
+              <span>
+                {act.nombre}
+                {act.duracion_estimada && (
+                  <span class="text-xs block" style="color: var(--color-text-muted);">{act.duracion_estimada}</span>
+                )}
+                {act.reserva?.fecha_reservada && (
+                  <span class="text-xs block" style="color: var(--color-text-muted);">
+                    Reservado: {new Date(act.reserva.fecha_reservada).toLocaleDateString('es-ES')}
+                    {act.reserva.hora_reservada && ` a las ${act.reserva.hora_reservada}`}
+                  </span>
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    
+    <!-- Transporte -->
+    {evento.aristaSalida && (
+      <div>
+        <span class="text-xs" style="color: var(--color-text-muted);">Transporte</span>
+        <div class="flex items-center gap-2 mt-1">
+          <span 
+            class="material-symbols-rounded"
+            style="color: var(--event-color, var(--color-primary));"
+          >
+            {evento.icon}
+          </span>
+          <span style="color: var(--color-text-primary);">
+            {evento.aristaSalida.modo}
+            {evento.aristaSalida.transporte?.compania && (
+              <span> · {evento.aristaSalida.transporte.compania}</span>
+            )}
+          </span>
+        </div>
+        {evento.aristaSalida.tiempo_estimado && (
+          <div class="text-xs" style="color: var(--color-text-secondary);">
+            <span class="material-symbols-rounded text-xs align-middle">schedule</span>
+            {evento.aristaSalida.tiempo_estimado.minutos} min
+            {evento.aristaSalida.tiempo_estimado.rango && (
+              <span> (aprox. {evento.aristaSalida.tiempo_estimado.rango} min)</span>
+            )}
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+  
+  <!-- Dirección -->
+  {evento.direccion && (
+    <div class="mt-3">
+      <span class="text-xs" style="color: var(--color-text-muted);">Dirección</span>
+      <p class="text-sm mt-1" style="color: var(--color-text-primary);">{evento.direccion}</p>
+      {evento.mapsLink && (
+        <a 
+          href={evento.mapsLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="maps-link mt-1 inline-flex"
+        >
+          <span class="material-symbols-rounded text-sm">map</span>
+          Ver en Google Maps
+        </a>
+      )}
+    </div>
+  )}
+  
+  <!-- Costos -->
+  {costo && (
+    <div class="mt-3 pt-2 border-t" style="border-color: var(--color-border-light);">
+      <span class="text-xs" style="color: var(--color-text-muted);">Costo</span>
+      <div class="flex items-center justify-between mt-1">
+        <span style="color: var(--color-text-primary);">
+          {$store.itinerary.formatearMonto(costo.valor, costo.moneda)}
+          {costo.moneda && (
+            <span class="text-xs" style="color: var(--color-text-muted);"> ({costo.moneda})</span>
+          )}
+        </span>
+        <span class="text-xs" style="color: var(--color-text-secondary);">
+          {costo.pagado_por ? (
+            <>✅ Pagado por {costo.pagado_por}</>
+          ) : (
+            <>⏳ Pendiente de pago</>
+          )}
+          {costo.incluido_en && (
+            <span class="block text-xs" style="color: var(--color-text-muted);">Incluido en: {costo.incluido_en}</span>
+          )}
+        </span>
+      </div>
+    </div>
+  )}
+  
+  <!-- Notas -->
+  {detalles.notas && (
+    <div class="mt-3 pt-2 border-t" style="border-color: var(--color-border-light);">
+      <span class="text-xs" style="color: var(--color-text-muted);">Notas</span>
+      <p class="text-sm mt-1" style="color: var(--color-text-secondary);">{detalles.notas}</p>
+    </div>
+  )}
+</div>

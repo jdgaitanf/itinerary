@@ -1,0 +1,59 @@
+{
+  "id": "mad-sercotel-alcala",
+  "tipo": "hotel",
+  "nombre": "Sercotel Alcalá",
+  "direccion": {
+    "calle": "Calle de Alcalá, 66",
+    "ciudad": "Madrid",
+    "codigo_postal": "28009",
+    "pais": "España",
+    "coordenadas": {
+      "lat": 40.4205,
+      "lng": -3.6825
+    },
+    "maps_link": "https://www.google.com/maps?q=Calle+de+Alcala+66+28009+Madrid+Spain"
+  },
+  "contacto": {
+    "telefono": "+34 915 750 000",
+    "web": "https://www.sercotelhoteles.com"
+  },
+  "reserva": {
+    "codigo_reserva": "SERCOTEL-2026",
+    "confirmada": true,
+    "nombre_titular": "Steven Espinel",
+    "plataforma": "Booking.com"
+  },
+  "fechas_estadia": {
+    "entrada": "2026-08-02",
+    "salida": "2026-08-03"
+  },
+  "horarios": {
+    "check_in": "14:00",
+    "check_out": "12:00",
+    "atencion": "24h"
+  },
+  "clima_esperado": {
+    "temperatura_promedio": "25°C - 35°C",
+    "condiciones": "Soleado, caluroso",
+    "probabilidad_lluvia": "5%",
+    "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+  },
+  "equipaje_recomendado": [
+    "Ropa muy ligera",
+    "Protector solar",
+    "Gafas de sol",
+    "Cargador de viaje"
+  ],
+  "idioma_principal": "Español",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [],
+  "imagenes": [
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1f/8e/5a/2d/sercotel-alcala-611.jpg"
+  ],
+  "tiempo_estimado_visita": "1 noche",
+  "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, gimnasio, piscina."
+}
