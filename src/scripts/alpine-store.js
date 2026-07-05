@@ -52,7 +52,7 @@ Alpine.store('itinerary', {
       
       console.log('Builders cargados');
       
-      // Construir el itinerario
+      // Construir el itinerario (esto usará caché si está disponible)
       await this.itineraryBuilder.build();
       console.log('Itinerario construido. Días:', this.itineraryBuilder.dias.length);
       
@@ -80,6 +80,7 @@ Alpine.store('itinerary', {
     
     this.cargando = true;
     
+    // Usar setTimeout para no bloquear la UI
     setTimeout(() => {
       const nuevosDias = this.itineraryBuilder.getMoreDays(
         this.diaInicioCargado,
@@ -194,6 +195,23 @@ Alpine.store('itinerary', {
   getFinanzas() {
     if (!this.dataLoader) return null;
     return this.dataLoader.obtenerFinanzas();
+  },
+
+  /**
+   * Obtiene información de la caché
+   */
+  getCacheInfo() {
+    if (!this.dataLoader) return { existe: false };
+    return this.dataLoader.getCacheInfo();
+  },
+
+  /**
+   * Limpia la caché
+   */
+  limpiarCache() {
+    if (!this.dataLoader) return;
+    this.dataLoader.clearCache();
+    console.log('Caché limpiada. Recargando datos...');
   },
 
   /**

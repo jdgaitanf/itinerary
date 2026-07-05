@@ -25,30 +25,31 @@ import Layout from '../layouts/Layout.astro';
         this.observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting && !$store.itinerary.todosLosDiasCargados) {
-              console.log('Cargando más días...');
+              console.log('🔄 Cargando más días...');
               $store.itinerary.cargarMasDias();
             }
           });
         }, { rootMargin: '200px' });
         
-        // Observar el elemento de carga después de que se renderice
+        // Observar el elemento de carga cuando cambien los días cargados
         this.$watch('$store.itinerary.diasCargados.length', () => {
           this.$nextTick(() => {
             this.loaderRef = document.getElementById('loading-more');
             if (this.loaderRef) {
-              console.log('Observando loading-more (reconectado)');
+              console.log('👀 Observando loading-more (reconectado)');
               this.observer.observe(this.loaderRef);
             }
           });
         });
         
+        // Observar inicialmente
         this.$nextTick(() => {
           this.loaderRef = document.getElementById('loading-more');
           if (this.loaderRef) {
-            console.log('Observando loading-more (inicial)');
+            console.log('👀 Observando loading-more (inicial)');
             this.observer.observe(this.loaderRef);
           } else {
-            console.log('No se encontró loading-more inicial');
+            console.log('ℹ️ No se encontró loading-more inicial');
           }
         });
       }
@@ -64,19 +65,38 @@ import Layout from '../layouts/Layout.astro';
   >
     <!-- Header -->
     <header class="py-4 px-2 sticky top-0 bg-opacity-95 z-10" style="background: var(--color-bg); backdrop-filter: blur(8px);">
-      <h1 class="text-xl font-bold" style="color: var(--color-text-primary);">
-        <span class="material-symbols-rounded text-2xl align-middle mr-2" style="color: var(--color-primary);">luggage</span>
-        <span x-text="$store.itinerary.dias.length > 0 ? 'Mi Viaje' : 'Cargando...'"></span>
-      </h1>
-      <p class="text-sm" style="color: var(--color-text-secondary);" x-show="$store.itinerary.dias.length > 0">
-        <span x-text="`${$store.itinerary.dias.length} días · ${$store.itinerary.diasCargados.length} cargados`"></span>
-      </p>
+      <div class="flex items-center justify-between">
+        <div>
+          <h1 class="text-xl font-bold" style="color: var(--color-text-primary);">
+            <span class="material-symbols-rounded text-2xl align-middle mr-2" style="color: var(--color-primary);">luggage</span>
+            <span x-text="$store.itinerary.dias.length > 0 ? 'Mi Viaje' : 'Cargando...'"></span>
+          </h1>
+          <p class="text-sm" style="color: var(--color-text-secondary);" x-show="$store.itinerary.dias.length > 0">
+            <span x-text="`${$store.itinerary.dias.length} días · ${$store.itinerary.diasCargados.length} cargados`"></span>
+            <span x-show="$store.itinerary.cargando" class="ml-2 inline-block">
+              <span class="material-symbols-rounded animate-spin text-sm">progress_activity</span>
+            </span>
+          </p>
+        </div>
+        <!-- Indicador de caché -->
+        <div x-data="{ cacheInfo: null }" x-init="cacheInfo = $store.itinerary.getCacheInfo()">
+          <span 
+            x-show="cacheInfo?.existe"
+            class="text-xs px-2 py-1 rounded-full"
+            :style="`background: ${cacheInfo?.esValida ? 'rgba(46, 204, 113, 0.2)' : 'rgba(231, 76, 60, 0.2)'}; color: ${cacheInfo?.esValida ? '#2ECC71' : '#E74C3C'};`"
+          >
+            <span class="material-symbols-rounded text-sm align-middle" x-text="cacheInfo?.esValida ? 'check_circle' : 'warning'"></span>
+            <span x-text="cacheInfo?.esValida ? 'Caché' : 'Sin caché'"></span>
+          </span>
+        </div>
+      </div>
     </header>
     
     <!-- Loading inicial -->
     <div x-show="$store.itinerary.diasCargados.length === 0" class="empty-state">
       <span class="material-symbols-rounded" style="font-size: 48px; opacity: 0.5;">schedule</span>
       <p class="mt-4">Cargando tu itinerario...</p>
+      <p class="text-xs mt-2" style="color: var(--color-text-muted);">Esto puede tomar unos segundos en la primera carga</p>
     </div>
     
     <!-- Días -->
@@ -486,7 +506,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </template>
     
-    <!-- Loading more - SIEMPRE visible si hay más días por cargar -->
+    <!-- Loading more - siempre visible si hay más días por cargar -->
     <div 
       id="loading-more"
       x-show="$store.itinerary.hayMasDias"

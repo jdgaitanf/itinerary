@@ -43,10 +43,11 @@ export class ItineraryBuilder {
 
   /**
    * Construye el itinerario completo
+   * Usa caché si está disponible
    */
   async build() {
     await this.dataLoader.cargarTodosLosDatos();
-    this.dias = this.dataLoader.construirDias();
+    this.dias = this.dataLoader.dias;
     return this.dias;
   }
 

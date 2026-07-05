@@ -51,6 +51,77 @@ const {} = Astro.props;
     </div>
   </section>
 
+  <!-- Información de caché -->
+  <section 
+    class="rounded-xl p-4"
+    style="background: var(--color-card-bg);"
+  >
+    <h2 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+      <span class="material-symbols-rounded text-base align-middle mr-2">storage</span>
+      Caché de datos
+    </h2>
+    
+    <div x-data="{
+      cacheInfo: null,
+      async getCacheInfo() {
+        try {
+          const response = await fetch('/api/cache-info');
+          // Como no tenemos API, usamos el store
+          const info = $store.itinerary.getCacheInfo();
+          this.cacheInfo = info;
+        } catch (e) {
+          console.error('Error obteniendo info de caché:', e);
+        }
+      },
+      async limpiarCache() {
+        if (confirm('¿Estás seguro de que quieres limpiar la caché? Los datos se recargarán desde los archivos.')) {
+          $store.itinerary.limpiarCache();
+          // Recargar la página
+          location.reload();
+        }
+      }
+    }"
+    x-init="getCacheInfo()">
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span style="color: var(--color-text-secondary);">Estado</span>
+          <span style="color: var(--color-text-primary);" x-text="cacheInfo?.existe ? '✅ Caché disponible' : '❌ Sin caché'"></span>
+        </div>
+        <div class="flex justify-between">
+          <span style="color: var(--color-text-secondary);">Versión</span>
+          <span style="color: var(--color-text-primary);" x-text="cacheInfo?.version || 'N/A'"></span>
+        </div>
+        <div class="flex justify-between">
+          <span style="color: var(--color-text-secondary);">Última actualización</span>
+          <span style="color: var(--color-text-primary);" x-text="cacheInfo?.timestamp ? new Date(cacheInfo.timestamp).toLocaleString() : 'N/A'"></span>
+        </div>
+        <div class="flex justify-between">
+          <span style="color: var(--color-text-secondary);">Válida</span>
+          <span style="color: var(--color-text-primary);" x-text="cacheInfo?.esValida ? '✅ Sí' : '❌ No'"></span>
+        </div>
+      </div>
+
+      <div class="mt-3 flex gap-2">
+        <button 
+          @click="limpiarCache()"
+          class="flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2"
+          style="background: #E74C3C; color: white;"
+        >
+          <span class="material-symbols-rounded text-base">delete</span>
+          Limpiar caché
+        </button>
+        <button 
+          @click="getCacheInfo()"
+          class="flex-1 py-2 px-3 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2"
+          style="background: var(--color-border); color: var(--color-text-secondary);"
+        >
+          <span class="material-symbols-rounded text-base">refresh</span>
+          Actualizar
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- Información del viaje -->
   <section 
     class="rounded-xl p-4"
@@ -182,6 +253,20 @@ const {} = Astro.props;
       <span class="material-symbols-rounded text-base">restart_alt</span>
       Resetear estado
     </button>
+    
+    <button 
+      @click="
+        if (confirm('¿Forzar recarga de todos los datos desde los archivos? Esto limpiará la caché.')) {
+          $store.itinerary.limpiarCache();
+          location.reload();
+        }
+      "
+      class="w-full py-2.5 px-4 rounded-xl text-sm font-medium transition-all mt-2 flex items-center justify-center gap-2"
+      style="background: #E74C3C; color: white;"
+    >
+      <span class="material-symbols-rounded text-base">sync_problem</span>
+      Forzar recarga de datos
+    </button>
   </section>
 
   <!-- Acerca de -->
@@ -194,7 +279,7 @@ const {} = Astro.props;
       <span class="text-sm font-medium" style="color: var(--color-text-primary);">Itinerary</span>
     </div>
     <p class="text-xs" style="color: var(--color-text-muted);">
-      v1.0 · Tu itinerario de viaje personal
+      v2.0 · Tu itinerario de viaje personal
     </p>
     <p class="text-xs mt-1" style="color: var(--color-text-muted);">
       Hecho con ❤️ para viajeros

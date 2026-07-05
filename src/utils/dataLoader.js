@@ -1,7 +1,12 @@
 /**
  * Cargador de datos del itinerario
- * Maneja la carga progresiva de archivos JSON segmentados
+ * Maneja la carga de archivos JSON con caché en localStorage
  */
+
+const CACHE_VERSION = '1.0.0';
+const CACHE_KEY_GRAPH = 'itinerary-graph';
+const CACHE_KEY_VERSION = 'itinerary-graph-version';
+const CACHE_KEY_TIMESTAMP = 'itinerary-graph-timestamp';
 
 export class DataLoader {
   constructor() {
@@ -10,6 +15,106 @@ export class DataLoader {
     this.aristas = new Map();
     this.dias = [];
     this.cargado = false;
+    this.cacheValida = false;
+  }
+
+  /**
+   * Verifica si la caché es válida y está actualizada
+   */
+  isCacheValid() {
+    try {
+      const storedVersion = localStorage.getItem(CACHE_KEY_VERSION);
+      const storedData = localStorage.getItem(CACHE_KEY_GRAPH);
+      
+      if (!storedData || !storedVersion) return false;
+      
+      // Verificar que la versión coincida
+      if (storedVersion !== CACHE_VERSION) return false;
+      
+      // Verificar que los datos no estén corruptos
+      try {
+        JSON.parse(storedData);
+      } catch {
+        return false;
+      }
+      
+      return true;
+    } catch (error) {
+      console.warn('Error verificando caché:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Carga datos desde caché de localStorage
+   */
+  loadFromCache() {
+    try {
+      const storedData = localStorage.getItem(CACHE_KEY_GRAPH);
+      if (!storedData) return false;
+      
+      const data = JSON.parse(storedData);
+      
+      // Restaurar datos
+      this.raiz = data.raiz;
+      this.nodos = new Map(Object.entries(data.nodos));
+      this.aristas = new Map(Object.entries(data.aristas));
+      this.dias = data.dias;
+      this.cargado = true;
+      this.cacheValida = true;
+      
+      console.log('✅ Datos cargados desde caché. Versión:', CACHE_VERSION);
+      console.log(`📊 ${this.nodos.size} nodos, ${this.aristas.size} aristas, ${this.dias.length} días`);
+      
+      return true;
+    } catch (error) {
+      console.warn('Error cargando desde caché:', error);
+      this.clearCache();
+      return false;
+    }
+  }
+
+  /**
+   * Guarda datos en caché
+   */
+  saveToCache() {
+    try {
+      const data = {
+        raiz: this.raiz,
+        nodos: Object.fromEntries(this.nodos),
+        aristas: Object.fromEntries(this.aristas),
+        dias: this.dias,
+        timestamp: Date.now()
+      };
+      
+      localStorage.setItem(CACHE_KEY_GRAPH, JSON.stringify(data));
+      localStorage.setItem(CACHE_KEY_VERSION, CACHE_VERSION);
+      localStorage.setItem(CACHE_KEY_TIMESTAMP, String(Date.now()));
+      
+      console.log('💾 Datos guardados en caché');
+      this.cacheValida = true;
+    } catch (error) {
+      console.warn('Error guardando en caché:', error);
+      // Si el error es por espacio, limpiar caché antigua
+      if (error.name === 'QuotaExceededError') {
+        this.clearCache();
+      }
+    }
+  }
+
+  /**
+   * Limpia la caché
+   */
+  clearCache() {
+    try {
+      localStorage.removeItem(CACHE_KEY_GRAPH);
+      localStorage.removeItem(CACHE_KEY_VERSION);
+      localStorage.removeItem(CACHE_KEY_TIMESTAMP);
+      this.cacheValida = false;
+      console.log('🗑️ Caché limpiada');
+    } catch (error) {
+      console.warn('Error limpiando caché:', error);
+    }
   }
 
   /**
@@ -63,7 +168,14 @@ export class DataLoader {
    * Carga todos los nodos y aristas referenciados
    */
   async cargarTodosLosDatos() {
-    if (this.cargado) return;
+    if (this.cargado) return this;
+
+    // Intentar cargar desde caché primero
+    if (this.loadFromCache()) {
+      return this;
+    }
+
+    console.log('📥 Cargando datos desde archivos...');
 
     await this.cargarRaiz();
     if (!this.raiz) throw new Error('No se pudo cargar el archivo raíz');
@@ -81,114 +193,95 @@ export class DataLoader {
     await Promise.all(aristasPromises);
 
     this.cargado = true;
+    
+    // Construir días y guardar en caché
+    this.construirDias();
+    this.saveToCache();
+    
+    console.log(`📥 Datos cargados desde archivos. ${this.nodos.size} nodos, ${this.aristas.size} aristas`);
+    
     return this;
   }
 
   /**
    * Construye el itinerario por días a partir de nodos y aristas
+   * Ordena los nodos por fecha_estadia.entrada
    */
   construirDias() {
     if (!this.cargado) {
       throw new Error('Los datos no han sido cargados');
     }
 
-    // Construir el orden cronológico siguiendo las aristas
+    // Paso 1: Filtrar nodos que tienen fecha_estadia.entrada
+    const nodosConFecha = [];
+    const nodosSinFecha = [];
+    
+    this.nodos.forEach((nodo, id) => {
+      if (nodo.fechas_estadia && nodo.fechas_estadia.entrada) {
+        nodosConFecha.push({ id, nodo, fecha: nodo.fechas_estadia.entrada });
+      } else {
+        nodosSinFecha.push({ id, nodo });
+      }
+    });
+
+    console.log(`📅 Nodos con fecha: ${nodosConFecha.length}, sin fecha: ${nodosSinFecha.length}`);
+
+    // Paso 2: Ordenar nodos con fecha por fecha_estadia.entrada
+    nodosConFecha.sort((a, b) => a.fecha.localeCompare(b.fecha));
+
+    // Paso 3: Construir orden final
     const orden = [];
     const visitados = new Set();
 
-    // Encontrar el nodo inicial (sin aristas entrantes)
-    const nodosIds = new Set(this.nodos.keys());
-    const destinosIds = new Set(
-      Array.from(this.aristas.values()).map(a => a.destino_id)
-    );
-    
-    const nodoInicialId = Array.from(nodosIds).find(id => !destinosIds.has(id));
-    if (!nodoInicialId) {
-      throw new Error('No se encontró un nodo inicial');
-    }
-
-    console.log('Nodo inicial:', nodoInicialId);
-
-    // Crear un mapa de aristas por origen para acceso rápido
-    const aristasPorOrigen = new Map();
-    this.aristas.forEach(arista => {
-      if (!aristasPorOrigen.has(arista.origen_id)) {
-        aristasPorOrigen.set(arista.origen_id, []);
-      }
-      aristasPorOrigen.get(arista.origen_id).push(arista);
+    // Primero agregar los nodos con fecha en orden cronológico
+    nodosConFecha.forEach(({ id }) => {
+      orden.push(id);
+      visitados.add(id);
     });
 
-    // Guardar referencias para usar en la función navegar
-    const self = this;
-
-    // Función para navegar recursivamente (usando función normal pero con self)
-    function navegar(nodoId) {
-      if (visitados.has(nodoId)) return;
+    // Paso 4: Para nodos sin fecha, intentar insertarlos después de su padre
+    // (nodo del que proviene según arista entrante)
+    nodosSinFecha.forEach(({ id }) => {
+      const aristaEntrante = Array.from(this.aristas.values()).find(
+        a => a.destino_id === id
+      );
       
-      visitados.add(nodoId);
-      orden.push(nodoId);
-      console.log(`Agregando nodo: ${nodoId} (${orden.length})`);
-
-      const aristasSalida = aristasPorOrigen.get(nodoId) || [];
-      
-      // Primero, procesar las aristas que van a nodos que NO son atracciones (hoteles, aeropuertos, etc.)
-      // y luego las atracciones
-      const aristasPrincipales = aristasSalida.filter(a => {
-        const destino = self.nodos.get(a.destino_id);
-        return destino && destino.tipo !== 'atraccion';
-      });
-      
-      const aristasAtracciones = aristasSalida.filter(a => {
-        const destino = self.nodos.get(a.destino_id);
-        return destino && destino.tipo === 'atraccion';
-      });
-
-      // Procesar aristas principales primero
-      for (const arista of aristasPrincipales) {
-        if (!visitados.has(arista.destino_id)) {
-          navegar(arista.destino_id);
+      if (aristaEntrante) {
+        const padreId = aristaEntrante.origen_id;
+        const padreIndex = orden.indexOf(padreId);
+        if (padreIndex !== -1) {
+          // Insertar justo después del padre
+          orden.splice(padreIndex + 1, 0, id);
+          visitados.add(id);
+          return;
         }
       }
-
-      // Luego procesar atracciones
-      for (const arista of aristasAtracciones) {
-        if (!visitados.has(arista.destino_id)) {
-          navegar(arista.destino_id);
-        }
+      
+      // Si no tiene padre o no se encontró, agregar al final
+      if (!visitados.has(id)) {
+        orden.push(id);
+        visitados.add(id);
       }
-    }
+    });
 
-    // Iniciar navegación desde el nodo inicial
-    navegar(nodoInicialId);
-
-    // Verificar si hay nodos que no fueron visitados
-    const nodosNoVisitados = Array.from(this.nodos.keys()).filter(
+    // Verificar que todos los nodos estén en el orden
+    const nodosFaltantes = Array.from(this.nodos.keys()).filter(
       id => !visitados.has(id)
     );
-
-    if (nodosNoVisitados.length > 0) {
-      console.warn('Nodos no visitados:', nodosNoVisitados);
-      
-      // Intentar insertarlos en el orden correcto según sus aristas entrantes
-      for (const nodoId of nodosNoVisitados) {
-        const aristaEntrante = Array.from(this.aristas.values()).find(
-          a => a.destino_id === nodoId
-        );
-        if (aristaEntrante) {
-          const padreId = aristaEntrante.origen_id;
-          const padreIndex = orden.indexOf(padreId);
-          if (padreIndex !== -1) {
-            orden.splice(padreIndex + 1, 0, nodoId);
-            visitados.add(nodoId);
-          }
+    
+    if (nodosFaltantes.length > 0) {
+      console.warn('Nodos faltantes en el orden:', nodosFaltantes);
+      nodosFaltantes.forEach(id => {
+        if (!visitados.has(id)) {
+          orden.push(id);
+          visitados.add(id);
         }
-      }
+      });
     }
 
-    console.log('Orden final de nodos:', orden);
-    console.log('Total nodos:', orden.length);
+    console.log(`📋 Orden final: ${orden.length} nodos`);
 
-    // Construir los días agrupando nodos por fecha
+    // Paso 5: Construir los días agrupando nodos por fecha
     const diasMap = new Map();
 
     orden.forEach((nodoId, index) => {
@@ -203,7 +296,7 @@ export class DataLoader {
       let horaInicio = null;
       let horaFin = null;
 
-      // 1. Primero intentar con fechas_estadia
+      // 1. Usar fechas_estadia.entrada
       if (nodo.fechas_estadia && nodo.fechas_estadia.entrada) {
         fecha = nodo.fechas_estadia.entrada;
       }
@@ -219,11 +312,16 @@ export class DataLoader {
       }
 
       // 3. Si aún no tiene fecha, usar la fecha de inicio del viaje + el índice
-      if (!fecha) {
+      if (!fecha && this.raiz) {
         const fechaInicio = new Date(this.raiz.fechas.inicio);
         const fechaNueva = new Date(fechaInicio);
         fechaNueva.setDate(fechaNueva.getDate() + index);
         fecha = fechaNueva.toISOString().split('T')[0];
+      }
+
+      // Si no hay fecha, usar '2099-12-31' para ponerlo al final
+      if (!fecha) {
+        fecha = '2099-12-31';
       }
 
       // Buscar arista que llega a este nodo para obtener la hora de llegada
@@ -279,8 +377,8 @@ export class DataLoader {
         eventos: this._ordenarEventosPorHora(dia.eventos),
       }));
 
-    console.log('Días construidos:', this.dias.length);
-    console.log('Fechas:', this.dias.map(d => d.fecha));
+    console.log(`📅 Días construidos: ${this.dias.length}`);
+    console.log('📅 Fechas:', this.dias.map(d => d.fecha));
 
     return this.dias;
   }
@@ -288,7 +386,7 @@ export class DataLoader {
   /**
    * Obtiene los primeros N días del itinerario
    */
-  obtenerDias(cantidad = 3) {
+  obtenerDias(cantidad = 4) {
     return this.dias.slice(0, cantidad);
   }
 
@@ -311,6 +409,22 @@ export class DataLoader {
    */
   obtenerTodosLosDias() {
     return this.dias;
+  }
+
+  /**
+   * Obtiene información de la caché
+   */
+  getCacheInfo() {
+    const version = localStorage.getItem(CACHE_KEY_VERSION);
+    const timestamp = localStorage.getItem(CACHE_KEY_TIMESTAMP);
+    const hasData = !!localStorage.getItem(CACHE_KEY_GRAPH);
+    
+    return {
+      existe: hasData,
+      version: version || null,
+      timestamp: timestamp ? new Date(parseInt(timestamp)) : null,
+      esValida: this.isCacheValid(),
+    };
   }
 
   // Métodos privados de ayuda
