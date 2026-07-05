@@ -1,0 +1,99 @@
+<section id="financial" class="financial-section">
+  <h2>Financial Summary</h2>
+  <p class="text-muted">Recorded costs for the trip</p>
+  
+  <div class="table-responsive">
+    <table class="financial-table">
+      <thead>
+        <tr>
+          <th>Concept</th>
+          <th>Currency</th>
+          <th>Amount</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% assign total_flight_cost = 0 %}
+        {% assign total_transport_cost = 0 %}
+        {% assign total_cop = 0 %}
+        {% assign total_eur = 0 %}
+        
+        {% for edge in site.data.itinerary.aristas %}
+          {% if edge.costos %}
+            {% assign origin_node = nil %}
+            {% assign dest_node = nil %}
+            {% for node in site.data.itinerary.nodos %}
+              {% if node.id == edge.origen_id %}
+                {% assign origin_node = node %}
+              {% endif %}
+              {% if node.id == edge.destino_id %}
+                {% assign dest_node = node %}
+              {% endif %}
+            {% endfor %}
+            
+            <tr>
+              <td>
+                {% if edge.modo == "avion" %}
+                  ✈️ Flight
+                {% else %}
+                  🚆 Transport
+                {% endif %}
+                <span class="flight-number">
+                  {% if edge.transporte.numero_vuelo %}
+                    {{ edge.transporte.numero_vuelo }}
+                  {% endif %}
+                  {{ origin_node.direccion.ciudad }} → {{ dest_node.direccion.ciudad }}
+                </span>
+              </td>
+              <td>{{ edge.costos.moneda }}</td>
+              <td>
+                {% if edge.costos.moneda == "COP" %}
+                  ${{ edge.costos.valor | number_format }}
+                  {% assign total_cop = total_cop | plus: edge.costos.valor %}
+                {% elsif edge.costos.moneda == "EUR" %}
+                  €{{ edge.costos.valor }}
+                  {% assign total_eur = total_eur | plus: edge.costos.valor %}
+                {% elsif edge.costos.moneda == "CHF" %}
+                  Fr.{{ edge.costos.valor }}
+                {% else %}
+                  {{ edge.costos.valor }} {{ edge.costos.moneda }}
+                {% endif %}
+              </td>
+              <td>
+                {% if edge.costos.incluido_en %}
+                  Included in: {{ edge.costos.incluido_en }}
+                {% endif %}
+                {% if edge.costos.pagado_por %}
+                  <br>Paid by: {{ edge.costos.pagado_por }}
+                {% endif %}
+              </td>
+            </tr>
+            {% if edge.modo == "avion" %}
+              {% assign total_flight_cost = total_flight_cost | plus: 1 %}
+            {% else %}
+              {% assign total_transport_cost = total_transport_cost | plus: 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td><strong>Total Flights</strong></td>
+          <td>COP</td>
+          <td><strong>${{ total_cop | number_format }}</strong></td>
+          <td>{{ total_flight_cost }} flights</td>
+        </tr>
+        <tr class="total-row">
+          <td><strong>Total Local Transport</strong></td>
+          <td>EUR</td>
+          <td><strong>€{{ total_eur }}</strong></td>
+          <td>{{ total_transport_cost }} transports</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
+  <p class="text-sm text-muted" style="margin-top: 0.5rem;">
+    * Note: Costs are based on recorded data. Some expenses may not be included.
+  </p>
+</section>

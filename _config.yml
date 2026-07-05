@@ -1,0 +1,65 @@
+# Site settings
+title: "Wacken 2026 - Travel Itinerary"
+description: "Interactive travel itinerary for Wacken Open Air 2026"
+author: "David G. & Steven Espinel"
+url: "https://yourusername.github.io"
+baseurl: "/wacken-itinerary"
+
+# Build settings
+remote_theme: "mmistakes/minimal-mistakes@4.26.2"
+# Or use default theme:
+# theme: "jekyll-theme-primer"
+  
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Data files
+data_dir: _data
+
+# Collections
+collections:
+  itinerary:
+    output: true
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      permalink: /:categories/:title/
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - .git/
+  - .github/
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+
+# Output
+timezone: America/Bogota
+encoding: "utf-8"

@@ -1,0 +1,1572 @@
+{
+  "version": "1.0",
+  "nombre_viaje": "Wacken 2026",
+  "fechas": {
+    "inicio": "2026-07-17",
+    "fin": "2026-08-03"
+  },
+  "nodos": [
+    {
+      "id": "bog-casa-david",
+      "tipo": "casa",
+      "nombre": "Casa de Juan David (David G.)",
+      "direccion": {
+        "ciudad": "Bogotá",
+        "pais": "Colombia"
+      },
+      "reserva": {
+        "confirmada": true,
+        "nombre_titular": "Juan David"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-17",
+        "salida": "2026-07-17"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "8°C - 18°C",
+        "condiciones": "Soleado / Lluvias esporádicas",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Abrigo ligero, impermeable"
+      },
+      "equipaje_recomendado": [
+        "Pasaporte",
+        "Tarjetas de crédito",
+        "Adaptador de corriente (tipo C/F para Europa)",
+        "Maleta con candado"
+      ],
+      "idioma_principal": "Español",
+      "moneda_local": {
+        "codigo": "COP",
+        "simbolo": "$",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "notas_adicionales": "Salir con tiempo para evitar trancones en Bogotá."
+    },
+    {
+      "id": "bog-airport-eldorado",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto Internacional El Dorado",
+      "codigo_iata": "BOG",
+      "direccion": {
+        "calle": "Avenida El Dorado #103-93, Terminal 1 (Avianca)",
+        "ciudad": "Bogotá",
+        "codigo_postal": "111611",
+        "pais": "Colombia",
+        "coordenadas": {
+          "lat": 4.7016,
+          "lng": -74.1469
+        },
+        "maps_link": "https://www.google.com/maps?q=Terminal+1+Aeropuerto+El+Dorado+Bogota"
+      },
+      "contacto": {
+        "telefono": "+57 601 266 1000",
+        "web": "https://www.eldorado.aero"
+      },
+      "reserva": {
+        "codigo_reserva": "AV18-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Avianca"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-17",
+        "salida": "2026-07-17"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "14°C",
+        "condiciones": "Lluvias en la tarde",
+        "probabilidad_lluvia": "60%",
+        "recomendacion_vestimenta": "Chaqueta ligera, paraguas"
+      },
+      "idioma_principal": "Español",
+      "moneda_local": {
+        "codigo": "COP",
+        "simbolo": "$"
+      },
+      "reglas_especiales": [
+        "Revisión de seguridad en el acceso a la terminal.",
+        "Llegar 2.5-3 horas antes del vuelo."
+      ],
+      "tiempo_estimado_visita": "3h",
+      "notas_adicionales": "Facturación para el vuelo AV18. Avianca opera desde el Terminal 1."
+    },
+    {
+      "id": "bcn-airport",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto Josep Tarradellas Barcelona-El Prat",
+      "codigo_iata": "BCN",
+      "direccion": {
+        "calle": "Terminal 1 (T1), 08820",
+        "ciudad": "El Prat de Llobregat",
+        "codigo_postal": "08820",
+        "pais": "España",
+        "coordenadas": {
+          "lat": 41.2974,
+          "lng": 2.0834
+        },
+        "maps_link": "https://www.google.com/maps?q=Terminal+1+Aeropuerto+Barcelona-El+Prat"
+      },
+      "contacto": {
+        "telefono": "+34 913 211 000",
+        "web": "https://www.aena.es/es/el-prat-barcelona.html"
+      },
+      "reserva": {
+        "codigo_reserva": "AV18-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Avianca"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-18",
+        "salida": "2026-07-18"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "28°C - 32°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+      },
+      "idioma_principal": "Español, Catalán",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Revisión de pasaportes para viajeros extracomunitarios."
+      ],
+      "tiempo_estimado_visita": "2h",
+      "notas_adicionales": "Avianca llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el metro L9 Sud."
+    },
+    {
+      "id": "bcn-hotel-upper-diagonal",
+      "tipo": "hotel",
+      "nombre": "Hotel Upper Diagonal",
+      "direccion": {
+        "calle": "Passeig Manuel Girona, 7-21",
+        "ciudad": "Barcelona",
+        "codigo_postal": "08034",
+        "pais": "España",
+        "coordenadas": {
+          "lat": 41.3886,
+          "lng": 2.1234
+        },
+        "maps_link": "https://www.google.com/maps?q=Passeig+Manuel+Girona+7-21+08034+Barcelona+Spain"
+      },
+      "contacto": {
+        "telefono": "+34 934 110 101",
+        "web": "https://www.upperdiagonal.com"
+      },
+      "reserva": {
+        "codigo_reserva": "ABC123XYZ",
+        "confirmada": true,
+        "nombre_titular": "Steven Espinel",
+        "plataforma": "Booking.com"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-18",
+        "salida": "2026-07-19"
+      },
+      "horarios": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "atencion": "24h"
+      },
+      "actividades": [
+        {
+          "id": "barcelona-exploracion",
+          "nombre": "Exploración de Barcelona",
+          "tipo": "turismo",
+          "duracion_estimada": "Tarde completa",
+          "horario_recomendado": "12:00",
+          "reserva": {
+            "requiere_reserva": false
+          },
+          "notas": "Recorrer el barrio de Gracia, Parque Güell o Las Ramblas."
+        }
+      ],
+      "clima_esperado": {
+        "temperatura_promedio": "28°C - 32°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero"
+      },
+      "equipaje_recomendado": [
+        "Ropa ligera",
+        "Protector solar",
+        "Cargador de viaje"
+      ],
+      "idioma_principal": "Español, Catalán",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [],
+      "imagenes": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/4e/fb/04/hotel-upper-diagonal.jpg"
+      ],
+      "tiempo_estimado_visita": "1 noche",
+      "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, gimnasio, piscina."
+    },
+    {
+      "id": "fco-airport",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto de Roma-Fiumicino Leonardo da Vinci",
+      "codigo_iata": "FCO",
+      "direccion": {
+        "calle": "Via dell'Aeroporto di Fiumicino, 320",
+        "ciudad": "Fiumicino",
+        "codigo_postal": "00054",
+        "pais": "Italia",
+        "coordenadas": {
+          "lat": 41.8003,
+          "lng": 12.2389
+        },
+        "maps_link": "https://www.google.com/maps?q=Aeroporto+di+Roma-Fiumicino"
+      },
+      "contacto": {
+        "telefono": "+39 06 65951",
+        "web": "https://www.adr.it/fiumicino"
+      },
+      "reserva": {
+        "codigo_reserva": "VY6106-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Vueling"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-19",
+        "salida": "2026-07-19"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+      },
+      "idioma_principal": "Italiano",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Revisión de pasaportes para viajeros extracomunitarios."
+      ],
+      "tiempo_estimado_visita": "2h",
+      "notas_adicionales": "Vueling llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el tren Leonardo Express hasta Roma Termini (32 min) o un tren regional hasta Roma Trastevere (25-30 min)."
+    },
+    {
+      "id": "roma-villa-angeli",
+      "tipo": "hotel",
+      "nombre": "Villa Angeli",
+      "direccion": {
+        "calle": "Via Paolo Bentivoglio, 12",
+        "ciudad": "Roma",
+        "codigo_postal": "00165",
+        "pais": "Italia",
+        "coordenadas": {
+          "lat": 41.9025,
+          "lng": 12.4532
+        },
+        "maps_link": "https://www.google.com/maps?q=Via+Paolo+Bentivoglio+12+00165+Roma+Italy"
+      },
+      "contacto": {
+        "telefono": "+39 06 3938 1234",
+        "web": "https://www.villaangeliroma.it"
+      },
+      "reserva": {
+        "codigo_reserva": "VILLA-2026",
+        "confirmada": true,
+        "nombre_titular": "Steven Espinel",
+        "plataforma": "Booking.com"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-19",
+        "salida": "2026-07-21"
+      },
+      "horarios": {
+        "check_in": "14:00",
+        "check_out": "10:30",
+        "atencion": "07:00 - 23:00"
+      },
+      "actividades": [
+        {
+          "id": "coliseo-roma",
+          "nombre": "Visita al Coliseo Romano",
+          "tipo": "tour",
+          "duracion_estimada": "2h",
+          "horario_recomendado": "11:00",
+          "url_oficial": "https://www.coopculture.it",
+          "reserva": {
+            "requiere_reserva": true,
+            "notas": "Se recomienda comprar la entrada con anticipación en línea para evitar filas."
+          },
+          "notas": "La entrada al Coliseo incluye el acceso al Foro Romano y al Palatino."
+        },
+        {
+          "id": "roma-tours",
+          "nombre": "Tours por Roma",
+          "tipo": "tour",
+          "duracion_estimada": "3h",
+          "horario_recomendado": "15:00",
+          "reserva": {
+            "requiere_reserva": false
+          },
+          "notas": "Recorrer la Fontana di Trevi, el Panteón, la Piazza Navona y el Vaticano."
+        }
+      ],
+      "clima_esperado": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero, protector solar"
+      },
+      "equipaje_recomendado": [
+        "Ropa muy ligera",
+        "Protector solar",
+        "Gafas de sol",
+        "Sombrero",
+        "Cargador de viaje"
+      ],
+      "idioma_principal": "Italiano",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Horario de silencio: 22:00 - 08:00"
+      ],
+      "imagenes": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/5c/4d/villa-angeli.jpg"
+      ],
+      "tiempo_estimado_visita": "2 noches",
+      "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, jardín, terraza."
+    },
+    {
+      "id": "roma-coliseo",
+      "tipo": "atraccion",
+      "nombre": "Coliseo Romano",
+      "direccion": {
+        "calle": "Piazza del Colosseo, 1",
+        "ciudad": "Roma",
+        "codigo_postal": "00184",
+        "pais": "Italia",
+        "coordenadas": {
+          "lat": 41.8902,
+          "lng": 12.4922
+        },
+        "maps_link": "https://www.google.com/maps?q=Colosseo+Roma+Italy"
+      },
+      "contacto": {
+        "web": "https://www.coopculture.it"
+      },
+      "horarios": {
+        "horario_apertura": "08:30",
+        "horario_cierre": "19:15"
+      },
+      "actividades": [
+        {
+          "id": "visita-coliseo",
+          "nombre": "Visita al Coliseo",
+          "tipo": "tour",
+          "duracion_estimada": "2h",
+          "horario_recomendado": "11:00",
+          "url_oficial": "https://www.coopculture.it",
+          "reserva": {
+            "requiere_reserva": true
+          },
+          "notas": "La entrada incluye el Foro Romano y el Palatino. Se recomienda comprar en línea."
+        }
+      ],
+      "clima_esperado": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero, protector solar"
+      },
+      "idioma_principal": "Italiano, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Último ingreso: 18:15.",
+        "Prohibido ingresar con mochilas grandes."
+      ],
+      "tiempo_estimado_visita": "2h"
+    },
+    {
+      "id": "zrh-airport",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto de Zúrich",
+      "codigo_iata": "ZRH",
+      "direccion": {
+        "calle": "ZRH Flughafenstrasse",
+        "ciudad": "Kloten",
+        "codigo_postal": "8058",
+        "pais": "Suiza",
+        "coordenadas": {
+          "lat": 47.4506,
+          "lng": 8.5614
+        },
+        "maps_link": "https://www.google.com/maps?q=Zurich+Airport+ZRH"
+      },
+      "contacto": {
+        "telefono": "+41 43 816 22 11",
+        "web": "https://www.zurich-airport.com"
+      },
+      "reserva": {
+        "codigo_reserva": "LX1727-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Swiss"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-21",
+        "salida": "2026-07-21"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "idioma_principal": "Alemán, Francés, Italiano, Inglés",
+      "moneda_local": {
+        "codigo": "CHF",
+        "simbolo": "Fr.",
+        "tasa_referencia": "1 CHF ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Revisión de pasaportes para viajeros extracomunitarios."
+      ],
+      "tiempo_estimado_visita": "2h",
+      "notas_adicionales": "Swiss llega a la Terminal 1 (T1). La conexión con la ciudad es en tren (S-Bahn) o tranvía."
+    },
+    {
+      "id": "zrh-casa-amiga-steven",
+      "tipo": "casa_amigo",
+      "nombre": "Casa de la amiga de Steven (Zúrich)",
+      "direccion": {
+        "ciudad": "Zúrich",
+        "pais": "Suiza"
+      },
+      "reserva": {
+        "confirmada": true,
+        "nombre_titular": "Amiga de Steven"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-21",
+        "salida": "2026-07-25"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "idioma_principal": "Alemán, Inglés",
+      "moneda_local": {
+        "codigo": "CHF",
+        "simbolo": "Fr.",
+        "tasa_referencia": "1 CHF ≈ 4500 COP"
+      },
+      "tiempo_estimado_visita": "4 noches",
+      "notas_adicionales": "La dirección exacta y la logística de llegada se coordinarán directamente con la amiga de Steven."
+    },
+    {
+      "id": "ams-airport",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto de Ámsterdam-Schiphol",
+      "codigo_iata": "AMS",
+      "direccion": {
+        "calle": "Evert van de Beekstraat 202",
+        "ciudad": "Schiphol",
+        "codigo_postal": "1118 CP",
+        "pais": "Países Bajos",
+        "coordenadas": {
+          "lat": 52.3091,
+          "lng": 4.7634
+        },
+        "maps_link": "https://www.google.com/maps?q=Amsterdam+Schiphol+Airport"
+      },
+      "contacto": {
+        "telefono": "+31 20 794 0800",
+        "web": "https://www.schiphol.nl"
+      },
+      "reserva": {
+        "codigo_reserva": "KL1918-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "KLM"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-25",
+        "salida": "2026-07-25"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "18°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "35%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "idioma_principal": "Neerlandés, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Revisión de pasaportes para viajeros extracomunitarios."
+      ],
+      "tiempo_estimado_visita": "2h",
+      "notas_adicionales": "KLM llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el tren directo a Zaandam (21 min)."
+    },
+    {
+      "id": "ams-zaan-hotel",
+      "tipo": "hotel",
+      "nombre": "Zaan Hotel Amsterdam - Zaandam",
+      "direccion": {
+        "calle": "Ebbehout 22",
+        "ciudad": "Zaandam",
+        "codigo_postal": "1507 EA",
+        "pais": "Países Bajos",
+        "coordenadas": {
+          "lat": 52.4386,
+          "lng": 4.8136
+        },
+        "maps_link": "https://www.google.com/maps?q=Ebbehout+22+1507+EA+Zaandam+Netherlands"
+      },
+      "contacto": {
+        "telefono": "+31 20 226 5218",
+        "email": "info@zaanhotel.com",
+        "web": "https://www.zaanhotel.com"
+      },
+      "reserva": {
+        "codigo_reserva": "ZAAN-2026",
+        "confirmada": true,
+        "nombre_titular": "David G.",
+        "plataforma": "Booking.com"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-25",
+        "salida": "2026-07-27"
+      },
+      "horarios": {
+        "check_in": "15:00",
+        "check_out": "11:00",
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "18°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "35%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "equipaje_recomendado": [
+        "Ropa ligera",
+        "Chaqueta impermeable",
+        "Cargador de viaje"
+      ],
+      "idioma_principal": "Neerlandés, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [],
+      "imagenes": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/9f/8e/6d/zaan-hotel-amsterdam-zaandam.jpg"
+      ],
+      "tiempo_estimado_visita": "2 noches",
+      "notas_adicionales": "Habitación a nombre de David. Wifi disponible, gimnasio, bar. Está junto a la estación de tren de Zaandam."
+    },
+    {
+      "id": "ham-airport",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto de Hamburgo",
+      "codigo_iata": "HAM",
+      "direccion": {
+        "calle": "Flughafenstr. 1-3",
+        "ciudad": "Hamburgo",
+        "codigo_postal": "22335",
+        "pais": "Alemania",
+        "coordenadas": {
+          "lat": 53.6304,
+          "lng": 9.9882
+        },
+        "maps_link": "https://www.google.com/maps?q=Hamburg+Airport+HAM"
+      },
+      "contacto": {
+        "telefono": "+49 40 5075 0",
+        "web": "https://www.hamburg-airport.de"
+      },
+      "reserva": {
+        "codigo_reserva": "KL1753-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "KLM"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-27",
+        "salida": "2026-07-27"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "idioma_principal": "Alemán, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Revisión de pasaportes para viajeros extracomunitarios."
+      ],
+      "tiempo_estimado_visita": "2h",
+      "notas_adicionales": "KLM llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el S-Bahn línea S1 (dirección Wedel) hasta Reeperbahn (25 min)."
+    },
+    {
+      "id": "ham-st-joseph-hotel",
+      "tipo": "hotel",
+      "nombre": "St. Joseph Hotel Hamburg - Reeperbahn St. Pauli Kiez",
+      "direccion": {
+        "calle": "Große Freiheit 22",
+        "ciudad": "Hamburgo",
+        "codigo_postal": "22767",
+        "pais": "Alemania",
+        "coordenadas": {
+          "lat": 53.5502,
+          "lng": 9.9591
+        },
+        "maps_link": "https://www.google.com/maps?q=Gro%C3%9Fe+Freiheit+22+22767+Hamburg+Germany"
+      },
+      "contacto": {
+        "telefono": "+49 40 3179 990",
+        "web": "https://www.st-joseph-hotel.hamburg"
+      },
+      "reserva": {
+        "codigo_reserva": "STJOSEPH-2026",
+        "confirmada": true,
+        "nombre_titular": "Steven Espinel",
+        "plataforma": "Booking.com"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-27",
+        "salida": "2026-07-28"
+      },
+      "horarios": {
+        "check_in": "15:00",
+        "check_out": "12:00",
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "equipaje_recomendado": [
+        "Ropa ligera",
+        "Chaqueta impermeable",
+        "Cargador de viaje"
+      ],
+      "idioma_principal": "Alemán, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Horario de silencio: 22:00 - 08:00"
+      ],
+      "imagenes": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1e/3f/2b/5a/st-joseph-hotel-hamburg.jpg"
+      ],
+      "tiempo_estimado_visita": "1 noche",
+      "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, bar. Ubicado en el corazón de la Reeperbahn."
+    },
+    {
+      "id": "ham-sixt-gansemarkt",
+      "tipo": "oficina_alquiler",
+      "nombre": "Sixt Car Rental Hamburg Gänsemarkt",
+      "direccion": {
+        "calle": "Parkhaus Gänsemarkt Dammtorwall 5/7",
+        "ciudad": "Hamburgo",
+        "codigo_postal": "20354",
+        "pais": "Alemania",
+        "coordenadas": {
+          "lat": 53.5553,
+          "lng": 9.9898
+        },
+        "maps_link": "https://www.google.com/maps?q=Parkhaus+G%C3%A4nsemarkt+Dammtorwall+5+7+20354+Hamburg+Germany"
+      },
+      "contacto": {
+        "telefono": "+49 89 660 6060",
+        "email": "ap022@sixt.de",
+        "web": "https://www.sixt.com"
+      },
+      "reserva": {
+        "codigo_reserva": "9734023976",
+        "confirmada": true,
+        "nombre_titular": "David G.",
+        "plataforma": "Sixt"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-28",
+        "salida": "2026-08-02"
+      },
+      "horarios": {
+        "atencion": "08:00 - 18:00"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "idioma_principal": "Alemán, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Se requiere licencia de conducir válida.",
+        "Depósito de seguridad requerido."
+      ],
+      "tiempo_estimado_visita": "30 min",
+      "notas_adicionales": "Reserva a nombre de David. Vehículo: Cupra Formentor. Se debe entregar el carro lavado y con el tanque lleno."
+    },
+    {
+      "id": "wacken-festival",
+      "tipo": "festival",
+      "nombre": "Wacken Open Air 2026",
+      "direccion": {
+        "calle": "Am Festivalgelände",
+        "ciudad": "Wacken",
+        "codigo_postal": "25596",
+        "pais": "Alemania",
+        "coordenadas": {
+          "lat": 54.0206,
+          "lng": 9.3812
+        },
+        "maps_link": "https://www.google.com/maps?q=Wacken+Open+Air"
+      },
+      "contacto": {
+        "web": "https://www.wacken.com"
+      },
+      "reserva": {
+        "codigo_reserva": "WOA-2026",
+        "confirmada": true,
+        "nombre_titular": "David G. y Steven Espinel",
+        "plataforma": "Wacken"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-07-28",
+        "salida": "2026-08-02"
+      },
+      "horarios": {
+        "horario_apertura": "10:00",
+        "horario_cierre": "03:00"
+      },
+      "actividades": [
+        {
+          "id": "wacken-conciertos",
+          "nombre": "Conciertos del Wacken Open Air",
+          "tipo": "concierto",
+          "duracion_estimada": "5 días",
+          "horario_recomendado": "Todo el día",
+          "url_oficial": "https://www.wacken.com"
+        }
+      ],
+      "clima_esperado": {
+        "temperatura_promedio": "15°C - 22°C",
+        "condiciones": "Variable, posible lluvia y barro",
+        "probabilidad_lluvia": "50%",
+        "recomendacion_vestimenta": "Ropa impermeable, botas de barro, ropa abrigada para la noche"
+      },
+      "equipaje_recomendado": [
+        "Carpa",
+        "Botas de barro",
+        "Impermeable",
+        "Ropa abrigada",
+        "Linterna",
+        "Protector solar"
+      ],
+      "idioma_principal": "Alemán, Inglés",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "No se permite vidrio en el área del festival.",
+        "Se recomienda llegar temprano para evitar atascos."
+      ],
+      "tiempo_estimado_visita": "5 días",
+      "notas_adicionales": "El festival se celebra del 29 de julio al 1 de agosto de 2026[reference:0]. Se recomienda llevar una carpa resistente al agua y botas de barro."
+    },
+    {
+      "id": "mad-airport",
+      "tipo": "aeropuerto",
+      "nombre": "Aeropuerto Adolfo Suárez Madrid-Barajas",
+      "codigo_iata": "MAD",
+      "direccion": {
+        "calle": "Terminal 4 (T4), 28042",
+        "ciudad": "Madrid",
+        "codigo_postal": "28042",
+        "pais": "España",
+        "coordenadas": {
+          "lat": 40.4983,
+          "lng": -3.5676
+        },
+        "maps_link": "https://www.google.com/maps?q=Terminal+4+Aeropuerto+Madrid-Barajas"
+      },
+      "contacto": {
+        "telefono": "+34 913 211 000",
+        "web": "https://www.aena.es/es/adolfo-suarez-madrid-barajas.html"
+      },
+      "reserva": {
+        "codigo_reserva": "IB774-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Iberia"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-08-02",
+        "salida": "2026-08-02"
+      },
+      "horarios": {
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "25°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+      },
+      "idioma_principal": "Español",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [
+        "Revisión de pasaportes para viajeros extracomunitarios."
+      ],
+      "tiempo_estimado_visita": "2h",
+      "notas_adicionales": "Iberia llega a la Terminal 4 (T4). Para salir hacia la ciudad, tomar el tren de cercanías C-1 hasta Recoletos o Atocha (25 min)."
+    },
+    {
+      "id": "mad-sercotel-alcala",
+      "tipo": "hotel",
+      "nombre": "Sercotel Alcalá",
+      "direccion": {
+        "calle": "Calle de Alcalá, 66",
+        "ciudad": "Madrid",
+        "codigo_postal": "28009",
+        "pais": "España",
+        "coordenadas": {
+          "lat": 40.4205,
+          "lng": -3.6825
+        },
+        "maps_link": "https://www.google.com/maps?q=Calle+de+Alcala+66+28009+Madrid+Spain"
+      },
+      "contacto": {
+        "telefono": "+34 915 750 000",
+        "web": "https://www.sercotelhoteles.com"
+      },
+      "reserva": {
+        "codigo_reserva": "SERCOTEL-2026",
+        "confirmada": true,
+        "nombre_titular": "Steven Espinel",
+        "plataforma": "Booking.com"
+      },
+      "fechas_estadia": {
+        "entrada": "2026-08-02",
+        "salida": "2026-08-03"
+      },
+      "horarios": {
+        "check_in": "14:00",
+        "check_out": "12:00",
+        "atencion": "24h"
+      },
+      "clima_esperado": {
+        "temperatura_promedio": "25°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+      },
+      "equipaje_recomendado": [
+        "Ropa muy ligera",
+        "Protector solar",
+        "Gafas de sol",
+        "Cargador de viaje"
+      ],
+      "idioma_principal": "Español",
+      "moneda_local": {
+        "codigo": "EUR",
+        "simbolo": "€",
+        "tasa_referencia": "1 EUR ≈ 4500 COP"
+      },
+      "reglas_especiales": [],
+      "imagenes": [
+        "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1f/8e/5a/2d/sercotel-alcala-611.jpg"
+      ],
+      "tiempo_estimado_visita": "1 noche",
+      "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, gimnasio, piscina."
+    }
+  ],
+  "aristas": [
+    {
+      "id": "bog-casa-to-bog-airport",
+      "origen_id": "bog-casa-david",
+      "destino_id": "bog-airport-eldorado",
+      "modo": "auto",
+      "transporte": {
+        "tipo_vehiculo": "Auto particular",
+        "detalles": "Trayecto desde la casa de David al aeropuerto El Dorado."
+      },
+      "tiempo_estimado": {
+        "minutos": 60,
+        "rango": "45-90",
+        "con_holgura": 90
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-17",
+        "hora_salida_origen": "12:00",
+        "hora_llegada_destino": "13:00"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "3h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo AV18."
+      },
+      "notas": "Considerar tráfico de la tarde en Bogotá. Ruta sugerida: Autopista Norte - Calle 80 - Avenida El Dorado."
+    },
+    {
+      "id": "bog-airport-to-bcn-airport",
+      "origen_id": "bog-airport-eldorado",
+      "destino_id": "bcn-airport",
+      "modo": "avion",
+      "transporte": {
+        "compania": "Avianca",
+        "tipo_vehiculo": "Boeing 787-8 Dreamliner",
+        "numero_vuelo": "AV18",
+        "terminal_origen": "T1",
+        "terminal_destino": "T1",
+        "codigo_reserva_confirmacion": "AV18-2026",
+        "detalles": "Vuelo directo Bogotá - Barcelona."
+      },
+      "tiempo_estimado": {
+        "minutos": 660,
+        "rango": "10h 50min",
+        "con_holgura": 660
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-17",
+        "hora_salida_origen": "15:35",
+        "hora_llegada_destino": "08:45",
+        "hora_salida_efectiva_transporte": "15:35"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 425000,
+        "incluido_en": "Vuelo ida y vuelta"
+      },
+      "notas": "Llegada al día siguiente (18 de julio). El vuelo incluye comida y entretenimiento a bordo."
+    },
+    {
+      "id": "bcn-airport-to-bcn-hotel",
+      "origen_id": "bcn-airport",
+      "destino_id": "bcn-hotel-upper-diagonal",
+      "modo": "metro",
+      "transporte": {
+        "compania": "TMB",
+        "tipo_vehiculo": "Metro",
+        "linea": "L9 Sud",
+        "detalles": "L9 Sud desde el aeropuerto hasta Zona Universitaria, luego caminata 10-15 minutos."
+      },
+      "tiempo_estimado": {
+        "minutos": 40,
+        "rango": "35-45",
+        "con_holgura": 45
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-18",
+        "hora_salida_origen": "09:00",
+        "hora_llegada_destino": "09:40"
+      },
+      "costos": {
+        "moneda": "EUR",
+        "valor": 5.50
+      },
+      "notas": "Comprar ticket en máquina del aeropuerto. Validar antes de subir al tren."
+    },
+    {
+      "id": "bcn-hotel-to-bcn-airport",
+      "origen_id": "bcn-hotel-upper-diagonal",
+      "destino_id": "bcn-airport",
+      "modo": "metro",
+      "transporte": {
+        "compania": "TMB",
+        "tipo_vehiculo": "Metro",
+        "linea": "L9 Sud",
+        "detalles": "Caminata a Zona Universitaria + L9 Sud al aeropuerto."
+      },
+      "tiempo_estimado": {
+        "minutos": 45,
+        "rango": "40-45",
+        "con_holgura": 45
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-19",
+        "hora_salida_origen": "04:15",
+        "hora_llegada_destino": "05:00"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "3h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo VY6106."
+      },
+      "notas": "Salir del hotel a las 04:15 para llegar al aeropuerto a las 05:00 (3 horas antes del vuelo)."
+    },
+    {
+      "id": "bcn-airport-to-fco-airport",
+      "origen_id": "bcn-airport",
+      "destino_id": "fco-airport",
+      "modo": "avion",
+      "transporte": {
+        "compania": "Vueling",
+        "tipo_vehiculo": "Airbus A320",
+        "numero_vuelo": "VY6106",
+        "terminal_origen": "T1",
+        "terminal_destino": "T1",
+        "codigo_reserva_confirmacion": "VY6106-2026",
+        "detalles": "Vuelo directo Barcelona - Roma."
+      },
+      "tiempo_estimado": {
+        "minutos": 110,
+        "rango": "1h 50min",
+        "con_holgura": 110
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-19",
+        "hora_salida_origen": "08:00",
+        "hora_llegada_destino": "09:50",
+        "hora_salida_efectiva_transporte": "08:00"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 160000
+      },
+      "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+    },
+    {
+      "id": "fco-airport-to-roma-hotel",
+      "origen_id": "fco-airport",
+      "destino_id": "roma-villa-angeli",
+      "modo": "tren",
+      "transporte": {
+        "compania": "Trenitalia",
+        "tipo_vehiculo": "Tren regional",
+        "linea": "FL1",
+        "detalles": "Tren regional desde Fiumicino Aeroporto hasta Roma Trastevere (25-30 min), luego bus al hotel."
+      },
+      "tiempo_estimado": {
+        "minutos": 40,
+        "rango": "35-45",
+        "con_holgura": 45
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-19",
+        "hora_salida_origen": "10:30",
+        "hora_llegada_destino": "11:10"
+      },
+      "costos": {
+        "moneda": "EUR",
+        "valor": 8.00
+      },
+      "notas": "Comprar ticket en la estación del aeropuerto. El bus local conecta con el hotel."
+    },
+    {
+      "id": "roma-hotel-to-fco-airport",
+      "origen_id": "roma-villa-angeli",
+      "destino_id": "fco-airport",
+      "modo": "tren",
+      "transporte": {
+        "compania": "Trenitalia",
+        "tipo_vehiculo": "Tren regional",
+        "linea": "FL1",
+        "detalles": "Bus a Roma Trastevere + Tren regional a Fiumicino Aeroporto."
+      },
+      "tiempo_estimado": {
+        "minutos": 40,
+        "rango": "35-45",
+        "con_holgura": 45
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-21",
+        "hora_salida_origen": "06:30",
+        "hora_llegada_destino": "07:10"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "2.5h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo LX1727."
+      },
+      "notas": "Salir del hotel a las 06:30 para llegar al aeropuerto a las 07:10 (2.5 horas antes del vuelo)."
+    },
+    {
+      "id": "fco-airport-to-zrh-airport",
+      "origen_id": "fco-airport",
+      "destino_id": "zrh-airport",
+      "modo": "avion",
+      "transporte": {
+        "compania": "Swiss",
+        "tipo_vehiculo": "Airbus A220",
+        "numero_vuelo": "LX1727",
+        "terminal_origen": "T1",
+        "terminal_destino": "T1",
+        "codigo_reserva_confirmacion": "LX1727-2026",
+        "detalles": "Vuelo directo Roma - Zúrich."
+      },
+      "tiempo_estimado": {
+        "minutos": 100,
+        "rango": "1h 40min",
+        "con_holgura": 100
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-21",
+        "hora_salida_origen": "09:45",
+        "hora_llegada_destino": "11:15",
+        "hora_salida_efectiva_transporte": "09:45"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 203000
+      },
+      "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+    },
+    {
+      "id": "zrh-airport-to-zrh-casa-amiga",
+      "origen_id": "zrh-airport",
+      "destino_id": "zrh-casa-amiga-steven",
+      "modo": "tren",
+      "transporte": {
+        "compania": "SBB",
+        "tipo_vehiculo": "Tren",
+        "detalles": "Tren S-Bahn o tranvía desde el aeropuerto hacia la ciudad."
+      },
+      "tiempo_estimado": {
+        "minutos": 30,
+        "rango": "25-35",
+        "con_holgura": 35
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-21",
+        "hora_salida_origen": "11:45",
+        "hora_llegada_destino": "12:15"
+      },
+      "notas": "La ruta exacta se coordinará con la amiga de Steven."
+    },
+    {
+      "id": "zrh-casa-amiga-to-zrh-airport",
+      "origen_id": "zrh-casa-amiga-steven",
+      "destino_id": "zrh-airport",
+      "modo": "tren",
+      "transporte": {
+        "compania": "SBB",
+        "tipo_vehiculo": "Tren",
+        "detalles": "Tren S-Bahn o tranvía hacia el aeropuerto."
+      },
+      "tiempo_estimado": {
+        "minutos": 30,
+        "rango": "25-35",
+        "con_holgura": 35
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-25",
+        "hora_salida_origen": "06:20",
+        "hora_llegada_destino": "06:50"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "2.5h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo KL1918."
+      },
+      "notas": "Salir de la casa a las 06:20 para llegar al aeropuerto a las 06:50 (2.5 horas antes del vuelo)."
+    },
+    {
+      "id": "zrh-airport-to-ams-airport",
+      "origen_id": "zrh-airport",
+      "destino_id": "ams-airport",
+      "modo": "avion",
+      "transporte": {
+        "compania": "KLM",
+        "tipo_vehiculo": "Embraer 190",
+        "numero_vuelo": "KL1918",
+        "terminal_origen": "T1",
+        "terminal_destino": "T1",
+        "codigo_reserva_confirmacion": "KL1918-2026",
+        "detalles": "Vuelo directo Zúrich - Ámsterdam."
+      },
+      "tiempo_estimado": {
+        "minutos": 95,
+        "rango": "1h 35min",
+        "con_holgura": 95
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-25",
+        "hora_salida_origen": "09:20",
+        "hora_llegada_destino": "10:55",
+        "hora_salida_efectiva_transporte": "09:20"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 247000
+      },
+      "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+    },
+    {
+      "id": "ams-airport-to-ams-hotel",
+      "origen_id": "ams-airport",
+      "destino_id": "ams-zaan-hotel",
+      "modo": "tren",
+      "transporte": {
+        "compania": "NS",
+        "tipo_vehiculo": "Tren",
+        "linea": "Sprinter",
+        "detalles": "Tren directo desde Schiphol hasta Zaandam (21 min)."
+      },
+      "tiempo_estimado": {
+        "minutos": 21,
+        "rango": "20-25",
+        "con_holgura": 25
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-25",
+        "hora_salida_origen": "11:30",
+        "hora_llegada_destino": "11:51"
+      },
+      "costos": {
+        "moneda": "EUR",
+        "valor": 6.00
+      },
+      "notas": "Comprar ticket en la estación del aeropuerto. El hotel está junto a la estación de Zaandam."
+    },
+    {
+      "id": "ams-hotel-to-ams-airport",
+      "origen_id": "ams-zaan-hotel",
+      "destino_id": "ams-airport",
+      "modo": "tren",
+      "transporte": {
+        "compania": "NS",
+        "tipo_vehiculo": "Tren",
+        "linea": "Sprinter",
+        "detalles": "Tren directo desde Zaandam hasta Schiphol (21 min)."
+      },
+      "tiempo_estimado": {
+        "minutos": 21,
+        "rango": "20-25",
+        "con_holgura": 25
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-27",
+        "hora_salida_origen": "07:00",
+        "hora_llegada_destino": "07:21"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "2.5h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo KL1753."
+      },
+      "notas": "Salir del hotel a las 07:00 para llegar al aeropuerto a las 07:21 (2.5 horas antes del vuelo)."
+    },
+    {
+      "id": "ams-airport-to-ham-airport",
+      "origen_id": "ams-airport",
+      "destino_id": "ham-airport",
+      "modo": "avion",
+      "transporte": {
+        "compania": "KLM",
+        "tipo_vehiculo": "Embraer 190",
+        "numero_vuelo": "KL1753",
+        "terminal_origen": "T1",
+        "terminal_destino": "T1",
+        "codigo_reserva_confirmacion": "KL1753-2026",
+        "detalles": "Vuelo directo Ámsterdam - Hamburgo."
+      },
+      "tiempo_estimado": {
+        "minutos": 65,
+        "rango": "1h 5min",
+        "con_holgura": 65
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-27",
+        "hora_salida_origen": "10:10",
+        "hora_llegada_destino": "11:15",
+        "hora_salida_efectiva_transporte": "10:10"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 450000
+      },
+      "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+    },
+    {
+      "id": "ham-airport-to-ham-hotel",
+      "origen_id": "ham-airport",
+      "destino_id": "ham-st-joseph-hotel",
+      "modo": "tren",
+      "transporte": {
+        "compania": "S-Bahn Hamburg",
+        "tipo_vehiculo": "S-Bahn",
+        "linea": "S1",
+        "detalles": "S-Bahn línea S1 (dirección Wedel) desde el aeropuerto hasta Reeperbahn (25 min)."
+      },
+      "tiempo_estimado": {
+        "minutos": 25,
+        "rango": "20-30",
+        "con_holgura": 30
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-27",
+        "hora_salida_origen": "11:45",
+        "hora_llegada_destino": "12:10"
+      },
+      "costos": {
+        "moneda": "EUR",
+        "valor": 3.50
+      },
+      "notas": "Comprar ticket en la estación del aeropuerto. El hotel está a 100 metros de la estación Reeperbahn."
+    },
+    {
+      "id": "ham-hotel-to-ham-sixt",
+      "origen_id": "ham-st-joseph-hotel",
+      "destino_id": "ham-sixt-gansemarkt",
+      "modo": "caminata",
+      "transporte": {
+        "detalles": "Caminata desde el hotel hasta la oficina de Sixt en Gänsemarkt (15 min)."
+      },
+      "tiempo_estimado": {
+        "minutos": 15,
+        "rango": "12-18",
+        "con_holgura": 18
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-28",
+        "hora_salida_origen": "09:00",
+        "hora_llegada_destino": "09:15"
+      },
+      "notas": "Salir del hotel a las 09:00 para llegar a la oficina de Sixt a las 09:15 y completar el papeleo."
+    },
+    {
+      "id": "ham-sixt-to-wacken",
+      "origen_id": "ham-sixt-gansemarkt",
+      "destino_id": "wacken-festival",
+      "modo": "auto",
+      "transporte": {
+        "tipo_vehiculo": "Cupra Formentor",
+        "detalles": "Trayecto en carro alquilado desde Hamburgo hasta Wacken."
+      },
+      "tiempo_estimado": {
+        "minutos": 75,
+        "rango": "60-90",
+        "con_holgura": 90
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-07-28",
+        "hora_salida_origen": "11:00",
+        "hora_llegada_destino": "12:15"
+      },
+      "notas": "Salir de Hamburgo a las 11:00 para llegar a Wacken alrededor de las 12:15, instalar la carpa y empezar a disfrutar."
+    },
+    {
+      "id": "wacken-to-ham-sixt",
+      "origen_id": "wacken-festival",
+      "destino_id": "ham-sixt-gansemarkt",
+      "modo": "auto",
+      "transporte": {
+        "tipo_vehiculo": "Cupra Formentor",
+        "detalles": "Trayecto en carro alquilado desde Wacken hasta Hamburgo."
+      },
+      "tiempo_estimado": {
+        "minutos": 90,
+        "rango": "75-120",
+        "con_holgura": 120
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-08-02",
+        "hora_salida_origen": "07:00",
+        "hora_llegada_destino": "08:30"
+      },
+      "notas": "Salir de Wacken a las 07:00 para evitar el tráfico post-festival y llegar con tiempo a la oficina de Sixt."
+    },
+    {
+      "id": "ham-sixt-to-ham-airport",
+      "origen_id": "ham-sixt-gansemarkt",
+      "destino_id": "ham-airport",
+      "modo": "tren",
+      "transporte": {
+        "compania": "S-Bahn Hamburg",
+        "tipo_vehiculo": "S-Bahn",
+        "linea": "S1",
+        "detalles": "Caminata a Jungfernstieg + S-Bahn S1 al aeropuerto."
+      },
+      "tiempo_estimado": {
+        "minutos": 25,
+        "rango": "20-30",
+        "con_holgura": 30
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-08-02",
+        "hora_salida_origen": "12:30",
+        "hora_llegada_destino": "12:55"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "2.5h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo IB774."
+      },
+      "notas": "Salir de Sixt a las 12:30 para llegar al aeropuerto a las 12:55 (2.5 horas antes del vuelo)."
+    },
+    {
+      "id": "ham-airport-to-mad-airport",
+      "origen_id": "ham-airport",
+      "destino_id": "mad-airport",
+      "modo": "avion",
+      "transporte": {
+        "compania": "Iberia",
+        "tipo_vehiculo": "Airbus A320",
+        "numero_vuelo": "IB774",
+        "terminal_origen": "T1",
+        "terminal_destino": "T4",
+        "codigo_reserva_confirmacion": "IB774-2026",
+        "detalles": "Vuelo directo Hamburgo - Madrid."
+      },
+      "tiempo_estimado": {
+        "minutos": 180,
+        "rango": "3h 0min",
+        "con_holgura": 180
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-08-02",
+        "hora_salida_origen": "15:45",
+        "hora_llegada_destino": "18:45",
+        "hora_salida_efectiva_transporte": "15:45"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 261000
+      },
+      "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+    },
+    {
+      "id": "mad-airport-to-mad-hotel",
+      "origen_id": "mad-airport",
+      "destino_id": "mad-sercotel-alcala",
+      "modo": "tren",
+      "transporte": {
+        "compania": "Renfe",
+        "tipo_vehiculo": "Tren de cercanías",
+        "linea": "C-1",
+        "detalles": "Tren de cercanías C-1 desde T4 hasta Recoletos o Atocha (25 min)."
+      },
+      "tiempo_estimado": {
+        "minutos": 25,
+        "rango": "20-30",
+        "con_holgura": 30
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-08-02",
+        "hora_salida_origen": "19:15",
+        "hora_llegada_destino": "19:40"
+      },
+      "costos": {
+        "moneda": "EUR",
+        "valor": 2.50
+      },
+      "notas": "Comprar ticket en la estación del aeropuerto. El hotel está a unos 10 minutos caminando desde la estación."
+    },
+    {
+      "id": "mad-hotel-to-mad-airport",
+      "origen_id": "mad-sercotel-alcala",
+      "destino_id": "mad-airport",
+      "modo": "tren",
+      "transporte": {
+        "compania": "Renfe",
+        "tipo_vehiculo": "Tren de cercanías",
+        "linea": "C-1",
+        "detalles": "Caminata a Recoletos o Atocha + Tren C-1 a T4."
+      },
+      "tiempo_estimado": {
+        "minutos": 25,
+        "rango": "20-30",
+        "con_holgura": 30
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-08-03",
+        "hora_salida_origen": "13:55",
+        "hora_llegada_destino": "14:20"
+      },
+      "reglas_holgura": {
+        "tiempo_requerido": "3h",
+        "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo AV11."
+      },
+      "notas": "Salir del hotel a las 13:55 para llegar al aeropuerto a las 14:20 (3 horas antes del vuelo)."
+    },
+    {
+      "id": "mad-airport-to-bog-airport",
+      "origen_id": "mad-airport",
+      "destino_id": "bog-airport-eldorado",
+      "modo": "avion",
+      "transporte": {
+        "compania": "Avianca",
+        "tipo_vehiculo": "Boeing 787-8 Dreamliner",
+        "numero_vuelo": "AV11",
+        "terminal_origen": "T4S",
+        "terminal_destino": "T1",
+        "codigo_reserva_confirmacion": "AV11-2026",
+        "detalles": "Vuelo directo Madrid - Bogotá."
+      },
+      "tiempo_estimado": {
+        "minutos": 610,
+        "rango": "10h 10min",
+        "con_holgura": 610
+      },
+      "logistica_salida": {
+        "fecha_salida": "2026-08-03",
+        "hora_salida_origen": "17:20",
+        "hora_llegada_destino": "20:30",
+        "hora_salida_efectiva_transporte": "17:20"
+      },
+      "costos": {
+        "moneda": "COP",
+        "valor": 425000,
+        "incluido_en": "Vuelo ida y vuelta"
+      },
+      "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 3 horas de anticipación."
+    }
+  ]
+}

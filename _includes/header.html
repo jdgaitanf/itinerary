@@ -1,0 +1,34 @@
+<header class="site-header theme-transition">
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-brand">
+      <a href="{{ '/' | relative_url }}" class="brand-link">
+        <span class="brand-icon">🎸</span>
+        <span class="brand-text">{{ site.title }}</span>
+      </a>
+    </div>
+    
+    <div class="nav-controls" style="display: flex; align-items: center; gap: 0.5rem;">
+      <!-- Theme Toggle Button -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light theme">
+        <span class="theme-icon theme-icon-light">☀️</span>
+        <span class="theme-icon theme-icon-dark">🌙</span>
+      </button>
+      
+      <!-- Mobile Navigation Toggle -->
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+    
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#days">Itinerary</a></li>
+      <li><a href="#transport">Transport</a></li>
+      <li><a href="#accommodation">Stays</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#financial">Costs</a></li>
+      <li><a href="#packing">Packing</a></li>
+      <li><a href="#notes">Notes</a></li>
+    </ul>
+  </nav>
+</header>

@@ -1,0 +1,117 @@
+<section id="accommodation" class="accommodation-section">
+  <h2>Accommodations</h2>
+  <p class="text-muted">Where you'll be staying during your journey</p>
+  
+  <div class="accommodation-grid">
+    {% assign trip = site.data.itinerary %}
+    
+    {% for node in trip.nodos %}
+      {% if node.tipo == "hotel" or node.tipo == "casa_amigo" or node.tipo == "casa" or node.tipo == "festival" %}
+        {% assign type_icons = "hotel:🏨, casa_amigo:🏠, casa:🏠, festival:🎵" | split: ", " %}
+        {% assign type_icon = "🏠" %}
+        {% for type_icon_pair in type_icons %}
+          {% assign pair = type_icon_pair | split: ":" %}
+          {% if pair[0] == node.tipo %}
+            {% assign type_icon = pair[1] %}
+          {% endif %}
+        {% endfor %}
+        
+        <div class="accommodation-card">
+          <span class="accommodation-icon">{{ type_icon }}</span>
+          <h4>{{ node.nombre }}</h4>
+          
+          {% if node.direccion %}
+            <div class="accommodation-address">
+              {% if node.direccion.calle %}
+                {{ node.direccion.calle }}<br>
+              {% endif %}
+              {{ node.direccion.ciudad }}, {{ node.direccion.pais }}
+              {% if node.direccion.codigo_postal %}
+                <br>{{ node.direccion.codigo_postal }}
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if node.fechas_estadia %}
+            <div class="accommodation-dates">
+              📅 {{ node.fechas_estadia.entrada }} → {{ node.fechas_estadia.salida }}
+            </div>
+          {% endif %}
+          
+          {% if node.horarios %}
+            <div class="accommodation-check">
+              {% if node.horarios.check_in %}
+                Check-in: {{ node.horarios.check_in }}
+              {% endif %}
+              {% if node.horarios.check_out %}
+                | Check-out: {{ node.horarios.check_out }}
+              {% endif %}
+              {% if node.horarios.atencion %}
+                <br>Reception: {{ node.horarios.atencion }}
+              {% endif %}
+              {% if node.horarios.horario_apertura and node.horarios.horario_cierre %}
+                <br>Open: {{ node.horarios.horario_apertura }} - {{ node.horarios.horario_cierre }}
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if node.reserva %}
+            <div class="accommodation-reservation">
+              {% if node.reserva.nombre_titular %}
+                🧑 {{ node.reserva.nombre_titular }}
+              {% endif %}
+              {% if node.reserva.codigo_reserva %}
+                <br>📋 Code: {{ node.reserva.codigo_reserva }}
+              {% endif %}
+              {% if node.reserva.plataforma %}
+                <br>🏢 {{ node.reserva.plataforma }}
+              {% endif %}
+              {% if node.reserva.confirmada %}
+                <br><span class="badge badge-success">✓ Confirmed</span>
+              {% else %}
+                <br><span class="badge badge-warning">⚠️ Not confirmed</span>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if node.tiempo_estimado_visita %}
+            <div class="accommodation-dates" style="margin-top: 0.3rem;">
+              ⏱ {{ node.tiempo_estimado_visita }}
+            </div>
+          {% endif %}
+          
+          {% if node.contacto %}
+            <div class="accommodation-reservation" style="margin-top: 0.3rem;">
+              {% if node.contacto.telefono %}
+                📞 {{ node.contacto.telefono }}
+              {% endif %}
+              {% if node.contacto.email %}
+                <br>📧 <a href="mailto:{{ node.contacto.email }}">{{ node.contacto.email }}</a>
+              {% endif %}
+              {% if node.contacto.web %}
+                <br>🌐 <a href="{{ node.contacto.web }}" target="_blank" rel="noopener noreferrer">Website</a>
+              {% endif %}
+            </div>
+          {% endif %}
+          
+          {% if node.reglas_especiales and node.reglas_especiales.size > 0 %}
+            <div class="accommodation-rules" style="margin-top: 0.5rem;">
+              <span class="text-sm" style="font-weight: 600;">Rules:</span>
+              <ul style="font-size: 0.85rem; color: var(--text-muted); padding-left: 1rem; margin-top: 0.2rem;">
+                {% for rule in node.reglas_especiales %}
+                  <li>{{ rule }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+          
+          {% if node.notas_adicionales %}
+            <p class="text-sm text-muted" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-light);">
+              📝 {{ node.notas_adicionales }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
