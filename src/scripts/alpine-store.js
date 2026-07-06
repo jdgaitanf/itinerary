@@ -16,21 +16,21 @@ Alpine.store('itinerary', {
   diaInicioCargado: 0,
   todosLosDiasCargados: false,
   cargando: false,
-  
+
   // Estado de UI - usando Alpine.$persist
   tema: Alpine.$persist('claro').as('itinerary-theme'),
   moneda: Alpine.$persist('COP').as('itinerary-currency'),
   eventosExpandidos: Alpine.$persist({}).as('itinerary-expanded'),
   scrollPositions: Alpine.$persist({}).as('itinerary-scroll'),
   ultimaInteraccion: Alpine.$persist(Date.now()).as('itinerary-last-interaction'),
-  
+
   // Vista activa
   vistaActiva: Alpine.$persist('itinerario').as('itinerary-active-view'),
-  
+
   // Referencias a los builders
   dataLoader: null,
   itineraryBuilder: null,
-  
+
   // Configuración de carga
   CANTIDAD_INICIAL: 4,
   CANTIDAD_ADICIONAL: 3,
@@ -41,36 +41,36 @@ Alpine.store('itinerary', {
    */
   async init() {
     console.log('Inicializando store...');
-    
+
     try {
       // Cargar los módulos
       const dataLoaderModule = await import('/src/utils/dataLoader/index.js');
       const builderModule = await import('/src/utils/itineraryBuilder.js');
-      
+
       this.dataLoader = dataLoaderModule.getDataLoader();
       this.itineraryBuilder = builderModule.getItineraryBuilder();
-      
+
       console.log('Builders cargados');
 
 
-      
+
       // Construir el itinerario (esto usará caché si está disponible)
       await this.itineraryBuilder.build();
       console.log('Itinerario construido. Días:', this.itineraryBuilder.dias.length);
-      
+
       // NUEVO: Verificar el orden de visita
       const ordenVisita = this.dataLoader.ordenVisita || [];
       console.log(`📋 Orden de visita: ${ordenVisita.length} elementos`);
-      
+
       // Mostrar los primeros 10 elementos del orden
       if (ordenVisita.length > 0) {
-        const muestra = ordenVisita.slice(0, 10).map(item => 
+        const muestra = ordenVisita.slice(0, 10).map(item =>
           `${item.tipo}:${item.id} (${item.indice})`
         );
         console.log('📌 Primeros elementos del orden:', muestra.join(', '));
         console.log('📌 Primeros elementos del orden:', ordenVisita);
       }
-      
+
       // Cargar los días iniciales
       this.dias = this.itineraryBuilder.dias;
       this.diasCargados = this.itineraryBuilder.getInitialDays(this.CANTIDAD_INICIAL);
@@ -86,7 +86,7 @@ Alpine.store('itinerary', {
 
       this.diaInicioCargado = this.CANTIDAD_INICIAL;
       console.log('Días cargados:', this.diasCargados.length);
-      
+
       // NUEVO: Verificar el orden de eventos en el primer día
       if (this.diasCargados.length > 0 && this.diasCargados[0].eventos.length > 0) {
         const eventos = this.diasCargados[0].eventos;
@@ -95,11 +95,11 @@ Alpine.store('itinerary', {
           console.log(`  ${idx + 1}. ${ev.nombre} (orden: ${ev.ordenVisita ?? 'N/A'})`);
         });
       }
-      
+
       if (this.diaInicioCargado >= this.dias.length) {
         this.todosLosDiasCargados = true;
       }
-      
+
       this._aplicarTema();
     } catch (error) {
       console.error('Error inicializando store:', error);
@@ -109,32 +109,42 @@ Alpine.store('itinerary', {
   /**
    * Carga más días para scroll infinito
    */
+  // src/scripts/alpine-store.js
+
+  // ... resto del código ...
+
+  /**
+   * Carga más días para scroll infinito
+   */
   cargarMasDias() {
     if (this.cargando || this.todosLosDiasCargados) return;
-    
+
     this.cargando = true;
-    
+
     // Usar setTimeout para no bloquear la UI
     setTimeout(() => {
-      const nuevosDias = this.itineraryBuilder.getMoreDays(
+      // 🔥 CORREGIDO: Usar dataLoader en lugar de itineraryBuilder
+      const nuevosDias = this.dataLoader.obtenerMasDias(
         this.diaInicioCargado,
         this.CANTIDAD_ADICIONAL
       );
-      
+
       if (nuevosDias.length === 0) {
         this.todosLosDiasCargados = true;
       } else {
         this.diasCargados = [...this.diasCargados, ...nuevosDias];
         this.diaInicioCargado += nuevosDias.length;
-        
+
         if (this.diaInicioCargado >= this.dias.length) {
           this.todosLosDiasCargados = true;
         }
       }
-      
+
       this.cargando = false;
     }, 100);
   },
+
+  // ... resto del código ...
 
   /**
    * Alterna el tema claro/oscuro
@@ -290,17 +300,17 @@ Alpine.store('itinerary', {
       USD: 3900,
       CHF: 4400,
     };
-    
+
     if (!tasas[monedaOrigen]) return monto;
     if (this.moneda === monedaOrigen) return monto;
-    
+
     const enCOP = monto * tasas[monedaOrigen];
-    
+
     if (this.moneda === 'COP') return enCOP;
     if (tasas[this.moneda]) {
       return enCOP / tasas[this.moneda];
     }
-    
+
     return monto;
   },
 
@@ -317,7 +327,7 @@ Alpine.store('itinerary', {
     };
     const simbolo = simbolos[this.moneda] || '$';
     const decimales = this.moneda === 'COP' ? 0 : 2;
-    
+
     return `${simbolo} ${convertido.toFixed(decimales).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
   },
 

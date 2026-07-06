@@ -170,11 +170,11 @@ export class GraphBuilder {
 
     // 1. Separar nodos y aristas en listas ordenadas por índice
     // Los nodos son únicos (cada nodo aparece una vez en la lista original)
-    const nodos = this.ordenVisita
+    let nodos = this.ordenVisita
       .filter(item => item.tipo === 'nodo')
       .sort((a, b) => a.indice - b.indice);
 
-    const aristas = this.ordenVisita
+    let aristas = this.ordenVisita
       .filter(item => item.tipo === 'arista')
       .sort((a, b) => a.indice - b.indice);
 
@@ -198,30 +198,10 @@ export class GraphBuilder {
       }
     });
 
-    // 4. Conjuntos para rastrear qué elementos ya se usaron
-    const nodosUsados = new Set();  // IDs de nodos que ya fueron "consumidos" de la lista
-    const aristasUsadas = new Set();
-
-    // 5. Resultado final
+    // 4. Resultado final
     const nuevoOrden = [];
 
-    // 6. Función para obtener el primer nodo no usado
-    function obtenerPrimerNodo() {
-      for (const nodo of nodos) {
-        if (!nodosUsados.has(nodo.id)) {
-          return nodo;
-        }
-      }
-      return null;
-    }
-
-    // 7. Función para obtener aristas de un nodo origen no usadas
-    function obtenerAristasDeOrigen(origenId) {
-      const list = aristasPorOrigen.get(origenId) || [];
-      return list.filter(a => !aristasUsadas.has(a.id));
-    }
-
-    // 8. Función para dibujar un nodo (agregarlo al nuevo orden)
+    // 5. Función para dibujar un nodo (agregarlo al nuevo orden)
     function dibujarNodo(nodoId) {
       // Buscar el nodo en el mapa original
       const nodoOriginal = nodosMap.get(nodoId);
@@ -239,65 +219,105 @@ export class GraphBuilder {
       return nuevoNodo;
     }
 
-    // 9. Función para dibujar una arista
+    // 6. Función para dibujar una arista
     function dibujarArista(arista) {
       const nuevaArista = {
         ...arista,
         indice: nuevoOrden.length
       };
       nuevoOrden.push(nuevaArista);
-      aristasUsadas.add(arista.id);
       console.log(`  ➜ Dibujando arista: ${arista.id} (${arista.origen} → ${arista.destino})`);
       return nuevaArista;
     }
 
-    // 10. Algoritmo principal
-    let PN = obtenerPrimerNodo();
-    if (!PN) {
-      console.warn('⚠️ No hay nodos para procesar');
-      this.ordenVisita = nuevoOrden;
-      return;
+    // 7. Función para remover un nodo de la lista de nodos pendientes
+    function removerNodo(nodoId) {
+      const index = nodos.findIndex(n => n.id === nodoId);
+      if (index !== -1) {
+        nodos.splice(index, 1);
+        console.log(`  🗑️ Nodo ${nodoId} removido de la lista de nodos pendientes (quedan ${nodos.length})`);
+        return true;
+      }
+      return false;
     }
 
-    // 1. Dibuja PN
-    console.log(`📍 Nodo inicial: ${PN.id}`);
-    dibujarNodo(PN.id);
-    nodosUsados.add(PN.id);  // Remueve PN de la lista
+    // 8. Función para remover una arista de la lista de aristas pendientes
+    function removerArista(aristaId) {
+      const index = aristas.findIndex(a => a.id === aristaId);
+      if (index !== -1) {
+        aristas.splice(index, 1);
+        console.log(`  🗑️ Arista ${aristaId} removida de la lista de aristas pendientes (quedan ${aristas.length})`);
+        // También remover del mapa de aristas por origen
+        for (const [origen, lista] of aristasPorOrigen) {
+          const idx = lista.findIndex(a => a.id === aristaId);
+          if (idx !== -1) {
+            lista.splice(idx, 1);
+            if (lista.length === 0) {
+              aristasPorOrigen.delete(origen);
+            }
+            break;
+          }
+        }
+        return true;
+      }
+      return false;
+    }
 
-    let N = PN;  // Ahora PN se llamará N
+    // 9. Función para obtener aristas de un nodo origen no usadas
+    function obtenerAristasDeOrigen(origenId) {
+      return aristasPorOrigen.get(origenId) || [];
+    }
 
-    // Función principal recursiva
-    function procesar() {
+    // 10. Función principal recursiva
+    function procesar(N) {
+      console.log(`📍 Nodo actual (N): ${N.id}`);
+
+      // 2. Remueve N de la lista (ya fue dibujado en el paso 1)
+      removerNodo(N.id);
+
       // ¿Hay otro nodo en la lista?
-      const siguienteNodo = obtenerPrimerNodo();
-
-      if (!siguienteNodo) {
-        // No: FIN
+      if (nodos.length === 0) {
         console.log('✅ No hay más nodos en la lista, proceso completado');
+        // Verificar si quedan aristas sin dibujar
+        if (aristas.length > 0) {
+          console.log(`⚠️ Quedan ${aristas.length} aristas sin dibujar, agregando al final`);
+          for (const arista of aristas) {
+            dibujarArista(arista);
+          }
+        }
         return;
       }
 
       // Sí: Ahora PN es el primer nodo de la lista restante
-      PN = siguienteNodo;
+      const PN = nodos[0];
       console.log(`📌 Siguiente nodo objetivo (PN): ${PN.id}`);
 
       // ¿Hay una arista desde N a PN?
       const aristaDirecta = aristas.find(a =>
         a.origen === N.id &&
-        a.destino === PN.id &&
-        !aristasUsadas.has(a.id)
+        a.destino === PN.id
       );
 
       if (aristaDirecta) {
         // Sí: Dibuje Arista
         console.log(`  ✅ Arista directa encontrada: ${aristaDirecta.id}`);
         dibujarArista(aristaDirecta);
+        // Remueva la Arista Dibujada (solo esa) de la lista de Aristas
+        removerArista(aristaDirecta.id);
 
-        // Valla a 1.
-        N = PN;
-        dibujarNodo(PN.id);
-        nodosUsados.add(PN.id);  // Remueve PN de la lista
-        procesar();
+        // Valla a 1. (Dibuja PN)
+        // 1. Dibuja PN
+        const nodoDibujado = dibujarNodo(PN.id);
+        if (nodoDibujado) {
+          // Ahora PN se llamará N y continuamos
+          procesar(nodoDibujado);
+        } else {
+          // Si no se pudo dibujar, removerlo y continuar con el siguiente
+          removerNodo(PN.id);
+          if (nodos.length > 0) {
+            procesar(nodos[0]);
+          }
+        }
         return;
       }
 
@@ -305,13 +325,25 @@ export class GraphBuilder {
       const aristasDeN = obtenerAristasDeOrigen(N.id);
 
       if (aristasDeN.length === 0) {
-        // No: FIN
+        // No: FIN - N no tiene más aristas
         console.log(`  ⚠️ N (${N.id}) no tiene más aristas disponibles`);
-        // Intentar con el siguiente nodo
-        N = PN;
-        dibujarNodo(PN.id);
-        nodosUsados.add(PN.id);
-        procesar();
+        // N ya fue removido de la lista, continuar con el siguiente nodo
+        if (nodos.length > 0) {
+          // El siguiente nodo se convierte en N sin dibujarlo primero
+          // (esto es porque N no pudo llegar a PN, así que saltamos a PN)
+          const siguienteNodo = nodos[0];
+          console.log(`  ➜ Saltando a siguiente nodo: ${siguienteNodo.id}`);
+          // Dibujar el siguiente nodo directamente (paso 1)
+          const nodoDibujado = dibujarNodo(siguienteNodo.id);
+          if (nodoDibujado) {
+            procesar(nodoDibujado);
+          } else {
+            removerNodo(siguienteNodo.id);
+            if (nodos.length > 0) {
+              procesar(nodos[0]);
+            }
+          }
+        }
         return;
       }
 
@@ -321,74 +353,138 @@ export class GraphBuilder {
 
       // Dibuje A0
       dibujarArista(A0);
+      // Remueva A0 de la lista de aristas
+      removerArista(A0.id);
 
-      // Dibuje el nodo destino de A0 (así ya esté dibujado y no exista en el arreglo de nodos)
+      // Dibuje el nodo destino de A0 (Así ya esté dibujado y no exista en el arreglo de nodos)
       const ND = dibujarNodo(A0.destino);
       if (!ND) {
         console.warn(`  ⚠️ No se pudo dibujar el nodo destino ${A0.destino}`);
-        procesar();
+        // Si no se pudo dibujar, continuar con el siguiente nodo
+        if (nodos.length > 0) {
+          procesar(nodos[0]);
+        }
         return;
       }
-
-      // IMPORTANTE: NO removemos ND de la lista de nodos aquí
-      // Solo lo dibujamos, pero si no es PN, permanece en la lista para ser procesado después
 
       // ¿ND es PN?
       if (ND.id === PN.id) {
         // Sí: Valla a 2.
         console.log(`  ✅ ND (${ND.id}) es igual a PN (${PN.id}), volviendo a 2`);
-        // PN ya fue dibujado, pero necesitamos marcarlo como usado porque lo estamos consumiendo
-        nodosUsados.add(PN.id);
-        // N ahora es PN
-        N = PN;
-        procesar();
+        // Remover PN de la lista (ya fue dibujado como ND)
+        removerNodo(PN.id);
+        // Ahora N es ND (que es PN)
+        procesar(ND);
         return;
       }
 
-      // No: ND ahora será N
+      // No: ND a hora será N
       console.log(`  ➜ ND (${ND.id}) no es PN, continuando desde ND`);
-      N = ND;
-      // Valla a 3.
-      procesar();
+      // Valla a 3. (N tiene aristas en la lista?)
+      // Aquí ND ya fue dibujado y removido de la lista de nodos
+      procesar(ND);
+    }
+
+    // Iniciar el proceso: Tomar el primer nodo (el del índice menor), le llamaremos PN
+    if (nodos.length === 0) {
+      console.warn('⚠️ No hay nodos para procesar');
+      this.ordenVisita = nuevoOrden;
       return;
     }
 
-    // Iniciar el proceso
-    procesar();
+    let PN = nodos[0];
+    console.log(`📍 Nodo inicial/actual: ${PN.id}`);
 
-    // Verificar si quedaron nodos sin procesar (por algún caso borde)
-    const nodosRestantes = nodos.filter(n => !nodosUsados.has(n.id));
-    if (nodosRestantes.length > 0) {
-      console.log(`⚠️ Agregando ${nodosRestantes.length} nodos restantes al final`);
-      for (const nodo of nodosRestantes) {
-        // Verificar si ya existe en el nuevo orden
-        const existe = nuevoOrden.some(item => item.tipo === 'nodo' && item.id === nodo.id);
-        if (!existe) {
-          dibujarNodo(nodo.id);
-        }
-        nodosUsados.add(nodo.id);
-      }
+    // 1. Dibuja PN
+    const nodoInicial = dibujarNodo(PN.id);
+    if (!nodoInicial) {
+      console.warn('⚠️ No se pudo dibujar el nodo inicial');
+      this.ordenVisita = nuevoOrden;
+      return;
     }
 
-    // Verificar aristas sin usar
-    const aristasRestantes = aristas.filter(a => !aristasUsadas.has(a.id));
-    if (aristasRestantes.length > 0) {
-      console.log(`⚠️ Agregando ${aristasRestantes.length} aristas restantes al final`);
-      for (const arista of aristasRestantes) {
-        const existe = nuevoOrden.some(item => item.tipo === 'arista' && item.id === arista.id);
-        if (!existe) {
-          dibujarArista(arista);
-        }
-      }
-    }
-
-    console.log(`✅ Nuevo orden: ${nuevoOrden.length} elementos`);
-    console.log('📋 Nuevo orden:', nuevoOrden.map(item =>
-      `${item.tipo}:${item.id}(${item.indice})`
-    ).join(' → '));
+    // Ahora PN se llamará N y continuamos
+    procesar(nodoInicial);
 
     // Actualizar el orden de visita
     this.ordenVisita = nuevoOrden;
+    console.log(`✅ Nuevo orden: ${this.ordenVisita.length} elementos`);
+    console.log('📋 Nuevo orden:', this.ordenVisita.map(item =>
+      `${item.tipo}:${item.id}(${item.indice})`
+    ).join(' → '));
+  }
+
+  _construirOrdenBFS(nodoInicial) {
+    console.log('🏗️ Construyendo orden BFS básico...');
+
+    const visitados = new Set();
+    const cola = [nodoInicial];
+    let indice = 0;
+
+    // Mapa de aristas por origen
+    const aristasPorOrigen = new Map();
+    this.aristas.forEach(arista => {
+      if (!aristasPorOrigen.has(arista.origen_id)) {
+        aristasPorOrigen.set(arista.origen_id, []);
+      }
+      aristasPorOrigen.get(arista.origen_id).push(arista);
+    });
+
+    // Usar un Set para rastrear aristas ya agregadas
+    const aristasAgregadas = new Set();
+
+    this.ordenVisita = [];
+
+    while (cola.length > 0) {
+      const actual = cola.shift();
+
+      if (visitados.has(actual.id)) continue;
+      visitados.add(actual.id);
+
+      // Agregar el nodo
+      if (actual.oculto !== true) {
+        this.ordenVisita.push({
+          tipo: 'nodo',
+          id: actual.id,
+          indice: indice++
+        });
+      }
+
+      // Obtener todas las aristas de salida de este nodo
+      const aristasSalida = aristasPorOrigen.get(actual.id) || [];
+      const aristasOrdenadas = this._ordenarAristas(aristasSalida);
+
+      // 🔥 IMPORTANTE: Agregar TODAS las aristas, no solo las que van a nodos no visitados
+      for (const arista of aristasOrdenadas) {
+        // Solo agregar cada arista una vez
+        if (aristasAgregadas.has(arista.id)) continue;
+
+        if (arista.oculto !== true) {
+          const destino = this.nodos.get(arista.destino_id);
+          const destinoNombre = destino ? destino.nombre : arista.destino_id;
+
+          this.ordenVisita.push({
+            tipo: 'arista',
+            id: arista.id,
+            indice: indice++,
+            modo: arista.modo,
+            origen: arista.origen_id,
+            destino: arista.destino_id,
+            destinoNombre: destinoNombre,
+          });
+          aristasAgregadas.add(arista.id);
+        }
+
+        // Agregar el destino a la cola solo si no ha sido visitado
+        const destino = this.nodos.get(arista.destino_id);
+        if (destino && !visitados.has(destino.id)) {
+          cola.push(destino);
+        }
+      }
+    }
+
+    console.log(`✅ BFS básico completado: ${this.ordenVisita.length} elementos`);
+    console.log(`   📊 Nodos: ${this.ordenVisita.filter(i => i.tipo === 'nodo').length}, Aristas: ${this.ordenVisita.filter(i => i.tipo === 'arista').length}`);
   }
 
   /**
@@ -405,297 +501,203 @@ export class GraphBuilder {
 
     console.log('🏠 Nodo inicial:', nodoInicial.id);
 
-    // 🔥 NUEVO: Crear mapa de aristas por origen
-    const aristasPorOrigen = new Map();
-    this.aristas.forEach(arista => {
-      if (!aristasPorOrigen.has(arista.origen_id)) {
-        aristasPorOrigen.set(arista.origen_id, []);
-      }
-      aristasPorOrigen.get(arista.origen_id).push(arista);
-    });
-
-    // 🔥 NUEVO: Mostrar todas las aristas de roma-villa-angeli para depuración
-    const aristasRoma = aristasPorOrigen.get('roma-villa-angeli') || [];
-
-    const orden = [];
-    const visitados = new Set();
-    const cola = [nodoInicial];
-    let indiceOrden = 0;
-
-    this.ordenVisita = [];
-
-    while (cola.length > 0) {
-      const actual = cola.shift();
-
-      if (visitados.has(actual.id)) continue;
-
-      visitados.add(actual.id);
-      orden.push(actual.id);
-
-      // Registrar nodo si no está oculto
-      if (actual.oculto !== true) {
-        this.ordenVisita.push({
-          tipo: 'nodo',
-          id: actual.id,
-          indice: indiceOrden++
-        });
-      }
-
-      // Obtener aristas de salida de este nodo
-      const aristasSalida = aristasPorOrigen.get(actual.id) || [];
-
-      // Si no hay aristas de salida, continuar
-      if (aristasSalida.length === 0) continue;
-
-      // Ordenar aristas por criterios definidos
-      const aristasOrdenadas = this._ordenarAristas(aristasSalida);
-
-      // 🔥 NUEVO: Registrar TODAS las aristas de salida en el orden de visita
-      // (incluyendo las que tienen destinos ya visitados)
-      for (const arista of aristasOrdenadas) {
-        // Registrar la arista en el orden de visita (solo si no está oculta)
-        if (arista.oculto !== true) {
-          // Buscar el destino para mostrar información adicional
-          const destino = this.nodos.get(arista.destino_id);
-          const destinoNombre = destino ? destino.nombre : arista.destino_id;
-
-          this.ordenVisita.push({
-            tipo: 'arista',
-            id: arista.id,
-            indice: indiceOrden++,
-            modo: arista.modo,
-            origen: arista.origen_id,
-            destino: arista.destino_id,
-            destinoNombre: destinoNombre,
-          });
-        }
-      }
-
-      // 🔥 MODIFICADO: Agregar TODOS los destinos a la cola, no solo los primeros
-      for (const arista of aristasOrdenadas) {
-        const destino = this.nodos.get(arista.destino_id);
-        // Si el destino existe y no ha sido visitado aún, agregarlo a la cola
-        // 🔥 IMPORTANTE: No importa si el destino está oculto o no, debe procesarse
-        if (destino && !visitados.has(destino.id)) {
-          cola.push(destino);
-        }
-      }
+    // 1. Primero, asegurarse de que el orden de visita esté construido
+    // Si no hay orden de visita, construirlo primero (BFS básico para tener nodos)
+    if (this.ordenVisita.length === 0) {
+      console.log('⚠️ Orden de visita vacío, construyendo BFS básico...');
+      this._construirOrdenBFS(nodoInicial);
     }
 
-    console.log('📋 Orden BFS:', orden);
-    console.log('📊 Total nodos en orden:', orden.length);
-    console.log(`📋 Orden de visita completo: ${this.ordenVisita.length} elementos`);
-
-    // 🔥 NUEVO: Reordenar el orden de visita según el algoritmo de dibujo
+    // 2. Reordenar el orden de visita con el algoritmo de dibujo
+    // (esto ya debería estar hecho, pero lo llamamos por si acaso)
     this._reordenarOrdenVisita();
 
+    console.log(`📋 Orden de visita final: ${this.ordenVisita.length} elementos`);
 
-    // Verificar nodos no alcanzados
-    const nodosNoAlcanzados = Array.from(this.nodos.keys()).filter(
-      id => !visitados.has(id)
-    );
-
-    if (nodosNoAlcanzados.length > 0) {
-      console.warn('⚠️ Nodos no alcanzados por BFS:', nodosNoAlcanzados);
-      // 🔥 NUEVO: Para cada nodo no alcanzado, buscar su arista entrante y agregarlo
-      for (const id of nodosNoAlcanzados) {
-        if (!visitados.has(id)) {
-          // Buscar una arista que llegue a este nodo
-          const aristaEntrante = Array.from(this.aristas.values()).find(
-            a => a.destino_id === id && a.oculto !== true
-          );
-
-          if (aristaEntrante) {
-            console.log(`  ➜ Nodo ${id} tiene arista entrante: ${aristaEntrante.id} desde ${aristaEntrante.origen_id}`);
-
-            // Verificar si el origen ya fue visitado
-            if (visitados.has(aristaEntrante.origen_id)) {
-              // El origen fue visitado, pero este nodo no - agregarlo manualmente
-              console.log(`  ➜ Agregando nodo ${id} manualmente (origen ya visitado)`);
-              orden.push(id);
-              visitados.add(id);
-              const nodo = this.nodos.get(id);
-              if (nodo && nodo.oculto !== true) {
-                this.ordenVisita.push({
-                  tipo: 'nodo',
-                  id: id,
-                  indice: indiceOrden++
-                });
-              }
-              // Registrar la arista también
-              if (aristaEntrante.oculto !== true) {
-                this.ordenVisita.push({
-                  tipo: 'arista',
-                  id: aristaEntrante.id,
-                  indice: indiceOrden++
-                });
-              }
-            }
-          } else {
-            // Si no tiene arista entrante, agregarlo al final
-            orden.push(id);
-            visitados.add(id);
-            const nodo = this.nodos.get(id);
-            if (nodo && nodo.oculto !== true) {
-              this.ordenVisita.push({
-                tipo: 'nodo',
-                id: id,
-                indice: indiceOrden++
-              });
-            }
-          }
-        }
-      }
-    }
-
-    // 🔥🔥🔥 NUEVO: Reordenar después de agregar nodos no alcanzados 🔥🔥🔥
-    if (nodosNoAlcanzados.length > 0) {
-      console.log('🔄 Reordenando después de agregar nodos no alcanzados...');
-      this._reordenarOrdenVisita();
-    }
-
-
-
-    // Construir días
+    // 3. Construir días usando el orden de visita reordenado
     const diasMap = new Map();
 
-    // 🔥 NUEVO: Iterar sobre el orden de visita completo (que tiene nodos repetidos)
-    this.ordenVisita.forEach((item, index) => {
-      // Solo procesar nodos
-      if (item.tipo !== 'nodo') return;
+    // Para rastrear qué nodos ya se procesaron y qué fecha tienen
+    const nodosProcesados = new Set();
 
-      const nodoId = item.id;
-      const nodo = this.nodos.get(nodoId);
-      if (!nodo) {
-        console.warn(`⚠️ Nodo ${nodoId} no encontrado en el orden de visita`);
-        return;
-      }
-
-      if (nodo.oculto === true) {
-        console.log(`🔇 Nodo oculto: ${nodo.id} (${nodo.nombre})`);
-        return;
-      }
-
-      let fecha = null;
-      let horaInicio = null;
-      let horaFin = null;
-
+    // Para obtener la fecha de un nodo
+    const obtenerFechaNodo = (nodo) => {
       if (nodo.fechas_estadia && nodo.fechas_estadia.entrada) {
-        fecha = nodo.fechas_estadia.entrada;
+        return nodo.fechas_estadia.entrada;
       }
+      return null;
+    };
 
-      if (!fecha) {
+    // Para obtener la fecha de una arista
+    const obtenerFechaArista = (arista) => {
+      if (arista.logistica_salida && arista.logistica_salida.fecha_salida) {
+        return arista.logistica_salida.fecha_salida;
+      }
+      // Si la arista no tiene fecha, usar la fecha del nodo origen
+      const nodoOrigen = this.nodos.get(arista.origen_id);
+      return nodoOrigen ? obtenerFechaNodo(nodoOrigen) : null;
+    };
+
+    // 4. Recorrer el orden de visita para construir los días
+    let fechaActual = null;
+    let diaIndex = 0;
+
+    for (const item of this.ordenVisita) {
+      if (item.tipo === 'nodo') {
+        const nodo = this.nodos.get(item.id);
+        if (!nodo) continue;
+
+        // Si el nodo está oculto, no se muestra
+        if (nodo.oculto === true) {
+          console.log(`🔇 Nodo oculto: ${nodo.id} (${nodo.nombre})`);
+          continue;
+        }
+
+        // Obtener la fecha del nodo
+        let fecha = obtenerFechaNodo(nodo);
+        console.log(`📅 Nodo ${nodo.id} (${nodo.nombre}) - Fecha obtenida: ${fecha}`);
+
+        // Si el nodo no tiene fecha, buscar la fecha de la arista entrante
+        if (!fecha) {
+          const aristaEntrante = Array.from(this.aristas.values()).find(
+            a => a.destino_id === nodo.id && a.oculto !== true
+          );
+          if (aristaEntrante) {
+            fecha = obtenerFechaArista(aristaEntrante);
+          }
+        }
+
+        // Si aún no tiene fecha, usar la fecha del viaje + índice
+        if (!fecha && this.raiz) {
+          const fechaInicio = new Date(this.raiz.fechas.inicio);
+          const fechaNueva = new Date(fechaInicio);
+          fechaNueva.setDate(fechaNueva.getDate() + diaIndex);
+          fecha = fechaNueva.toISOString().split('T')[0];
+          diaIndex++;
+        }
+
+        if (!fecha) {
+          fecha = '2099-12-31';
+        }
+
+        // Crear el día si no existe
+        if (!diasMap.has(fecha)) {
+          diasMap.set(fecha, {
+            fecha: fecha,
+            eventos: [],
+            ciudad: this._obtenerCiudad(nodo),
+          });
+        }
+
+        // Buscar arista entrante y saliente para este nodo
         const aristaEntrante = Array.from(this.aristas.values()).find(
-          a => a.destino_id === nodoId && a.oculto !== true
+          a => a.destino_id === nodo.id && a.oculto !== true
         );
-        if (aristaEntrante && aristaEntrante.logistica_salida && aristaEntrante.logistica_salida.fecha_salida) {
-          fecha = aristaEntrante.logistica_salida.fecha_salida;
+
+        const aristaSalida = Array.from(this.aristas.values()).find(
+          a => a.origen_id === nodo.id && a.oculto !== true
+        );
+
+        // Obtener hora de inicio y fin
+        let horaInicio = null;
+        let horaFin = null;
+
+        if (aristaEntrante && aristaEntrante.logistica_salida) {
+          if (aristaEntrante.logistica_salida.hora_llegada_destino) {
+            horaInicio = aristaEntrante.logistica_salida.hora_llegada_destino;
+          }
         }
-      }
 
-      // Si no tiene fecha, usar la fecha del viaje + el índice actual
-      if (!fecha && this.raiz) {
-        const fechaInicio = new Date(this.raiz.fechas.inicio);
-        const fechaNueva = new Date(fechaInicio);
-        fechaNueva.setDate(fechaNueva.getDate() + index);
-        fecha = fechaNueva.toISOString().split('T')[0];
-      }
-
-      if (!fecha) {
-        fecha = '2099-12-31';
-      }
-
-      const aristaEntrante = Array.from(this.aristas.values()).find(
-        a => a.destino_id === nodoId && a.oculto !== true
-      );
-
-      const aristaSalida = Array.from(this.aristas.values()).find(
-        a => a.origen_id === nodoId && a.oculto !== true
-      );
-
-      if (aristaEntrante && aristaEntrante.logistica_salida) {
-        if (aristaEntrante.logistica_salida.hora_llegada_destino) {
-          horaInicio = aristaEntrante.logistica_salida.hora_llegada_destino;
+        if (!horaInicio && aristaSalida && aristaSalida.logistica_salida) {
+          if (aristaSalida.logistica_salida.hora_salida_origen) {
+            horaInicio = aristaSalida.logistica_salida.hora_salida_origen;
+          }
         }
-        if (aristaEntrante.logistica_salida.hora_salida_origen) {
-          horaFin = aristaEntrante.logistica_salida.hora_salida_origen;
-        }
-      }
 
-      if (!horaInicio && aristaSalida && aristaSalida.logistica_salida) {
-        if (aristaSalida.logistica_salida.hora_salida_origen) {
-          horaInicio = aristaSalida.logistica_salida.hora_salida_origen;
-        }
-      }
-
-      if (!diasMap.has(fecha)) {
-        diasMap.set(fecha, {
-          fecha: fecha,
-          eventos: [],
-          ciudad: this._obtenerCiudad(nodo),
-        });
-      }
-
-      // 🔥 NUEVO: Crear evento para el NODO
-      const eventoNodo = {
-        id: nodo.id,
-        tipo: nodo.tipo,
-        tipoElemento: 'nodo',
-        nombre: nodo.nombre,
-        nodo: nodo,
-        aristaEntrante: aristaEntrante || null,
-        aristaSalida: aristaSalida || null,
-        aristaAsociada: null,
-        horaInicio: horaInicio,
-        horaFin: horaFin,
-        holgura: this._calcularHolgura(aristaEntrante, aristaSalida),
-        ordenVisita: item.indice, // Usar el índice del orden de visita
-        modoTransporte: null,
-        esArista: false,
-        nodoOriginal: nodo,
-      };
-
-      // Agregar el nodo al día
-      diasMap.get(fecha).eventos.push(eventoNodo);
-
-      // 🔥 NUEVO: Buscar aristas de salida que correspondan a este nodo en el orden de visita
-      // Buscar en ordenVisita las aristas que tienen como origen este nodo
-      const aristasSalidaEnOrden = this.ordenVisita.filter(
-        item => item.tipo === 'arista' && item.origen === nodo.id
-      );
-
-      for (const aristaItem of aristasSalidaEnOrden) {
-        const aristaSalidaCompleta = this.aristas.get(aristaItem.id);
-        if (!aristaSalidaCompleta || aristaSalidaCompleta.oculto === true) continue;
-
-        const nodoDestino = this.nodos.get(aristaSalidaCompleta.destino_id);
-
-        const eventoArista = {
-          id: aristaSalidaCompleta.id,
-          tipo: 'arista',
-          tipoElemento: 'arista',
-          nombre: aristaSalidaCompleta.modo,
+        // Crear el evento del nodo
+        const eventoNodo = {
+          id: nodo.id,
+          tipo: nodo.tipo,
+          tipoElemento: 'nodo',
+          nombre: nodo.nombre,
           nodo: nodo,
-          nodoDestino: nodoDestino || null,
-          aristaEntrante: null,
-          aristaSalida: aristaSalidaCompleta,
-          aristaAsociada: aristaSalidaCompleta,
-          horaInicio: aristaSalidaCompleta.logistica_salida?.hora_salida_origen || null,
-          horaFin: aristaSalidaCompleta.logistica_salida?.hora_llegada_destino || null,
-          holgura: null,
-          ordenVisita: aristaItem.indice,
-          modoTransporte: aristaSalidaCompleta.modo,
-          esArista: true,
-          transporte: aristaSalidaCompleta.transporte || null,
-          tiempoEstimado: aristaSalidaCompleta.tiempo_estimado || null,
-          costo: aristaSalidaCompleta.costos || null,
-          notas: aristaSalidaCompleta.notas || null,
+          aristaEntrante: aristaEntrante || null,
+          aristaSalida: aristaSalida || null,
+          aristaAsociada: null,
+          horaInicio: horaInicio,
+          horaFin: horaFin,
+          holgura: this._calcularHolgura(aristaEntrante, aristaSalida),
+          ordenVisita: item.indice, // Usar el índice del orden de visita
+          modoTransporte: null,
+          esArista: false,
+          nodoOriginal: nodo,
         };
 
-        diasMap.get(fecha).eventos.push(eventoArista);
-      }
-    });
+        // Agregar el nodo al día
+        diasMap.get(fecha).eventos.push(eventoNodo);
 
+        // 5. Buscar aristas de salida que correspondan a este nodo en el orden de visita
+        const aristasSalidaEnOrden = this.ordenVisita.filter(
+          ordenItem => ordenItem.tipo === 'arista' && ordenItem.origen === nodo.id
+        );
+
+        for (const aristaItem of aristasSalidaEnOrden) {
+          const aristaSalidaCompleta = this.aristas.get(aristaItem.id);
+          if (!aristaSalidaCompleta || aristaSalidaCompleta.oculto === true) continue;
+
+          const nodoDestino = this.nodos.get(aristaSalidaCompleta.destino_id);
+
+          // Obtener la fecha de la arista
+          let fechaArista = obtenerFechaArista(aristaSalidaCompleta);
+          console.log(`📅 Arista ${aristaSalidaCompleta.id} - Fecha obtenida: ${fechaArista}`);
+          if (!fechaArista) {
+            fechaArista = fecha; // Usar la misma fecha del nodo origen
+          }
+
+          // Crear el día para la arista si no existe
+          if (!diasMap.has(fechaArista)) {
+            diasMap.set(fechaArista, {
+              fecha: fechaArista,
+              eventos: [],
+              ciudad: this._obtenerCiudad(nodo),
+            });
+          }
+
+          const eventoArista = {
+            id: aristaSalidaCompleta.id,
+            tipo: 'arista',
+            tipoElemento: 'arista',
+            nombre: aristaSalidaCompleta.modo,
+            nodo: nodo,
+            nodoDestino: nodoDestino || null,
+            aristaEntrante: null,
+            aristaSalida: aristaSalidaCompleta,
+            aristaAsociada: aristaSalidaCompleta,
+            horaInicio: aristaSalidaCompleta.logistica_salida?.hora_salida_origen || null,
+            horaFin: aristaSalidaCompleta.logistica_salida?.hora_llegada_destino || null,
+            holgura: null,
+            ordenVisita: aristaItem.indice,
+            modoTransporte: aristaSalidaCompleta.modo,
+            esArista: true,
+            transporte: aristaSalidaCompleta.transporte || null,
+            tiempoEstimado: aristaSalidaCompleta.tiempo_estimado || null,
+            costo: aristaSalidaCompleta.costos || null,
+            notas: aristaSalidaCompleta.notas || null,
+            // Para mostrar en la UI
+            displayName: `${aristaSalidaCompleta.modo}: ${nodoDestino?.nombre || aristaSalidaCompleta.destino_id}`,
+            nodoOrigenNombre: nodo.nombre,
+            nodoDestinoNombre: nodoDestino?.nombre || aristaSalidaCompleta.destino_id,
+          };
+
+          diasMap.get(fechaArista).eventos.push(eventoArista);
+        }
+
+        // Marcar el nodo como procesado (solo para evitar duplicados de nodos en el mismo día)
+        nodosProcesados.add(item.id);
+      }
+    }
+
+    // 6. Convertir el mapa a array y ordenar
     this.dias = Array.from(diasMap.values())
       .sort((a, b) => a.fecha.localeCompare(b.fecha))
       .map((dia, index) => ({
@@ -705,7 +707,16 @@ export class GraphBuilder {
       }));
 
     console.log(`📅 Días construidos: ${this.dias.length}`);
-    console.log('📅 Fechas:', this.dias.map(d => d.fecha));
+
+    // Log de los eventos por día para depuración
+    this.dias.forEach((dia, i) => {
+      console.log(`📌 Día ${i + 1} (${dia.fecha}): ${dia.eventos.length} eventos`);
+      dia.eventos.forEach((ev, j) => {
+        const tipo = ev.esArista ? '🔹 arista' : '📍 nodo';
+        const nombre = ev.esArista ? `${ev.modoTransporte} → ${ev.nodoDestinoNombre || ev.nodoDestino?.nombre || '?'}` : ev.nombre;
+        console.log(`  ${j + 1}. ${tipo} ${nombre} (orden: ${ev.ordenVisita ?? 'N/A'})`);
+      });
+    });
 
     return this.dias;
   }
