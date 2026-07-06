@@ -161,11 +161,20 @@ export class DataLoader {
   /**
    * Construye el itinerario usando GraphBuilder
    */
-  _construirDias() {
-    const builder = new GraphBuilder(this.nodos, this.aristas, this.raiz);
-    this.dias = builder.construirDias();
-    this.ordenVisita = builder.ordenVisita;
-  }
+_construirDias() {
+  console.log('🏗️ Construyendo días desde DataLoader...');
+  const builder = new GraphBuilder(this.nodos, this.aristas, this.raiz);
+  
+  // Verificar que tenemos nodos y aristas
+  console.log(`📊 Nodos en DataLoader: ${this.nodos.size}`);
+  console.log(`📊 Aristas en DataLoader: ${this.aristas.size}`);
+  
+  this.dias = builder.construirDias();
+  this.ordenVisita = builder.ordenVisita;
+  
+  console.log(`✅ Días construidos: ${this.dias.length}`);
+  console.log(`📋 Orden de visita: ${this.ordenVisita.length} elementos`);
+}
 
   /**
    * Obtiene el orden de visita para un elemento

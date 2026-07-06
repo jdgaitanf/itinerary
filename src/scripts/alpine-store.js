@@ -54,8 +54,11 @@ Alpine.store('itinerary', {
 
 
 
-      // Construir el itinerario (esto usará caché si está disponible)
+      // Forzar recarga sin caché para depuración
+      console.log('🔧 Forzando recarga sin caché...');
+      this.dataLoader.clearCache();
       await this.itineraryBuilder.build();
+      console.log('✅ Datos recargados desde archivos');
       console.log('Itinerario construido. Días:', this.itineraryBuilder.dias.length);
 
       // NUEVO: Verificar el orden de visita
