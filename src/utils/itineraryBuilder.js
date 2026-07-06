@@ -86,10 +86,28 @@ export class ItineraryBuilder {
     // NUEVO: Obtener el orden de visita si existe
     const ordenVisita = this.dataLoader.getOrden('nodo', evento.id);
     
+    // Determinar el tipo de evento para ícono y color
+    // Si es una arista, usar el modo de transporte como tipo
+    let tipoParaIcono = evento.tipo;
+    let esArista = evento.esArista || false;
+    
+    if (esArista && evento.modoTransporte) {
+      // Mapear modo de transporte a tipo de evento para ícono
+      const modoMap = {
+        'avion': 'vuelo',
+        'tren': 'tren',
+        'metro': 'metro',
+        'bus': 'bus',
+        'auto': 'transporte',
+        'caminata': 'caminata',
+      };
+      tipoParaIcono = modoMap[evento.modoTransporte] || 'transporte';
+    }
+    
     return {
       ...evento,
-      icon: this.getEventIcon(evento.tipo),
-      colorClass: this.getEventColor(evento.tipo),
+      icon: this.getEventIcon(tipoParaIcono),
+      colorClass: this.getEventColor(tipoParaIcono),
       displayName: this.getDisplayName(evento),
       displayTime: this.getDisplayTime(evento),
       direccion: this.getDireccion(evento.nodo),
@@ -101,9 +119,12 @@ export class ItineraryBuilder {
       ordenVisita: ordenVisita,
       // NUEVO: Indicador de posición en el itinerario
       posicion: ordenVisita >= 0 ? `#${ordenVisita + 1}` : null,
+      // NUEVO: Indicar si es arista para la UI
+      esArista: esArista,
+      // NUEVO: Tipo de elemento para la UI (nodo o arista)
+      tipoElemento: evento.tipoElemento || 'nodo',
     };
   }
-
   /**
    * Obtiene el ícono para un tipo de evento
    */
@@ -189,6 +210,8 @@ export class ItineraryBuilder {
   getDetallesCompletos(evento) {
     const detalles = {
       tipo: evento.tipo,
+      tipoElemento: evento.tipoElemento || 'nodo',
+      esArista: evento.esArista || false,
       nombre: evento.nombre,
       fecha: this._obtenerFechaEvento(evento),
       horaInicio: evento.horaInicio,
@@ -199,72 +222,16 @@ export class ItineraryBuilder {
       ordenVisita: evento.ordenVisita,
       posicion: evento.ordenVisita >= 0 ? `#${evento.ordenVisita + 1}` : null,
     };
-
-    // Detalles específicos según tipo
-    const nodo = evento.nodo;
-    switch (evento.tipo) {
-      case 'vuelo':
-        detalles.aerolinea = nodo.reserva?.plataforma || 'No especificada';
-        detalles.numeroVuelo = nodo.reserva?.codigo_reserva || 'N/A';
-        detalles.terminal = nodo.direccion?.terminal || 'N/A';
-        detalles.puerta = nodo.puerta_embarque || 'N/A';
-        detalles.codigoReserva = nodo.reserva?.codigo_reserva || 'N/A';
-        break;
-      
-      case 'hotel':
-        detalles.checkIn = nodo.horarios?.check_in || 'N/A';
-        detalles.checkOut = nodo.horarios?.check_out || 'N/A';
-        detalles.titular = nodo.reserva?.nombre_titular || 'No especificado';
-        detalles.plataforma = nodo.reserva?.plataforma || 'N/A';
-        break;
-      
-      case 'festival':
-        detalles.apertura = nodo.horarios?.horario_apertura || 'N/A';
-        detalles.cierre = nodo.horarios?.horario_cierre || 'N/A';
-        detalles.lineup = nodo.lineup || [];
-        break;
-      
-      case 'actividad':
-        detalles.duracion = nodo.tiempo_estimado_visita || 'N/A';
-        detalles.horarioRecomendado = nodo.horario_recomendado || 'N/A';
-        detalles.urlOficial = nodo.url_oficial || null;
-        break;
-    }
-
-    // Actividades dentro del nodo
-    if (nodo.actividades && nodo.actividades.length > 0) {
-      detalles.actividades = nodo.actividades;
-    }
-
-    // Notas adicionales
-    if (nodo.notas_adicionales) {
-      detalles.notas = nodo.notas_adicionales;
-    }
-
-    // Información de la arista si existe
-    if (evento.aristaSalida) {
-      const arista = evento.aristaSalida;
-      detalles.transporte = {
-        modo: arista.modo,
-        compania: arista.transporte?.compania || 'No especificada',
-        tipoVehiculo: arista.transporte?.tipo_vehiculo || 'N/A',
-        tiempoEstimado: arista.tiempo_estimado,
-        numeroVuelo: arista.transporte?.numero_vuelo || null,
-        terminalOrigen: arista.transporte?.terminal_origen || null,
-        terminalDestino: arista.transporte?.terminal_destino || null,
-        codigoReserva: arista.transporte?.codigo_reserva_confirmacion || null,
-      };
-    }
-
-    // Información de la arista entrante si existe
-    if (evento.aristaEntrante) {
-      const arista = evento.aristaEntrante;
-      detalles.transporteEntrante = {
-        modo: arista.modo,
-        compania: arista.transporte?.compania || 'No especificada',
-        tiempoEstimado: arista.tiempo_estimado,
-        numeroVuelo: arista.transporte?.numero_vuelo || null,
-      };
+    
+    // Si es una arista, añadir información del transporte
+    if (evento.esArista && evento.aristaAsociada) {
+      const arista = evento.aristaAsociada;
+      detalles.modo = arista.modo;
+      detalles.compania = arista.transporte?.compania || null;
+      detalles.numeroVuelo = arista.transporte?.numero_vuelo || null;
+      detalles.tiempoEstimado = arista.tiempo_estimado || null;
+      detalles.notasTransporte = arista.notas || null;
+      detalles.costoTransporte = arista.costos || null;
     }
 
     return detalles;
@@ -273,7 +240,7 @@ export class ItineraryBuilder {
   /**
    * Obtiene el costo del evento
    */
-  getCosto(evento) {
+  getCosto(evento) {  
     const nodo = evento.nodo;
     
     // Buscar en reserva del nodo

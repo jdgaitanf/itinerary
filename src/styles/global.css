@@ -76,7 +76,7 @@
     padding: 0 16px 16px 16px;
   }
 
-  /* Eventos */
+    /* Eventos - Nodos */
   .evento-item {
     border-radius: 12px;
     padding: 12px 14px;
@@ -100,13 +100,53 @@
     margin-bottom: 0;
   }
 
-  /* Detalle expandido */
+  /* Eventos - Aristas (sin recuadro) */
+  .evento-item.evento-arista {
+    border-radius: 0;
+    padding: 8px 14px 8px 14px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    background: transparent;
+    border-left: none;
+    border-bottom: 1px solid var(--color-border-light);
+  }
+
+  .evento-item.evento-arista:active {
+    transform: scale(0.98);
+  }
+
+  .evento-item.evento-arista.expandido {
+    border-radius: 0;
+    background: var(--color-event-expanded-bg);
+    border-bottom: 1px solid transparent;
+  }
+
+  .evento-item.evento-arista:last-child {
+    border-bottom: none;
+  }
+
+  /* Detalle expandido - Nodos */
   .evento-detalle {
     border-radius: 0 0 12px 12px;
     padding: 0 14px 14px 14px;
     background: var(--color-event-expanded-bg);
     border-left: 3px solid var(--event-color, var(--color-primary));
     animation: slideDown 0.25s ease-out;
+  }
+
+  /* Detalle expandido - Aristas (sin borde) */
+  .evento-item.evento-arista + .evento-detalle {
+    border-radius: 0;
+    border-left: none;
+    padding: 0 14px 8px 14px;
+    background: var(--color-event-expanded-bg);
+    border-bottom: 1px solid var(--color-border-light);
+    animation: slideDown 0.25s ease-out;
+  }
+
+  .evento-item.evento-arista.expandido + .evento-detalle {
+    border-bottom: 1px solid transparent;
   }
 
   /* Barra de navegación inferior */

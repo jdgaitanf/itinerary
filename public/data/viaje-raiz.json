@@ -32,6 +32,8 @@
       "aristas/arista-bcn-hotel-to-bcn-airport.json",
       "aristas/arista-bcn-airport-to-fco-airport.json",
       "aristas/arista-fco-airport-to-roma-hotel.json",
+      "aristas/arista-roma-hotel-to-coliseo.json",
+      "aristas/arista-coliseo-to-roma-hotel.json",
       "aristas/arista-roma-hotel-to-fco-airport.json",
       "aristas/arista-fco-airport-to-zrh-airport.json",
       "aristas/arista-zrh-airport-to-zrh-casa-amiga.json",

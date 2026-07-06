@@ -51,6 +51,8 @@ Alpine.store('itinerary', {
       this.itineraryBuilder = builderModule.getItineraryBuilder();
       
       console.log('Builders cargados');
+
+
       
       // Construir el itinerario (esto usará caché si está disponible)
       await this.itineraryBuilder.build();
@@ -72,6 +74,16 @@ Alpine.store('itinerary', {
       // Cargar los días iniciales
       this.dias = this.itineraryBuilder.dias;
       this.diasCargados = this.itineraryBuilder.getInitialDays(this.CANTIDAD_INICIAL);
+
+      // NUEVO: Verificar el orden de eventos en el primer día
+      if (this.diasCargados.length > 0 && this.diasCargados[0].eventos.length > 0) {
+        const eventos = this.diasCargados[0].eventos;
+        console.log(`📌 Eventos del día 1 (${eventos.length}):`);
+        eventos.forEach((ev, idx) => {
+          console.log(`  ${idx + 1}. ${ev.nombre} (tipo: ${ev.tipoElemento || 'nodo'}, orden: ${ev.ordenVisita ?? 'N/A'})`);
+        });
+      }
+
       this.diaInicioCargado = this.CANTIDAD_INICIAL;
       console.log('Días cargados:', this.diasCargados.length);
       

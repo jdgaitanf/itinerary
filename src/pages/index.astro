@@ -152,11 +152,12 @@ import Layout from '../layouts/Layout.astro';
           <template x-if="dia.eventos && dia.eventos.length > 0">
             <template x-for="(evento, idx) in dia.eventos" :key="evento.id">
               <div>
-                <div 
+                                <div 
                   class="evento-item"
                   :class="{
                     'expandido': $store.itinerary.estaExpandido(index, evento.id),
-                    [$store.itinerary.getEventColor(evento.tipo)]: true
+                    [$store.itinerary.getEventColor(evento.tipo)]: true,
+                    'evento-arista': evento.esArista || false
                   }"
                   @click="$store.itinerary.toggleEvento(index, evento.id)"
                 >
@@ -177,53 +178,81 @@ import Layout from '../layouts/Layout.astro';
                       >•</span>
                     </div>
                     
-                    <!-- Ícono -->
+                    <!-- Ícono - diferente para nodos y aristas -->
                     <span 
                       class="material-symbols-rounded text-xl flex-shrink-0"
                       :style="`color: var(--event-color, var(--color-primary)); margin-top: 1px;`"
-                      x-text="$store.itinerary.getEventIcon(evento.tipo) || 'help'"
+                      x-text="evento.esArista ? 'arrow_forward' : ($store.itinerary.getEventIcon(evento.tipo) || 'help')"
                     ></span>
                     
                     <!-- Info principal -->
                     <div class="flex-1 min-w-0">
                       <div class="flex items-start justify-between gap-2">
-                        <span class="text-sm font-medium truncate" style="color: var(--color-text-primary);" x-text="evento.displayName || evento.nombre"></span>
+                        <!-- Si es arista, mostrar el modo de transporte y destino -->
+                        <template x-if="evento.esArista">
+                          <span class="text-sm font-medium" style="color: var(--color-text-secondary);">
+                            <span x-text="evento.modoTransporte || 'Transporte'"></span>
+                            <span class="text-xs" style="color: var(--color-text-muted);"> → </span>
+                            <span style="color: var(--color-text-primary);" x-text="evento.nodo?.nombre || evento.nombre"></span>
+                          </span>
+                        </template>
+                        <!-- Si es nodo, mostrar nombre normal -->
+                        <template x-if="!evento.esArista">
+                          <span class="text-sm font-medium truncate" style="color: var(--color-text-primary);" x-text="evento.displayName || evento.nombre"></span>
+                        </template>
                         <template x-if="evento.displayTime">
                           <span class="text-xs font-medium flex-shrink-0" style="color: var(--color-text-secondary);" x-text="evento.displayTime"></span>
                         </template>
                       </div>
                       
-                      <!-- Subtipo o detalle adicional -->
-                      <template x-if="evento.tipo === 'vuelo' && evento.nodo?.codigo_iata">
+                      <!-- Subtipo o detalle adicional (solo para nodos) -->
+                      <template x-if="!evento.esArista">
+                        <template x-if="evento.tipo === 'vuelo' && evento.nodo?.codigo_iata">
+                          <div class="text-xs" style="color: var(--color-text-muted);">
+                            <span class="material-symbols-rounded text-xs align-middle">flight_takeoff</span>
+                            <span x-text="evento.nodo.codigo_iata"></span>
+                            <template x-if="evento.aristaSalida?.transporte?.numero_vuelo">
+                              <span> · Vuelo <span x-text="evento.aristaSalida.transporte.numero_vuelo"></span></span>
+                            </template>
+                          </div>
+                        </template>
+                        
+                        <template x-if="evento.tipo === 'hotel'">
+                          <div class="text-xs" style="color: var(--color-text-muted);">
+                            <span class="material-symbols-rounded text-xs align-middle">bed</span>
+                            <span x-text="evento.nodo.direccion?.ciudad || ''"></span>
+                            <template x-if="evento.nodo.reserva?.codigo_reserva">
+                              <span> · Reserva: <span x-text="evento.nodo.reserva.codigo_reserva"></span></span>
+                            </template>
+                          </div>
+                        </template>
+                      </template>
+                      
+                      <!-- Para aristas: mostrar compañía y detalles -->
+                      <template x-if="evento.esArista && evento.aristaAsociada">
                         <div class="text-xs" style="color: var(--color-text-muted);">
-                          <span class="material-symbols-rounded text-xs align-middle">flight_takeoff</span>
-                          <span x-text="evento.nodo.codigo_iata"></span>
-                          <template x-if="evento.aristaSalida?.transporte?.numero_vuelo">
-                            <span> · Vuelo <span x-text="evento.aristaSalida.transporte.numero_vuelo"></span></span>
+                          <template x-if="evento.aristaAsociada.transporte?.compania">
+                            <span><span x-text="evento.aristaAsociada.transporte.compania"></span> · </span>
+                          </template>
+                          <template x-if="evento.aristaAsociada.transporte?.numero_vuelo">
+                            <span>Vuelo <span x-text="evento.aristaAsociada.transporte.numero_vuelo"></span> · </span>
+                          </template>
+                          <template x-if="evento.aristaAsociada.tiempo_estimado?.minutos">
+                            <span><span x-text="evento.aristaAsociada.tiempo_estimado.minutos"></span> min</span>
                           </template>
                         </div>
                       </template>
                       
-                      <template x-if="evento.tipo === 'hotel'">
-                        <div class="text-xs" style="color: var(--color-text-muted);">
-                          <span class="material-symbols-rounded text-xs align-middle">bed</span>
-                          <span x-text="evento.nodo.direccion?.ciudad || ''"></span>
-                          <template x-if="evento.nodo.reserva?.codigo_reserva">
-                            <span> · Reserva: <span x-text="evento.nodo.reserva.codigo_reserva"></span></span>
-                          </template>
-                        </div>
-                      </template>
-                      
-                      <!-- Holgura -->
-                      <template x-if="evento.holgura">
+                      <!-- Holgura (solo para nodos) -->
+                      <template x-if="!evento.esArista && evento.holgura">
                         <div class="text-xs mt-1 flex items-center gap-1" style="color: #E74C3C;">
                           <span class="material-symbols-rounded text-sm">warning</span>
                           <span>⚠️ Salir <span x-text="evento.holgura.tiempoRequerido"></span> antes (<span x-text="evento.holgura.horaSalidaRecomendada"></span>)</span>
                         </div>
                       </template>
                       
-                      <!-- Dirección resumida -->
-                      <template x-if="evento.direccion && evento.tipo !== 'vuelo'">
+                      <!-- Dirección resumida (solo para nodos) -->
+                      <template x-if="!evento.esArista && evento.direccion && evento.tipo !== 'vuelo'">
                         <div class="text-xs mt-1 flex items-center gap-1" style="color: var(--color-text-muted);">
                           <span class="material-symbols-rounded text-sm">location_on</span>
                           <span class="truncate" x-text="evento.direccion"></span>
@@ -255,9 +284,14 @@ import Layout from '../layouts/Layout.astro';
                           <span 
                             class="material-symbols-rounded text-xl align-middle mr-1"
                             :style="`color: var(--event-color, var(--color-primary));`"
-                            x-text="$store.itinerary.getEventIcon(evento.tipo) || 'help'"
+                            x-text="evento.esArista ? 'arrow_forward' : ($store.itinerary.getEventIcon(evento.tipo) || 'help')"
                           ></span>
                           <span x-text="evento.nombre"></span>
+                          <template x-if="evento.esArista && evento.nodoDestino">
+                            <span class="text-sm font-normal" style="color: var(--color-text-secondary);">
+                              → <span x-text="evento.nodoDestino.nombre"></span>
+                            </span>
+                          </template>
                         </h3>
                         <!-- NUEVO: Mostrar posición en el itinerario -->
                         <span 
@@ -293,183 +327,284 @@ import Layout from '../layouts/Layout.astro';
                     
                     <!-- Detalles específicos -->
                     <div class="space-y-2 text-sm">
-                      <!-- Vuelo -->
-                      <template x-if="evento.tipo === 'vuelo'">
-                        <div class="grid grid-cols-2 gap-1">
-                          <div>
-                            <span class="text-xs" style="color: var(--color-text-muted);">Aerolínea</span>
-                            <p style="color: var(--color-text-primary);" x-text="evento.detalles?.aerolinea || 'No especificada'"></p>
-                          </div>
-                          <div>
-                            <span class="text-xs" style="color: var(--color-text-muted);">Número de vuelo</span>
-                            <p style="color: var(--color-text-primary);" x-text="evento.detalles?.numeroVuelo || 'N/A'"></p>
-                          </div>
-                          <div>
-                            <span class="text-xs" style="color: var(--color-text-muted);">Terminal</span>
-                            <p style="color: var(--color-text-primary);" x-text="evento.detalles?.terminal || 'N/A'"></p>
-                          </div>
-                          <div>
-                            <span class="text-xs" style="color: var(--color-text-muted);">Puerta</span>
-                            <p style="color: var(--color-text-primary);" x-text="evento.detalles?.puerta || 'N/A'"></p>
-                          </div>
-                          <template x-if="evento.detalles?.codigoReserva">
-                            <div class="col-span-2">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Código de reserva</span>
-                              <p style="color: var(--color-text-primary);" class="font-mono" x-text="evento.detalles.codigoReserva"></p>
-                            </div>
-                          </template>
-                        </div>
-                      </template>
                       
-                      <!-- Hotel -->
-                      <template x-if="evento.tipo === 'hotel'">
+                      <!-- ============================================ -->
+                      <!-- DETALLES PARA NODOS (no aristas)            -->
+                      <!-- ============================================ -->
+                      <template x-if="!evento.esArista">
                         <div>
-                          <template x-if="evento.detalles?.checkIn">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Check-in</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.checkIn"></span>
+                          <!-- Vuelo -->
+                          <template x-if="evento.tipo === 'vuelo'">
+                            <div class="grid grid-cols-2 gap-1">
+                              <div>
+                                <span class="text-xs" style="color: var(--color-text-muted);">Aerolínea</span>
+                                <p style="color: var(--color-text-primary);" x-text="evento.detalles?.aerolinea || 'No especificada'"></p>
+                              </div>
+                              <div>
+                                <span class="text-xs" style="color: var(--color-text-muted);">Número de vuelo</span>
+                                <p style="color: var(--color-text-primary);" x-text="evento.detalles?.numeroVuelo || 'N/A'"></p>
+                              </div>
+                              <div>
+                                <span class="text-xs" style="color: var(--color-text-muted);">Terminal</span>
+                                <p style="color: var(--color-text-primary);" x-text="evento.detalles?.terminal || 'N/A'"></p>
+                              </div>
+                              <div>
+                                <span class="text-xs" style="color: var(--color-text-muted);">Puerta</span>
+                                <p style="color: var(--color-text-primary);" x-text="evento.detalles?.puerta || 'N/A'"></p>
+                              </div>
+                              <template x-if="evento.detalles?.codigoReserva">
+                                <div class="col-span-2">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Código de reserva</span>
+                                  <p style="color: var(--color-text-primary);" class="font-mono" x-text="evento.detalles.codigoReserva"></p>
+                                </div>
+                              </template>
                             </div>
                           </template>
-                          <template x-if="evento.detalles?.checkOut">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Check-out</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.checkOut"></span>
-                            </div>
-                          </template>
-                          <template x-if="evento.detalles?.titular">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Titular</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.titular"></span>
-                            </div>
-                          </template>
-                          <template x-if="evento.detalles?.plataforma">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Plataforma</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.plataforma"></span>
-                            </div>
-                          </template>
-                        </div>
-                      </template>
-                      
-                      <!-- Festival -->
-                      <template x-if="evento.tipo === 'festival'">
-                        <div>
-                          <template x-if="evento.detalles?.apertura">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Apertura</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.apertura"></span>
-                            </div>
-                          </template>
-                          <template x-if="evento.detalles?.cierre">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Cierre</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.cierre"></span>
-                            </div>
-                          </template>
-                          <template x-if="evento.detalles?.lineup && evento.detalles.lineup.length > 0">
+                          
+                          <!-- Hotel -->
+                          <template x-if="evento.tipo === 'hotel'">
                             <div>
-                              <span class="text-xs" style="color: var(--color-text-muted);">Lineup</span>
-                              <p style="color: var(--color-text-primary);" x-text="evento.detalles.lineup.join(' · ')"></p>
+                              <template x-if="evento.detalles?.checkIn">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Check-in</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.checkIn"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.checkOut">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Check-out</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.checkOut"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.titular">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Titular</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.titular"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.plataforma">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Plataforma</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.plataforma"></span>
+                                </div>
+                              </template>
                             </div>
                           </template>
-                        </div>
-                      </template>
-                      
-                      <!-- Actividad -->
-                      <template x-if="evento.tipo === 'actividad'">
-                        <div>
-                          <template x-if="evento.detalles?.duracion">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Duración estimada</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.duracion"></span>
-                            </div>
-                          </template>
-                          <template x-if="evento.detalles?.horarioRecomendado">
-                            <div class="flex justify-between">
-                              <span class="text-xs" style="color: var(--color-text-muted);">Horario recomendado</span>
-                              <span style="color: var(--color-text-primary);" x-text="evento.detalles.horarioRecomendado"></span>
-                            </div>
-                          </template>
-                          <template x-if="evento.detalles?.urlOficial">
+                          
+                          <!-- Festival -->
+                          <template x-if="evento.tipo === 'festival'">
                             <div>
-                              <a 
-                                :href="evento.detalles.urlOficial"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="text-sm underline hover:opacity-70 transition-opacity"
-                                style="color: var(--color-primary);"
-                              >
-                                <span class="material-symbols-rounded text-sm align-middle">link</span>
-                                Sitio web oficial
-                              </a>
+                              <template x-if="evento.detalles?.apertura">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Apertura</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.apertura"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.cierre">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Cierre</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.cierre"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.lineup && evento.detalles.lineup.length > 0">
+                                <div>
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Lineup</span>
+                                  <p style="color: var(--color-text-primary);" x-text="evento.detalles.lineup.join(' · ')"></p>
+                                </div>
+                              </template>
                             </div>
                           </template>
-                        </div>
-                      </template>
-                      
-                      <!-- Actividades dentro del nodo -->
-                      <template x-if="evento.detalles?.actividades && evento.detalles.actividades.length > 0">
-                        <div>
-                          <span class="text-xs" style="color: var(--color-text-muted);">Actividades planificadas</span>
-                          <ul class="mt-1 space-y-1">
-                            <template x-for="act in evento.detalles.actividades" :key="act.id">
-                              <li class="text-sm flex items-start gap-2" style="color: var(--color-text-primary);">
-                                <span class="material-symbols-rounded text-sm" style="color: var(--color-text-muted);">check_circle</span>
-                                <span>
-                                  <span x-text="act.nombre"></span>
-                                  <template x-if="act.duracion_estimada">
-                                    <span class="text-xs block" style="color: var(--color-text-muted);" x-text="act.duracion_estimada"></span>
-                                  </template>
-                                  <template x-if="act.reserva?.fecha_reservada">
-                                    <span class="text-xs block" style="color: var(--color-text-muted);">
-                                      Reservado: <span x-text="new Date(act.reserva.fecha_reservada).toLocaleDateString('es-ES')"></span>
-                                      <template x-if="act.reserva.hora_reservada">
-                                        <span> a las <span x-text="act.reserva.hora_reservada"></span></span>
+                          
+                          <!-- Actividad -->
+                          <template x-if="evento.tipo === 'actividad'">
+                            <div>
+                              <template x-if="evento.detalles?.duracion">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Duración estimada</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.duracion"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.horarioRecomendado">
+                                <div class="flex justify-between">
+                                  <span class="text-xs" style="color: var(--color-text-muted);">Horario recomendado</span>
+                                  <span style="color: var(--color-text-primary);" x-text="evento.detalles.horarioRecomendado"></span>
+                                </div>
+                              </template>
+                              <template x-if="evento.detalles?.urlOficial">
+                                <div>
+                                  <a 
+                                    :href="evento.detalles.urlOficial"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-sm underline hover:opacity-70 transition-opacity"
+                                    style="color: var(--color-primary);"
+                                  >
+                                    <span class="material-symbols-rounded text-sm align-middle">link</span>
+                                    Sitio web oficial
+                                  </a>
+                                </div>
+                              </template>
+                            </div>
+                          </template>
+                          
+                          <!-- Actividades dentro del nodo -->
+                          <template x-if="evento.detalles?.actividades && evento.detalles.actividades.length > 0">
+                            <div>
+                              <span class="text-xs" style="color: var(--color-text-muted);">Actividades planificadas</span>
+                              <ul class="mt-1 space-y-1">
+                                <template x-for="act in evento.detalles.actividades" :key="act.id">
+                                  <li class="text-sm flex items-start gap-2" style="color: var(--color-text-primary);">
+                                    <span class="material-symbols-rounded text-sm" style="color: var(--color-text-muted);">check_circle</span>
+                                    <span>
+                                      <span x-text="act.nombre"></span>
+                                      <template x-if="act.duracion_estimada">
+                                        <span class="text-xs block" style="color: var(--color-text-muted);" x-text="act.duracion_estimada"></span>
+                                      </template>
+                                      <template x-if="act.reserva?.fecha_reservada">
+                                        <span class="text-xs block" style="color: var(--color-text-muted);">
+                                          Reservado: <span x-text="new Date(act.reserva.fecha_reservada).toLocaleDateString('es-ES')"></span>
+                                          <template x-if="act.reserva.hora_reservada">
+                                            <span> a las <span x-text="act.reserva.hora_reservada"></span></span>
+                                          </template>
+                                        </span>
                                       </template>
                                     </span>
+                                  </li>
+                                </template>
+                              </ul>
+                            </div>
+                          </template>
+                          
+                          <!-- Transporte (para nodos que tienen arista de salida) -->
+                          <template x-if="evento.aristaSalida">
+                            <div>
+                              <span class="text-xs" style="color: var(--color-text-muted);">Próximo transporte</span>
+                              <div class="flex items-center gap-2 mt-1">
+                                <span 
+                                  class="material-symbols-rounded"
+                                  :style="`color: var(--event-color, var(--color-primary));`"
+                                  x-text="$store.itinerary.getEventIcon(evento.tipo) || 'help'"
+                                ></span>
+                                <span style="color: var(--color-text-primary);">
+                                  <span x-text="evento.aristaSalida.modo"></span>
+                                  <template x-if="evento.aristaSalida.transporte?.compania">
+                                    <span> · <span x-text="evento.aristaSalida.transporte.compania"></span></span>
+                                  </template>
+                                  <template x-if="evento.aristaSalida.transporte?.numero_vuelo">
+                                    <span> · Vuelo <span x-text="evento.aristaSalida.transporte.numero_vuelo"></span></span>
                                   </template>
                                 </span>
-                              </li>
-                            </template>
-                          </ul>
-                        </div>
-                      </template>
-                      
-                      <!-- Transporte -->
-                      <template x-if="evento.aristaSalida">
-                        <div>
-                          <span class="text-xs" style="color: var(--color-text-muted);">Transporte</span>
-                          <div class="flex items-center gap-2 mt-1">
-                            <span 
-                              class="material-symbols-rounded"
-                              :style="`color: var(--event-color, var(--color-primary));`"
-                              x-text="$store.itinerary.getEventIcon(evento.tipo) || 'help'"
-                            ></span>
-                            <span style="color: var(--color-text-primary);">
-                              <span x-text="evento.aristaSalida.modo"></span>
-                              <template x-if="evento.aristaSalida.transporte?.compania">
-                                <span> · <span x-text="evento.aristaSalida.transporte.compania"></span></span>
+                              </div>
+                              <template x-if="evento.aristaSalida.tiempo_estimado">
+                                <div class="text-xs" style="color: var(--color-text-secondary);">
+                                  <span class="material-symbols-rounded text-xs align-middle">schedule</span>
+                                  <span x-text="evento.aristaSalida.tiempo_estimado.minutos"></span> min
+                                  <template x-if="evento.aristaSalida.tiempo_estimado.rango">
+                                    <span> (aprox. <span x-text="evento.aristaSalida.tiempo_estimado.rango"></span> min)</span>
+                                  </template>
+                                </div>
                               </template>
-                              <template x-if="evento.aristaSalida.transporte?.numero_vuelo">
-                                <span> · Vuelo <span x-text="evento.aristaSalida.transporte.numero_vuelo"></span></span>
-                              </template>
-                            </span>
-                          </div>
-                          <template x-if="evento.aristaSalida.tiempo_estimado">
-                            <div class="text-xs" style="color: var(--color-text-secondary);">
-                              <span class="material-symbols-rounded text-xs align-middle">schedule</span>
-                              <span x-text="evento.aristaSalida.tiempo_estimado.minutos"></span> min
-                              <template x-if="evento.aristaSalida.tiempo_estimado.rango">
-                                <span> (aprox. <span x-text="evento.aristaSalida.tiempo_estimado.rango"></span> min)</span>
+                              <template x-if="evento.aristaSalida.costos">
+                                <div class="text-xs" style="color: var(--color-text-secondary);">
+                                  <span class="material-symbols-rounded text-xs align-middle">payments</span>
+                                  Costo: <span x-text="$store.itinerary.formatearMonto(evento.aristaSalida.costos.valor, evento.aristaSalida.costos.moneda)"></span>
+                                </div>
                               </template>
                             </div>
                           </template>
+                        </div>
+                      </template>
+                      
+                      <!-- ============================================ -->
+                      <!-- DETALLES PARA ARISTAS                        -->
+                      <!-- ============================================ -->
+                      <template x-if="evento.esArista">
+                        <div>
+                          <div class="flex justify-between">
+                            <span class="text-xs" style="color: var(--color-text-muted);">Modo</span>
+                            <span style="color: var(--color-text-primary);" x-text="evento.modoTransporte || 'N/A'"></span>
+                          </div>
+                          <template x-if="evento.transporte?.compania">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Compañía</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.transporte.compania"></span>
+                            </div>
+                          </template>
+                          <template x-if="evento.transporte?.numero_vuelo">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Número de vuelo</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.transporte.numero_vuelo"></span>
+                            </div>
+                          </template>
+                          <template x-if="evento.transporte?.linea">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Línea</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.transporte.linea"></span>
+                            </div>
+                          </template>
+                          <template x-if="evento.transporte?.terminal_origen">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Terminal origen</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.transporte.terminal_origen"></span>
+                            </div>
+                          </template>
+                          <template x-if="evento.transporte?.terminal_destino">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Terminal destino</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.transporte.terminal_destino"></span>
+                            </div>
+                          </template>
+                          <template x-if="evento.tiempoEstimado">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Duración estimada</span>
+                              <span style="color: var(--color-text-primary);">
+                                <span x-text="evento.tiempoEstimado.minutos"></span> min
+                                <template x-if="evento.tiempoEstimado.rango">
+                                  <span class="text-xs" style="color: var(--color-text-muted);"> (aprox. <span x-text="evento.tiempoEstimado.rango"></span> min)</span>
+                                </template>
+                              </span>
+                            </div>
+                          </template>
+                          <template x-if="evento.costo">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Costo</span>
+                              <span style="color: var(--color-text-primary);">
+                                <span x-text="$store.itinerary.formatearMonto(evento.costo.valor, evento.costo.moneda)"></span>
+                                <template x-if="evento.costo.moneda">
+                                  <span class="text-xs" style="color: var(--color-text-muted);"> (<span x-text="evento.costo.moneda"></span>)</span>
+                                </template>
+                              </span>
+                            </div>
+                          </template>
+                          <template x-if="evento.costo?.pagado_por">
+                            <div class="flex justify-between">
+                              <span class="text-xs" style="color: var(--color-text-muted);">Pagado por</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.costo.pagado_por"></span>
+                            </div>
+                          </template>
+                          <template x-if="evento.notas">
+                            <div>
+                              <span class="text-xs" style="color: var(--color-text-muted);">Notas</span>
+                              <p class="text-sm mt-1" style="color: var(--color-text-secondary);" x-text="evento.notas"></p>
+                            </div>
+                          </template>
+                          <!-- Origen y destino -->
+                          <div class="mt-2 pt-2 border-t" style="border-color: var(--color-border-light);">
+                            <div class="flex justify-between text-xs">
+                              <span style="color: var(--color-text-muted);">Desde</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.nodo?.nombre || 'N/A'"></span>
+                            </div>
+                            <div class="flex justify-between text-xs">
+                              <span style="color: var(--color-text-muted);">Hacia</span>
+                              <span style="color: var(--color-text-primary);" x-text="evento.nodoDestino?.nombre || 'N/A'"></span>
+                            </div>
+                          </div>
                         </div>
                       </template>
                     </div>
                     
-                    <!-- Dirección -->
-                    <template x-if="evento.direccion">
+                    <!-- Dirección (solo para nodos) -->
+                    <template x-if="!evento.esArista && evento.direccion">
                       <div class="mt-3">
                         <span class="text-xs" style="color: var(--color-text-muted);">Dirección</span>
                         <p class="text-sm mt-1" style="color: var(--color-text-primary);" x-text="evento.direccion"></p>
@@ -487,8 +622,8 @@ import Layout from '../layouts/Layout.astro';
                       </div>
                     </template>
                     
-                    <!-- Costos -->
-                    <template x-if="evento.costo">
+                    <!-- Costos (solo para nodos) -->
+                    <template x-if="!evento.esArista && evento.costo">
                       <div class="mt-3 pt-2 border-t" style="border-color: var(--color-border-light);">
                         <span class="text-xs" style="color: var(--color-text-muted);">Costo</span>
                         <div class="flex items-center justify-between mt-1">
@@ -513,8 +648,8 @@ import Layout from '../layouts/Layout.astro';
                       </div>
                     </template>
                     
-                    <!-- Notas -->
-                    <template x-if="evento.detalles?.notas">
+                    <!-- Notas (solo para nodos) -->
+                    <template x-if="!evento.esArista && evento.detalles?.notas">
                       <div class="mt-3 pt-2 border-t" style="border-color: var(--color-border-light);">
                         <span class="text-xs" style="color: var(--color-text-muted);">Notas</span>
                         <p class="text-sm mt-1" style="color: var(--color-text-secondary);" x-text="evento.detalles.notas"></p>
