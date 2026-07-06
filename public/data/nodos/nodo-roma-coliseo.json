@@ -20,6 +20,8 @@
     "horario_apertura": "08:30",
     "horario_cierre": "19:15"
   },
+    "fechas_estadia": {
+  },
   "actividades": [
     {
       "id": "visita-coliseo",
