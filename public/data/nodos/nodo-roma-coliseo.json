@@ -21,7 +21,9 @@
     "horario_apertura": "08:30",
     "horario_cierre": "19:15"
   },
-    "fechas_estadia": {
+  "fechas_estadia": {
+    "entrada": "2026-07-19",
+    "salida": "2026-07-19"
   },
   "actividades": [
     {

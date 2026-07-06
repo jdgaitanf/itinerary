@@ -127,6 +127,10 @@ import Layout from '../layouts/Layout.astro';
                   <span x-text="dia.clima.condiciones ? ` · ${dia.clima.condiciones}` : ''"></span>
                 </span>
               </template>
+              <!-- NUEVO: Indicador de orden de visita -->
+              <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--color-primary); color: white;">
+                <span x-text="`${dia.eventos.length} eventos`"></span>
+              </span>
             </div>
           </div>
           <div>
@@ -158,6 +162,21 @@ import Layout from '../layouts/Layout.astro';
                 >
                   <!-- Contenido del evento -->
                   <div class="flex items-start gap-3">
+                    <!-- NUEVO: Indicador de orden de visita -->
+                    <div class="flex flex-col items-center gap-0.5 flex-shrink-0" style="width: 28px;">
+                      <span 
+                        x-show="evento.ordenVisita !== undefined && evento.ordenVisita >= 0"
+                        class="text-xs font-bold"
+                        style="color: var(--color-text-muted);"
+                        x-text="evento.ordenVisita + 1"
+                      ></span>
+                      <span 
+                        x-show="evento.ordenVisita === undefined || evento.ordenVisita < 0"
+                        class="text-xs"
+                        style="color: var(--color-text-muted);"
+                      >•</span>
+                    </div>
+                    
                     <!-- Ícono -->
                     <span 
                       class="material-symbols-rounded text-xl flex-shrink-0"
@@ -240,6 +259,13 @@ import Layout from '../layouts/Layout.astro';
                           ></span>
                           <span x-text="evento.nombre"></span>
                         </h3>
+                        <!-- NUEVO: Mostrar posición en el itinerario -->
+                        <span 
+                          x-show="evento.posicion"
+                          class="text-xs px-2 py-0.5 rounded-full inline-block mt-1"
+                          style="background: var(--color-primary); color: white;"
+                          x-text="`📍 Posición ${evento.posicion}`"
+                        ></span>
                         <template x-if="evento.detalles?.fecha">
                           <p class="text-sm mt-1" style="color: var(--color-text-secondary);">
                             <span class="material-symbols-rounded text-sm align-middle">event</span>
@@ -423,6 +449,9 @@ import Layout from '../layouts/Layout.astro';
                               <span x-text="evento.aristaSalida.modo"></span>
                               <template x-if="evento.aristaSalida.transporte?.compania">
                                 <span> · <span x-text="evento.aristaSalida.transporte.compania"></span></span>
+                              </template>
+                              <template x-if="evento.aristaSalida.transporte?.numero_vuelo">
+                                <span> · Vuelo <span x-text="evento.aristaSalida.transporte.numero_vuelo"></span></span>
                               </template>
                             </span>
                           </div>

@@ -9,6 +9,14 @@ export interface Props {
 }
 
 const { dia, index, expandido } = Astro.props;
+// NUEVO: Calcular el rango de órdenes de visita en este día
+const ordenes = dia.eventos
+  .map(e => e.ordenVisita)
+  .filter(o => o !== undefined && o >= 0)
+  .sort((a, b) => a - b);
+const rangoOrden = ordenes.length > 0 
+  ? `#${ordenes[0] + 1} - #${ordenes[ordenes.length - 1] + 1}`
+  : null;
 ---
 
 {dia ? (
@@ -26,7 +34,7 @@ const { dia, index, expandido } = Astro.props;
             · {dia.fecha ? new Date(dia.fecha).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Fecha no especificada'}
           </span>
         </h2>
-        <div class="flex items-center gap-2 mt-1">
+        <div class="flex items-center gap-2 mt-1 flex-wrap">
           <span class="text-sm" style="color: var(--color-text-secondary);">
             <span class="material-symbols-rounded text-sm align-middle">location_on</span>
             {dia.ciudad || 'Ciudad no especificada'}
@@ -38,6 +46,13 @@ const { dia, index, expandido } = Astro.props;
               {dia.clima.condiciones ? ` · ${dia.clima.condiciones}` : ''}
             </span>
           )}
+          <!-- NUEVO: Mostrar cantidad de eventos y rango de órdenes -->
+          <span class="text-xs px-2 py-0.5 rounded-full" style="background: var(--color-primary); color: white;">
+            {dia.eventos.length} {dia.eventos.length === 1 ? 'evento' : 'eventos'}
+            {rangoOrden && (
+              <span class="ml-1 opacity-80">· {rangoOrden}</span>
+            )}
+          </span>
         </div>
       </div>
       <div>

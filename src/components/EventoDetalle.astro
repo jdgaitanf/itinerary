@@ -9,6 +9,9 @@ export interface Props {
 const { evento, diaIndex, colorClass } = Astro.props;
 const detalles = evento.detalles || {};
 const costo = evento.costo;
+// NUEVO: Obtener el orden de visita
+const ordenVisita = evento.ordenVisita;
+const posicion = evento.posicion;
 ---
 
 <div class="evento-detalle" class:list={[colorClass]}>
@@ -24,6 +27,18 @@ const costo = evento.costo;
         </span>
         {evento.nombre}
       </h3>
+      
+      <!-- NUEVO: Mostrar posición en el itinerario de manera prominente -->
+      {posicion && (
+        <span 
+          class="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full mt-1"
+          style="background: var(--color-primary); color: white;"
+        >
+          <span class="material-symbols-rounded text-sm">pin_drop</span>
+          <span>Posición {posicion} en el itinerario</span>
+        </span>
+      )}
+      
       {detalles.fecha && (
         <p class="text-sm mt-1" style="color: var(--color-text-secondary);">
           <span class="material-symbols-rounded text-sm align-middle">event</span>
@@ -53,6 +68,23 @@ const costo = evento.costo;
   </div>
   
   <div class="divider"></div>
+  
+  <!-- NUEVO: Información del orden de visita -->
+  <div class="mb-3 p-2 rounded-lg" style="background: var(--color-bg); border: 1px solid var(--color-border-light);">
+    <div class="flex items-center justify-between text-xs">
+      <span style="color: var(--color-text-muted);">
+        <span class="material-symbols-rounded text-sm align-middle">sort</span>
+        Orden de visita
+      </span>
+      <span style="color: var(--color-text-primary);" class="font-medium">
+        {ordenVisita !== undefined && ordenVisita >= 0 ? (
+          <span>#{ordenVisita + 1} de {evento.totalElementos || '?'}</span>
+        ) : (
+          <span>No asignado</span>
+        )}
+      </span>
+    </div>
+  </div>
   
   <!-- Detalles específicos -->
   <div class="space-y-2 text-sm">
@@ -212,6 +244,9 @@ const costo = evento.costo;
             {evento.aristaSalida.transporte?.compania && (
               <span> · {evento.aristaSalida.transporte.compania}</span>
             )}
+            {evento.aristaSalida.transporte?.numero_vuelo && (
+              <span> · Vuelo {evento.aristaSalida.transporte.numero_vuelo}</span>
+            )}
           </span>
         </div>
         {evento.aristaSalida.tiempo_estimado && (
@@ -223,6 +258,42 @@ const costo = evento.costo;
             )}
           </div>
         )}
+        {evento.aristaSalida.transporte?.terminal_origen && (
+          <div class="text-xs" style="color: var(--color-text-secondary);">
+            <span class="material-symbols-rounded text-xs align-middle">terminal</span>
+            Terminal origen: {evento.aristaSalida.transporte.terminal_origen}
+            {evento.aristaSalida.transporte.terminal_destino && (
+              <span> → Terminal destino: {evento.aristaSalida.transporte.terminal_destino}</span>
+            )}
+          </div>
+        )}
+        {evento.aristaSalida.transporte?.codigo_reserva_confirmacion && (
+          <div class="text-xs" style="color: var(--color-text-secondary);">
+            <span class="material-symbols-rounded text-xs align-middle">confirmation_number</span>
+            Código reserva: {evento.aristaSalida.transporte.codigo_reserva_confirmacion}
+          </div>
+        )}
+      </div>
+    )}
+    
+    <!-- Transporte entrante -->
+    {evento.aristaEntrante && !evento.aristaSalida && (
+      <div>
+        <span class="text-xs" style="color: var(--color-text-muted);">Llegada en</span>
+        <div class="flex items-center gap-2 mt-1">
+          <span 
+            class="material-symbols-rounded"
+            style="color: var(--event-color, var(--color-primary));"
+          >
+            {evento.icon}
+          </span>
+          <span style="color: var(--color-text-primary);">
+            {evento.aristaEntrante.modo}
+            {evento.aristaEntrante.transporte?.compania && (
+              <span> · {evento.aristaEntrante.transporte.compania}</span>
+            )}
+          </span>
+        </div>
       </div>
     )}
   </div>

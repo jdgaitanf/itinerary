@@ -44,7 +44,7 @@ Alpine.store('itinerary', {
     
     try {
       // Cargar los módulos
-      const dataLoaderModule = await import('/src/utils/dataLoader.js');
+      const dataLoaderModule = await import('/src/utils/dataLoader/index.js');
       const builderModule = await import('/src/utils/itineraryBuilder.js');
       
       this.dataLoader = dataLoaderModule.getDataLoader();
@@ -56,11 +56,33 @@ Alpine.store('itinerary', {
       await this.itineraryBuilder.build();
       console.log('Itinerario construido. Días:', this.itineraryBuilder.dias.length);
       
+      // NUEVO: Verificar el orden de visita
+      const ordenVisita = this.dataLoader.ordenVisita || [];
+      console.log(`📋 Orden de visita: ${ordenVisita.length} elementos`);
+      
+      // Mostrar los primeros 10 elementos del orden
+      if (ordenVisita.length > 0) {
+        const muestra = ordenVisita.slice(0, 10).map(item => 
+          `${item.tipo}:${item.id} (${item.indice})`
+        );
+        console.log('📌 Primeros elementos del orden:', muestra.join(', '));
+        console.log('📌 Primeros elementos del orden:', ordenVisita);
+      }
+      
       // Cargar los días iniciales
       this.dias = this.itineraryBuilder.dias;
       this.diasCargados = this.itineraryBuilder.getInitialDays(this.CANTIDAD_INICIAL);
       this.diaInicioCargado = this.CANTIDAD_INICIAL;
       console.log('Días cargados:', this.diasCargados.length);
+      
+      // NUEVO: Verificar el orden de eventos en el primer día
+      if (this.diasCargados.length > 0 && this.diasCargados[0].eventos.length > 0) {
+        const eventos = this.diasCargados[0].eventos;
+        console.log(`📌 Eventos del día 1 (${eventos.length}):`);
+        eventos.forEach((ev, idx) => {
+          console.log(`  ${idx + 1}. ${ev.nombre} (orden: ${ev.ordenVisita ?? 'N/A'})`);
+        });
+      }
       
       if (this.diaInicioCargado >= this.dias.length) {
         this.todosLosDiasCargados = true;
@@ -212,6 +234,38 @@ Alpine.store('itinerary', {
     if (!this.dataLoader) return;
     this.dataLoader.clearCache();
     console.log('Caché limpiada. Recargando datos...');
+  },
+
+  /**
+   * NUEVO: Obtiene el orden de visita para un elemento
+   */
+  getOrdenVisita(tipo, id) {
+    if (!this.dataLoader) return -1;
+    return this.dataLoader.getOrden(tipo, id);
+  },
+
+  /**
+   * NUEVO: Obtiene la posición en el itinerario para un elemento
+   */
+  getPosicion(tipo, id) {
+    const orden = this.getOrdenVisita(tipo, id);
+    return orden >= 0 ? orden + 1 : null;
+  },
+
+  /**
+   * NUEVO: Compara dos elementos por su orden de visita
+   */
+  compararOrden(a, b) {
+    if (!this.dataLoader) return 0;
+    return this.dataLoader.compararOrden(a, b);
+  },
+
+  /**
+   * NUEVO: Obtiene todos los elementos del orden de visita
+   */
+  getOrdenCompleto() {
+    if (!this.dataLoader) return [];
+    return this.dataLoader.ordenVisita || [];
   },
 
   /**

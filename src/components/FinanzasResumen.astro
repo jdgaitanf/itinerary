@@ -166,6 +166,47 @@ const { finanzas, moneda } = Astro.props;
           </div>
         </template>
       </div>
+      
+      <!-- NUEVO: Total de gastos por persona con barra comparativa -->
+      <div class="mt-4 p-3 rounded-xl" style="background: var(--color-bg); border: 1px solid var(--color-border-light);">
+        <span class="text-xs" style="color: var(--color-text-muted);">Comparativa por persona</span>
+        <div class="mt-2 space-y-2">
+          <template x-for="(persona, nombre) in finanzas.gastosPorPersona" :key="nombre">
+            <div>
+              <div class="flex justify-between text-xs">
+                <span style="color: var(--color-text-secondary);">{nombre}</span>
+                <span style="color: var(--color-text-primary);">
+                  {$store.itinerary.formatearMonto(persona.total, 'COP')}
+                </span>
+              </div>
+              <div class="progress-bar mt-0.5" style="height: 4px;">
+                <div 
+                  class="progress-bar-fill"
+                  :style="`width: ${(persona.total / finanzas.totalGastado) * 100}%; background: ${['#4A6CF7', '#2ECC71', '#F39C12', '#E74C3C', '#9B59B6', '#1ABC9C'][Object.keys(finanzas.gastosPorPersona).indexOf(nombre) % 6]};`"
+                ></div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUEVO: Resumen de elementos del itinerario -->
+    <div class="mt-6">
+      <h3 class="text-sm font-medium mb-3" style="color: var(--color-text-primary);">
+        <span class="material-symbols-rounded text-base align-middle mr-1">route</span>
+        Resumen del itinerario
+      </h3>
+      <div class="grid grid-cols-2 gap-2">
+        <div class="p-3 rounded-xl text-center" style="background: var(--color-card-bg);">
+          <span class="text-2xl font-bold" style="color: var(--color-primary);" x-text="$store.itinerary.dias.length"></span>
+          <span class="text-xs block" style="color: var(--color-text-muted);">Días totales</span>
+        </div>
+        <div class="p-3 rounded-xl text-center" style="background: var(--color-card-bg);">
+          <span class="text-2xl font-bold" style="color: var(--color-primary);" x-text="$store.itinerary.dias.reduce((total, dia) => total + dia.eventos.length, 0)"></span>
+          <span class="text-xs block" style="color: var(--color-text-muted);">Eventos totales</span>
+        </div>
+      </div>
     </div>
   </div>
 

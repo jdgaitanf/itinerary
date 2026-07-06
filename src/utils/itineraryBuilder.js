@@ -3,7 +3,7 @@
  * Procesa los datos crudos y los convierte en estructura para la UI
  */
 
-import { getDataLoader } from './dataLoader.js';
+import { getDataLoader } from './dataLoader/index.js';
 
 export class ItineraryBuilder {
   constructor(dataLoader) {
@@ -83,6 +83,9 @@ export class ItineraryBuilder {
    * Prepara un evento para la UI
    */
   prepareEvento(evento) {
+    // NUEVO: Obtener el orden de visita si existe
+    const ordenVisita = this.dataLoader.getOrden('nodo', evento.id);
+    
     return {
       ...evento,
       icon: this.getEventIcon(evento.tipo),
@@ -94,6 +97,10 @@ export class ItineraryBuilder {
       detalles: this.getDetallesCompletos(evento),
       costo: this.getCosto(evento),
       tieneHolgura: !!evento.holgura,
+      // NUEVO: Añadir el orden de visita para la UI
+      ordenVisita: ordenVisita,
+      // NUEVO: Indicador de posición en el itinerario
+      posicion: ordenVisita >= 0 ? `#${ordenVisita + 1}` : null,
     };
   }
 
@@ -133,6 +140,11 @@ export class ItineraryBuilder {
         evento.aristaEntrante.logistica_salida.hora_llegada_destino
       );
     }
+    if (evento.aristaSalida?.logistica_salida?.hora_salida_origen) {
+      return this._formatearHora(
+        evento.aristaSalida.logistica_salida.hora_salida_origen
+      );
+    }
     return null;
   }
 
@@ -146,7 +158,7 @@ export class ItineraryBuilder {
     if (dir.calle) partes.push(dir.calle);
     if (dir.ciudad) partes.push(dir.ciudad);
     if (dir.pais) partes.push(dir.pais);
-    return partes.join(', ');
+    return partes.join(', ') || null;
   }
 
   /**
@@ -183,17 +195,20 @@ export class ItineraryBuilder {
       horaFin: evento.horaFin,
       direccion: this.getDireccion(evento.nodo),
       mapsLink: this.getMapsLink(evento.nodo),
+      // NUEVO: Añadir el orden de visita en los detalles
+      ordenVisita: evento.ordenVisita,
+      posicion: evento.ordenVisita >= 0 ? `#${evento.ordenVisita + 1}` : null,
     };
 
     // Detalles específicos según tipo
     const nodo = evento.nodo;
     switch (evento.tipo) {
       case 'vuelo':
-        detalles.aerolinea = nodo.aerolinea || 'No especificada';
-        detalles.numeroVuelo = nodo.numero_vuelo || 'N/A';
-        detalles.terminal = nodo.terminal || 'N/A';
+        detalles.aerolinea = nodo.reserva?.plataforma || 'No especificada';
+        detalles.numeroVuelo = nodo.reserva?.codigo_reserva || 'N/A';
+        detalles.terminal = nodo.direccion?.terminal || 'N/A';
         detalles.puerta = nodo.puerta_embarque || 'N/A';
-        detalles.codigoReserva = nodo.codigo_reserva || 'N/A';
+        detalles.codigoReserva = nodo.reserva?.codigo_reserva || 'N/A';
         break;
       
       case 'hotel':
@@ -204,8 +219,8 @@ export class ItineraryBuilder {
         break;
       
       case 'festival':
-        detalles.apertura = nodo.horarios?.apertura || 'N/A';
-        detalles.cierre = nodo.horarios?.cierre || 'N/A';
+        detalles.apertura = nodo.horarios?.horario_apertura || 'N/A';
+        detalles.cierre = nodo.horarios?.horario_cierre || 'N/A';
         detalles.lineup = nodo.lineup || [];
         break;
       
@@ -234,6 +249,21 @@ export class ItineraryBuilder {
         compania: arista.transporte?.compania || 'No especificada',
         tipoVehiculo: arista.transporte?.tipo_vehiculo || 'N/A',
         tiempoEstimado: arista.tiempo_estimado,
+        numeroVuelo: arista.transporte?.numero_vuelo || null,
+        terminalOrigen: arista.transporte?.terminal_origen || null,
+        terminalDestino: arista.transporte?.terminal_destino || null,
+        codigoReserva: arista.transporte?.codigo_reserva_confirmacion || null,
+      };
+    }
+
+    // Información de la arista entrante si existe
+    if (evento.aristaEntrante) {
+      const arista = evento.aristaEntrante;
+      detalles.transporteEntrante = {
+        modo: arista.modo,
+        compania: arista.transporte?.compania || 'No especificada',
+        tiempoEstimado: arista.tiempo_estimado,
+        numeroVuelo: arista.transporte?.numero_vuelo || null,
       };
     }
 
@@ -251,9 +281,14 @@ export class ItineraryBuilder {
       return nodo.reserva.costo;
     }
     
-    // Buscar en arista
+    // Buscar en arista de salida
     if (evento.aristaSalida?.costos) {
       return evento.aristaSalida.costos;
+    }
+    
+    // Buscar en arista de entrada
+    if (evento.aristaEntrante?.costos) {
+      return evento.aristaEntrante.costos;
     }
     
     return null;
@@ -296,6 +331,9 @@ export class ItineraryBuilder {
     if (evento.aristaEntrante?.logistica_salida?.fecha_salida) {
       return evento.aristaEntrante.logistica_salida.fecha_salida;
     }
+    if (evento.aristaSalida?.logistica_salida?.fecha_salida) {
+      return evento.aristaSalida.logistica_salida.fecha_salida;
+    }
     return null;
   }
 
@@ -308,6 +346,28 @@ export class ItineraryBuilder {
     const ampm = h >= 12 ? 'PM' : 'AM';
     const h12 = h % 12 || 12;
     return `${h12}:${String(m).padStart(2, '0')} ${ampm}`;
+  }
+
+  /**
+   * NUEVO: Obtiene el orden de visita para un evento
+   */
+  getOrdenVisita(tipo, id) {
+    return this.dataLoader.getOrden(tipo, id);
+  }
+
+  /**
+   * NUEVO: Obtiene la posición en el itinerario para un evento
+   */
+  getPosicion(tipo, id) {
+    const orden = this.getOrdenVisita(tipo, id);
+    return orden >= 0 ? orden + 1 : null;
+  }
+
+  /**
+   * NUEVO: Compara dos elementos por su orden de visita
+   */
+  compararOrden(a, b) {
+    return this.dataLoader.compararOrden(a, b);
   }
 }
 
