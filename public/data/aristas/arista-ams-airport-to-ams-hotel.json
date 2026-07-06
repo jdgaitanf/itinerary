@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "ams-airport-to-ams-hotel",
   "origen_id": "ams-airport",
   "destino_id": "ams-zaan-hotel",

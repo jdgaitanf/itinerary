@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "zrh-airport-to-ams-airport",
   "origen_id": "zrh-airport",
   "destino_id": "ams-airport",

@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "bcn-hotel-to-bcn-airport",
   "origen_id": "bcn-hotel-upper-diagonal",
   "destino_id": "bcn-airport",

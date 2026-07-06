@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "ham-airport",
   "tipo": "aeropuerto",
   "nombre": "Aeropuerto de Hamburgo",

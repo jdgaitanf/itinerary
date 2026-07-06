@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "bog-airport-to-bcn-airport",
   "origen_id": "bog-airport-eldorado",
   "destino_id": "bcn-airport",

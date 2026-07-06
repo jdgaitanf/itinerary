@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "ham-airport-to-ham-hotel",
   "origen_id": "ham-airport",
   "destino_id": "ham-st-joseph-hotel",

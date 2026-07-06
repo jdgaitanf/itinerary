@@ -1,6 +1,7 @@
 {
+  "oculto": false,
   "id": "bog-casa-david",
-  "tipo": "casa",
+  "tipo": "casa-origen",
   "nombre": "Casa",
   "direccion": {
     "ciudad": "Bogotá",

@@ -1,4 +1,5 @@
 {
+  "oculto": false,
   "id": "bcn-airport-to-fco-airport",
   "origen_id": "bcn-airport",
   "destino_id": "fco-airport",
