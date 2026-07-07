@@ -2,24 +2,126 @@
 import Layout from "../components/layout/Layout.astro";
 import NavBar from "../components/navigation/NavBar.astro";
 import DayCard from "../components/itinerary/DayCard.astro";
-import { loadViajeData } from "../scripts/dataLoader";
-import { buildItineraryFromGraph } from "../scripts/graphBuilder";
 
-// Cargar datos en el servidor (Astro)
-const viajeData = await loadViajeData();
-
-// Construir el itinerario
+// Intentar cargar los datos directamente usando importación dinámica en el servidor
 let eventos = [];
 let nombreViaje = "Wacken 2026";
-let fechasViaje = { inicio: "", fin: "" };
+let fechasViaje = { inicio: "2026-07-17", fin: "2026-08-03" };
 
-if (viajeData) {
-  nombreViaje = viajeData.nombre_viaje;
-  fechasViaje = viajeData.fechas;
-  eventos = buildItineraryFromGraph(viajeData.nodos, viajeData.aristas);
+try {
+  // Importar directamente el archivo raíz
+  const rootData = await import('../data/viaje-raiz.json');
+  
+  // Importar todos los nodos
+  const nodosData = await Promise.all(
+    rootData.default.referencias.nodos.map(async (path) => {
+      try {
+        const module = await import(`../data/${path}`);
+        return module.default;
+      } catch (err) {
+        console.warn(`No se pudo cargar el nodo: ${path}`);
+        return null;
+      }
+    })
+  );
+
+  // Importar todas las aristas
+  const aristasData = await Promise.all(
+    rootData.default.referencias.aristas.map(async (path) => {
+      try {
+        const module = await import(`../data/${path}`);
+        return module.default;
+      } catch (err) {
+        console.warn(`No se pudo cargar la arista: ${path}`);
+        return null;
+      }
+    })
+  );
+
+  const nodos = nodosData.filter(n => n !== null);
+  const aristas = aristasData.filter(a => a !== null);
+
+  nombreViaje = rootData.default.nombre_viaje;
+  fechasViaje = rootData.default.fechas;
+
+  // Construir el itinerario manualmente (versión simplificada)
+  const casaOrigen = nodos.find(n => n.tipo === 'casa_origen');
+  if (casaOrigen) {
+    // Crear eventos para todos los nodos
+    nodos.forEach(nodo => {
+      if (!nodo.oculto || nodo.tipo === 'casa_origen') {
+        const evento = {
+          id: nodo.id,
+          tipo: nodo.tipo,
+          nombre: nodo.nombre,
+          hora: nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].entrada : '',
+          direccion: nodo.direccion ? [nodo.direccion.calle, nodo.direccion.ciudad, nodo.direccion.pais].filter(Boolean).join(', ') : '',
+          detalles: nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].notas || '' : '',
+          icono: obtenerIconoParaTipo(nodo.tipo),
+          reserva: nodo.visitas && nodo.visitas.length > 0 && nodo.visitas[0].reserva ? nodo.visitas[0].reserva.codigo_reserva || '' : '',
+          compania: nodo.visitas && nodo.visitas.length > 0 && nodo.visitas[0].reserva ? nodo.visitas[0].reserva.plataforma || '' : '',
+          tiempo_estimado: nodo.tiempo_estimado_visita || ''
+        };
+        eventos.push(evento);
+      }
+    });
+
+    // Agregar aristas
+    aristas.forEach(arista => {
+      if (!arista.oculto || arista.reglas_holgura) {
+        const modoNombres = {
+          'avion': 'Avión',
+          'tren': 'Tren',
+          'metro': 'Metro',
+          'bus': 'Autobús',
+          'auto': 'Auto',
+          'caminata': 'Caminata',
+          'taxi': 'Taxi'
+        };
+        const modoIconos = {
+          'avion': 'flight',
+          'tren': 'train',
+          'metro': 'subway',
+          'bus': 'bus_alert',
+          'auto': 'directions_car',
+          'caminata': 'directions_walk',
+          'taxi': 'taxi'
+        };
+        
+        const evento = {
+          id: arista.id,
+          tipo: 'arista',
+          nombre: `${modoNombres[arista.modo] || arista.modo}: ${arista.origen_id} → ${arista.destino_id}`,
+          hora: arista.logistica_salida?.hora_salida_origen || '',
+          detalles: arista.transporte?.detalles || arista.notas || '',
+          icono: modoIconos[arista.modo] || 'directions_transit',
+          tiempo_estimado: arista.tiempo_estimado?.rango || '',
+          reserva: arista.transporte?.codigo_reserva_confirmacion || '',
+          compania: arista.transporte?.compania || ''
+        };
+        eventos.push(evento);
+      }
+    });
+  }
+
+  function obtenerIconoParaTipo(tipo) {
+    const iconos = {
+      'casa_origen': 'home',
+      'casa': 'home',
+      'casa_amigo': 'home',
+      'aeropuerto': 'flight_takeoff',
+      'hotel': 'bed',
+      'atraccion': 'theater_masks',
+      'festival': 'music_note',
+      'oficina_alquiler': 'corporate_fare'
+    };
+    return iconos[tipo] || 'place';
+  }
+
+} catch (error) {
+  console.error('Error cargando datos:', error);
 }
 
-// Crear un día único con todos los eventos (para pruebas)
 const diaUnico = {
   dia: 1,
   fecha: fechasViaje.inicio || "2026-07-17",
@@ -34,7 +136,7 @@ const diaUnico = {
 ---
 
 <Layout title={`Itinerary - ${nombreViaje}`}>
-  <div x-data="appState" x-init="init()" class="app-container" x-id="app">
+  <div x-data="appState" x-init="init()" class="app-container">
     <main class="main-content">
       <!-- Vista Itinerario -->
       <div x-show="activeTab === 'itinerary'" class="tab-content">

@@ -1,39 +1,51 @@
+// Esta versión usa una estrategia diferente: intenta importar directamente los JSON
+// y si falla, usa fetch
 export async function loadViajeData() {
   try {
-    // Cargar el archivo raíz
-    const rootResponse = await fetch('/data/viaje-raiz.json');
-    if (!rootResponse.ok) {
-      throw new Error('No se pudo cargar viaje-raiz.json');
+    // Intentar importar directamente el JSON raíz
+    let rootData;
+    try {
+      // Usar fetch con URL absoluta en el servidor
+      const response = await fetch('http://localhost:3000/data/viaje-raiz.json');
+      if (!response.ok) throw new Error('Fetch failed');
+      rootData = await response.json();
+    } catch {
+      // Si fetch falla, intentar importar directamente
+      const module = await import('../data/viaje-raiz.json');
+      rootData = module.default;
     }
-    const rootData = await rootResponse.json();
 
-    // Cargar todos los nodos
+    // Cargar todos los nodos usando el mismo método
     const nodos = await Promise.all(
       rootData.referencias.nodos.map(async (path) => {
-        const response = await fetch(`/data/${path}`);
-        if (!response.ok) {
-          console.warn(`No se pudo cargar el nodo: ${path}`);
-          return null;
+        try {
+          const response = await fetch(`http://localhost:3000/data/${path}`);
+          if (!response.ok) throw new Error('Fetch failed');
+          return response.json();
+        } catch {
+          const module = await import(`../data/${path}`);
+          return module.default;
         }
-        return response.json();
       })
     );
 
     // Cargar todas las aristas
     const aristas = await Promise.all(
       rootData.referencias.aristas.map(async (path) => {
-        const response = await fetch(`/data/${path}`);
-        if (!response.ok) {
-          console.warn(`No se pudo cargar la arista: ${path}`);
-          return null;
+        try {
+          const response = await fetch(`http://localhost:3000/data/${path}`);
+          if (!response.ok) throw new Error('Fetch failed');
+          return response.json();
+        } catch {
+          const module = await import(`../data/${path}`);
+          return module.default;
         }
-        return response.json();
       })
     );
 
-    // Filtrar elementos nulos (por si algún archivo no se cargó)
-    const nodosValidos = nodos.filter(n => n !== null);
-    const aristasValidas = aristas.filter(a => a !== null);
+    // Filtrar elementos nulos
+    const nodosValidos = nodos.filter(n => n !== null && n !== undefined);
+    const aristasValidas = aristas.filter(a => a !== null && a !== undefined);
 
     return {
       version: rootData.version,
