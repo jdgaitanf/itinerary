@@ -1,0 +1,16 @@
+{
+  "name": "itinerary-app",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.1"
+  },
+  "devDependencies": {
+    "astro": "^4.0.0"
+  }
+}
