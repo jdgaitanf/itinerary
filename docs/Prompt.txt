@@ -13,6 +13,6 @@ Ten en cuenta estas reglas durante esta conversación:
 - Por limitaciones de la plataforma de IA, si hay un cambios de ficheros completos (de esos con menos de 300 líneas) muestra 3 ficheros por respuesta y espera a mi confirmación para mostrar los otros 3. La confirmación debe ser que yo te envíe "c" o te diga que continúes.
 - Siempre que vayas a implementar algo, dame un resumen de lo que vas a hacer espera mi aprobación para lanzar código.
 - Cuando te pregunte algo, nunca asumas que necesito evaluar el impacto en código. No muestres eso a menos que te lo pida explícitamente o que te diga que proceda con la implementación de una sugerencia.
-- Ten presente siempre los documentos de definición docs\DefiniciónItinerario.md y docs\Plan-UX.md
+- Ten presente siempre los documentos de definición docs\DefiniciónItinerario.md y docs\ETF.md
 - Evita poner bloques de Markdown cuando te solicite un fichero de ese tipo, solo lo vas a escribir como una respuesta normal (Al copiar desde acá, el formato de la respuesta es de markdown, por eso no es necesario incluír bloques)
 - Evita colocar emoticonos en respuestas, código y logs.
