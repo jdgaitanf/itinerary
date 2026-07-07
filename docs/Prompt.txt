@@ -20,3 +20,4 @@ Ten en cuenta estas reglas durante esta conversación:
 - El código debe ser modular. Cuanto más sea posible extraer en diferentes archivos mejor.
 - Sigue los principios SOLID que apliquen
 - Te podré agregar reglas en el transcurso de la interacción
+- Siempre dime si, después de una modificación, algún fichero queda inutilizado y se puede borrar

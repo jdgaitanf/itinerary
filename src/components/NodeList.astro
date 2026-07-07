@@ -1,0 +1,38 @@
+---
+// Este componente se ejecuta en el servidor para el HTML inicial
+// pero la lógica de carga se ejecuta en el cliente
+---
+
+<div id="node-list-container">
+  <h2>IDs de los nodos:</h2>
+  <p id="node-list">Cargando...</p>
+</div>
+
+<script>
+  import { getViajeGraph } from '../lib/storage.js';
+  import { loadViajeData } from '../lib/dataLoader.js';
+  import { formatNodeIds } from '../lib/displayHelpers.js';
+
+  async function displayNodeIds() {
+    const nodeListElement = document.getElementById('node-list');
+    
+    if (!nodeListElement) {
+      console.error('Element #node-list not found');
+      return;
+    }
+    
+    let graph = getViajeGraph();
+    
+    if (!graph) {
+      graph = await loadViajeData();
+    }
+    
+    if (graph && graph.nodos) {
+      nodeListElement.textContent = formatNodeIds(graph.nodos);
+    } else {
+      nodeListElement.textContent = 'No se encontraron nodos';
+    }
+  }
+
+  displayNodeIds();
+</script>
