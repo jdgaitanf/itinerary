@@ -1,5 +1,5 @@
 ---
-import EventItem from './EventItem.astro';
+import EventItem from "./EventItem.astro";
 
 export interface Evento {
   id: string;
@@ -43,18 +43,17 @@ const { dia } = Astro.props;
       <span class="weather-temp">{dia.clima.temperatura}</span>
       <span class="weather-condition">{dia.clima.condicion}</span>
     </div>
-    <button class="toggle-btn">
-      <span class="material-symbols-outlined" x-text="expanded ? 'expand_less' : 'expand_more'"></span>
-    </button>
+    <span
+      class="material-symbols-outlined"
+      x-text="expanded ? 'expand_less' : 'expand_more'"
+    ></span>
   </div>
 
   <!-- Contenido del día (eventos) -->
   <div class="day-content" x-show="expanded" x-collapse.duration.200ms>
-    {
-      dia.eventos.map((evento) => (
-        <EventItem evento={evento} />
-      ))
-    }
+    {dia.eventos.map((evento) => (
+      <EventItem evento={evento} />
+    ))}
   </div>
 </div>
 
@@ -125,18 +124,6 @@ const { dia } = Astro.props;
     font-weight: 500;
   }
 
-  .toggle-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    color: #999;
-  }
-
-  .toggle-btn .material-symbols-outlined {
-    font-size: 20px;
-  }
-
   .day-content {
     padding: 0 16px 8px 16px;
   }
@@ -170,10 +157,6 @@ const { dia } = Astro.props;
 
     .day-weather {
       color: #aaa;
-    }
-
-    .toggle-btn {
-      color: #777;
     }
   }
 </style>

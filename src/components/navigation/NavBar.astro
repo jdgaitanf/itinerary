@@ -1,24 +1,24 @@
 <div class="nav-bar" x-data>
-  <button 
-    class="nav-item" 
+  <button
+    class="nav-item"
     :class="{ 'active': $root.activeTab === 'itinerary' }"
     @click="$root.switchTab('itinerary')"
   >
     <span class="material-symbols-outlined">calendar_month</span>
     <span class="nav-label">Itinerario</span>
   </button>
-  
-  <button 
-    class="nav-item" 
+
+  <button
+    class="nav-item"
     :class="{ 'active': $root.activeTab === 'finances' }"
     @click="$root.switchTab('finances')"
   >
     <span class="material-symbols-outlined">payments</span>
     <span class="nav-label">Finanzas</span>
   </button>
-  
-  <button 
-    class="nav-item" 
+
+  <button
+    class="nav-item"
     :class="{ 'active': $root.activeTab === 'settings' }"
     @click="$root.switchTab('settings')"
   >
@@ -26,61 +26,3 @@
     <span class="nav-label">Ajustes</span>
   </button>
 </div>
-
-<style>
-  .nav-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 60px;
-    background-color: #ffffff;
-    border-top: 1px solid #e0e0e0;
-    z-index: 1000;
-  }
-  
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    background: none;
-    border: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-family: inherit;
-    color: #666666;
-    font-size: 11px;
-    transition: color 0.2s;
-  }
-  
-  .nav-item .material-symbols-outlined {
-    font-size: 24px;
-  }
-  
-  .nav-item.active {
-    color: #1976d2;
-  }
-  
-  .nav-label {
-    font-size: 10px;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    .nav-bar {
-      background-color: #1e1e1e;
-      border-top-color: #333333;
-    }
-    
-    .nav-item {
-      color: #999999;
-    }
-    
-    .nav-item.active {
-      color: #42a5f5;
-    }
-  }
-</style>

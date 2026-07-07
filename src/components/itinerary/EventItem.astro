@@ -15,56 +15,71 @@ export interface Evento {
 
 const { evento } = Astro.props;
 
-const esArista = evento.tipo === 'arista';
+const esArista = evento.tipo === "arista";
 ---
 
-<div class="event-item" class:list={['event-item', esArista ? 'is-edge' : '']} x-data="{ expanded: false }">
+<div
+  class="event-item"
+  class:list={["event-item", esArista ? "is-edge" : ""]}
+  x-data="{ expanded: false }"
+>
   <div class="event-row" @click="expanded = !expanded">
     <span class="event-icon material-symbols-outlined">{evento.icono}</span>
     <span class="event-name">{evento.nombre}</span>
     <span class="event-time">{evento.hora}</span>
-    <button class="expand-btn">
-      <span class="material-symbols-outlined" x-text="expanded ? 'expand_less' : 'expand_more'"></span>
-    </button>
+    <span
+      class="material-symbols-outlined"
+      x-text="expanded ? 'expand_less' : 'expand_more'"
+    ></span>
   </div>
 
   <!-- Contenido expandido -->
   <div class="event-details" x-show="expanded" x-collapse.duration.200ms>
     <div class="details-grid">
-      {evento.direccion && (
-        <div class="detail-item">
-          <span class="detail-label">Ubicacion</span>
-          <span class="detail-value">{evento.direccion}</span>
-        </div>
-      )}
-      
-      {evento.detalles && (
-        <div class="detail-item">
-          <span class="detail-label">Detalles</span>
-          <span class="detail-value">{evento.detalles}</span>
-        </div>
-      )}
-      
-      {evento.tiempo_estimado && (
-        <div class="detail-item">
-          <span class="detail-label">Tiempo estimado</span>
-          <span class="detail-value">{evento.tiempo_estimado}</span>
-        </div>
-      )}
-      
-      {evento.reserva && (
-        <div class="detail-item">
-          <span class="detail-label">Reserva</span>
-          <span class="detail-value">{evento.reserva}</span>
-        </div>
-      )}
-      
-      {evento.compania && (
-        <div class="detail-item">
-          <span class="detail-label">Compañia</span>
-          <span class="detail-value">{evento.compania}</span>
-        </div>
-      )}
+      {
+        evento.direccion && (
+          <div class="detail-item">
+            <span class="detail-label">Ubicacion</span>
+            <span class="detail-value">{evento.direccion}</span>
+          </div>
+        )
+      }
+
+      {
+        evento.detalles && (
+          <div class="detail-item">
+            <span class="detail-label">Detalles</span>
+            <span class="detail-value">{evento.detalles}</span>
+          </div>
+        )
+      }
+
+      {
+        evento.tiempo_estimado && (
+          <div class="detail-item">
+            <span class="detail-label">Tiempo estimado</span>
+            <span class="detail-value">{evento.tiempo_estimado}</span>
+          </div>
+        )
+      }
+
+      {
+        evento.reserva && (
+          <div class="detail-item">
+            <span class="detail-label">Reserva</span>
+            <span class="detail-value">{evento.reserva}</span>
+          </div>
+        )
+      }
+
+      {
+        evento.compania && (
+          <div class="detail-item">
+            <span class="detail-label">Compañia</span>
+            <span class="detail-value">{evento.compania}</span>
+          </div>
+        )
+      }
     </div>
   </div>
 </div>
@@ -115,18 +130,6 @@ const esArista = evento.tipo === 'arista';
     flex-shrink: 0;
   }
 
-  .expand-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    color: #bbb;
-  }
-
-  .expand-btn .material-symbols-outlined {
-    font-size: 18px;
-  }
-
   .event-details {
     padding: 8px 0 4px 34px;
     font-size: 13px;
@@ -173,10 +176,6 @@ const esArista = evento.tipo === 'arista';
 
     .event-time {
       color: #888;
-    }
-
-    .expand-btn {
-      color: #666;
     }
 
     .event-details {

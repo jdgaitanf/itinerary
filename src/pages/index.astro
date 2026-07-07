@@ -2,16 +2,51 @@
 import Layout from "../components/layout/Layout.astro";
 import NavBar from "../components/navigation/NavBar.astro";
 import DayCard from "../components/itinerary/DayCard.astro";
-import diaMock from "../data/dia-mock.json";
+import { loadViajeData } from "../scripts/dataLoader";
+import { buildItineraryFromGraph } from "../scripts/graphBuilder";
+
+// Cargar datos en el servidor (Astro)
+const viajeData = await loadViajeData();
+
+// Construir el itinerario
+let eventos = [];
+let nombreViaje = "Wacken 2026";
+let fechasViaje = { inicio: "", fin: "" };
+
+if (viajeData) {
+  nombreViaje = viajeData.nombre_viaje;
+  fechasViaje = viajeData.fechas;
+  eventos = buildItineraryFromGraph(viajeData.nodos, viajeData.aristas);
+}
+
+// Crear un día único con todos los eventos (para pruebas)
+const diaUnico = {
+  dia: 1,
+  fecha: fechasViaje.inicio || "2026-07-17",
+  ciudad: "Recorrido del grafo",
+  clima: {
+    temperatura: "",
+    condicion: "Todos los eventos",
+    icono: "route"
+  },
+  eventos: eventos
+};
 ---
 
-<Layout title="Itinerary - Wacken 2026">
+<Layout title={`Itinerary - ${nombreViaje}`}>
   <div x-data="appState" x-init="init()" class="app-container" x-id="app">
     <main class="main-content">
       <!-- Vista Itinerario -->
       <div x-show="activeTab === 'itinerary'" class="tab-content">
         <div class="itinerary-list">
-          <DayCard dia={diaMock} />
+          {eventos.length > 0 ? (
+            <DayCard dia={diaUnico} />
+          ) : (
+            <p>No se encontraron eventos. Verifica que los archivos JSON estén disponibles.</p>
+          )}
+          <p style="font-size: 12px; color: #888; margin-top: 16px; text-align: center;">
+            Total de eventos: {eventos.length}
+          </p>
         </div>
       </div>
 

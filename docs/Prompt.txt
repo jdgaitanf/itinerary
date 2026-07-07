@@ -16,3 +16,4 @@ Ten en cuenta estas reglas durante esta conversación:
 - Ten presente siempre los documentos de definición docs\DefiniciónItinerario.md y docs\ETF.md
 - Evita poner bloques de Markdown cuando te solicite un fichero de ese tipo, solo lo vas a escribir como una respuesta normal (Al copiar desde acá, el formato de la respuesta es de markdown, por eso no es necesario incluír bloques)
 - Evita colocar emoticonos en respuestas, código y logs.
+- El estilo y la apariencia no importan ahora. No pongas estilos hasta que yo lo determine.
