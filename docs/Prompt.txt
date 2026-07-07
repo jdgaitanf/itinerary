@@ -17,3 +17,6 @@ Ten en cuenta estas reglas durante esta conversación:
 - Evita poner bloques de Markdown cuando te solicite un fichero de ese tipo, solo lo vas a escribir como una respuesta normal (Al copiar desde acá, el formato de la respuesta es de markdown, por eso no es necesario incluír bloques)
 - Evita colocar emoticonos en respuestas, código y logs.
 - IMPORTANTE> El estilo y la apariencia no importan ahora. No pongas estilos hasta que yo lo determine.
+- El código debe ser modular. Cuanto más sea posible extraer en diferentes archivos mejor.
+- Sigue los principios SOLID que apliquen
+- Te podré agregar reglas en el transcurso de la interacción

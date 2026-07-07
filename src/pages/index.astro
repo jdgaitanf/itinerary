@@ -1,6 +1,5 @@
 ---
-// Este es el frontmatter de Astro (código JavaScript/TypeScript que se ejecuta en el servidor)
-// No hay lógica adicional necesaria para "Hola mundo"
+import { loadViajeData } from '../lib/dataLoader.js';
 ---
 
 <html lang="es">
@@ -11,5 +10,11 @@
   </head>
   <body>
     <h1>Hola mundo</h1>
+
+    <script>
+      import { loadViajeData } from '../lib/dataLoader.js';
+
+      loadViajeData();
+    </script>
   </body>
 </html>
