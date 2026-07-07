@@ -1,6 +1,6 @@
-const STORAGE_KEY = 'viajeData';
+const STORAGE_KEY = 'viajeGraph';
 
-export function getViajeData() {
+export function getViajeGraph() {
   const data = localStorage.getItem(STORAGE_KEY);
   if (!data) return null;
   try {
@@ -10,10 +10,10 @@ export function getViajeData() {
   }
 }
 
-export function setViajeData(data) {
+export function setViajeGraph(data) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
-export function hasViajeData() {
+export function hasViajeGraph() {
   return localStorage.getItem(STORAGE_KEY) !== null;
 }
