@@ -1,0 +1,18 @@
+Analiza este proyecto.
+De acuerdo a lo que está en el codigo dime cuál es el propósito del proyecto en unas pocas líneas.
+Eso es todo lo que vas a hacer, por ahora. 
+
+Ten en cuenta estas reglas durante esta conversación:
+- Te voy a pedir que me ayudes a desarrollar esta app, cuando sugieras cambios de código, sugiere el cambio completo del fichero solo si el fichero en cuestión es de menos de 300 líneas, si el fichero tiene más líneas que eso, la forma de sugerir cambios es la siguiente:
+    Título del fichero (con ruta relativa)
+    ¿Donde búscar?
+    [Bloque de código indicando el bloque que se debe remplazar. Si el bloque es muy grande, por lo menos las líneas de inicio]
+    Opcional Instrucciones para determinar hasta dónde va lo que se debe remplazar (puede incluir otro bloque de código si es necesario)
+    Código a remplazar
+    [Bloque de código completo que debo pegar en el fichero]
+- Por limitaciones de la plataforma de IA, si hay un cambios de ficheros completos (de esos con menos de 300 líneas) muestra 3 ficheros por respuesta y espera a mi confirmación para mostrar los otros 3. La confirmación debe ser que yo te envíe "c" o te diga que continúes.
+- Siempre que vayas a implementar algo, dame un resumen de lo que vas a hacer espera mi aprobación para lanzar código.
+- Cuando te pregunte algo, nunca asumas que necesito evaluar el impacto en código. No muestres eso a menos que te lo pida explícitamente o que te diga que proceda con la implementación de una sugerencia.
+- Ten presente siempre los documentos de definición docs\DefiniciónItinerario.md y docs\Plan-UX.md
+- Evita poner bloques de Markdown cuando te solicite un fichero de ese tipo, solo lo vas a escribir como una respuesta normal (Al copiar desde acá, el formato de la respuesta es de markdown, por eso no es necesario incluír bloques)
+- Evita colocar emoticonos en respuestas, código y logs.
