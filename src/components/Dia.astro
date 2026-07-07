@@ -74,6 +74,7 @@ const rangoOrden = ordenes.length > 0
       {dia.eventos && dia.eventos.length > 0 ? (
         dia.eventos.map((evento, idx) => (
           <Evento 
+             key={`${evento.esArista ? 'arista' : 'nodo'}-${evento.id}-${evento.ordenVisita ?? idx}`}
             evento={evento}
             diaIndex={index}
             eventoIndex={idx}

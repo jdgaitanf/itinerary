@@ -167,8 +167,8 @@ Alpine.store('itinerary', {
   /**
    * Alterna la expansión de un evento
    */
-  toggleEvento(diaIndex, eventoId) {
-    const key = `${diaIndex}-${eventoId}`;
+  toggleEvento(diaIndex, eventoId, esArista = false, ordenVisita = null) {
+    const key = `${diaIndex}-${esArista ? 'arista' : 'nodo'}-${eventoId}-${ordenVisita ?? ''}`;
     if (this.eventosExpandidos[key]) {
       delete this.eventosExpandidos[key];
     } else {

@@ -150,7 +150,7 @@ import Layout from '../layouts/Layout.astro';
           x-collapse.duration.200ms
         >
           <template x-if="dia.eventos && dia.eventos.length > 0">
-            <template x-for="(evento, idx) in dia.eventos" :key="evento.id">
+            <template x-for="(evento, idx) in dia.eventos" :key="`${evento.esArista ? 'arista' : 'nodo'}-${evento.id}-${evento.ordenVisita ?? idx}`">
               <div>
                                 <div 
                   class="evento-item"
@@ -159,7 +159,7 @@ import Layout from '../layouts/Layout.astro';
                     [$store.itinerary.getEventColor(evento.tipo)]: true,
                     'evento-arista': evento.esArista || false
                   }"
-                  @click="$store.itinerary.toggleEvento(index, evento.id)"
+                  @click="$store.itinerary.toggleEvento(index, evento.id, evento.esArista, evento.ordenVisita)"
                 >
                   <!-- Contenido del evento -->
                   <div class="flex items-start gap-3">

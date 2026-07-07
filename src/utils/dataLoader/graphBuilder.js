@@ -133,30 +133,30 @@ export class GraphBuilder {
   /**
    * Ordena eventos por orden de visita y luego por hora
    */
-_ordenarEventos(eventos) {
-  // Ordenar por orden de visita (el índice en el orden de visita)
-  return eventos.sort((a, b) => {
-    // 1. Si ambos tienen orden de visita, usarlo
-    if (a.ordenVisita !== undefined && a.ordenVisita >= 0 && 
+  _ordenarEventos(eventos) {
+    // Ordenar por orden de visita (el índice en el orden de visita)
+    return eventos.sort((a, b) => {
+      // 1. Si ambos tienen orden de visita, usarlo
+      if (a.ordenVisita !== undefined && a.ordenVisita >= 0 &&
         b.ordenVisita !== undefined && b.ordenVisita >= 0) {
-      return a.ordenVisita - b.ordenVisita;
-    }
-    
-    // 2. Si solo a tiene orden, va primero
-    if (a.ordenVisita !== undefined && a.ordenVisita >= 0) return -1;
-    if (b.ordenVisita !== undefined && b.ordenVisita >= 0) return 1;
-    
-    // 3. Si no tienen orden, ordenar por hora de inicio
-    if (a.horaInicio && b.horaInicio) {
-      return a.horaInicio.localeCompare(b.horaInicio);
-    }
-    if (a.horaInicio) return -1;
-    if (b.horaInicio) return 1;
-    
-    // 4. Último recurso: por ID
-    return (a.id || '').localeCompare(b.id || '');
-  });
-}
+        return a.ordenVisita - b.ordenVisita;
+      }
+
+      // 2. Si solo a tiene orden, va primero
+      if (a.ordenVisita !== undefined && a.ordenVisita >= 0) return -1;
+      if (b.ordenVisita !== undefined && b.ordenVisita >= 0) return 1;
+
+      // 3. Si no tienen orden, ordenar por hora de inicio
+      if (a.horaInicio && b.horaInicio) {
+        return a.horaInicio.localeCompare(b.horaInicio);
+      }
+      if (a.horaInicio) return -1;
+      if (b.horaInicio) return 1;
+
+      // 4. Último recurso: por ID
+      return (a.id || '').localeCompare(b.id || '');
+    });
+  }
 
   /**
    * Reordena el orden de visita según el algoritmo de dibujo
@@ -546,178 +546,167 @@ _ordenarEventos(eventos) {
     // Usar un Set para rastrear qué nodos ya han sido agregados al mapa de días
     const nodosAgregados = new Set();
 
-    for (const item of this.ordenVisita) {
-      if (item.tipo === 'nodo') {
-        const nodo = this.nodos.get(item.id);
-        if (!nodo) continue;
+    // 4. Recorrer el orden de visita para construir los días
+for (const item of this.ordenVisita) {
+  if (item.tipo === 'nodo') {
+    const nodo = this.nodos.get(item.id);
+    if (!nodo) continue;
 
-        // Si el nodo está oculto, no se muestra
-        if (nodo.oculto === true) {
-          console.log(`🔇 Nodo oculto: ${nodo.id} (${nodo.nombre})`);
-          continue;
-        }
+    // Si el nodo está oculto, no se muestra
+    if (nodo.oculto === true) {
+      console.log(`🔇 Nodo oculto: ${nodo.id} (${nodo.nombre})`);
+      continue;
+    }
 
-        // 🔥 NUEVO: Verificar si este nodo ya fue agregado al día actual
-        const claveNodo = `${nodo.id}`;
+    // Obtener la fecha del nodo
+    let fecha = obtenerFechaNodo(nodo);
 
-        // Obtener la fecha del nodo
-        let fecha = obtenerFechaNodo(nodo);
-
-        // Si el nodo no tiene fecha, buscar la fecha de la arista entrante
-        if (!fecha) {
-          const aristaEntrante = Array.from(this.aristas.values()).find(
-            a => a.destino_id === nodo.id && a.oculto !== true
-          );
-          if (aristaEntrante) {
-            fecha = obtenerFechaArista(aristaEntrante);
-          }
-        }
-
-        // Si aún no tiene fecha, usar la fecha del viaje + índice
-        if (!fecha && this.raiz) {
-          const fechaInicio = new Date(this.raiz.fechas.inicio);
-          const fechaNueva = new Date(fechaInicio);
-          fechaNueva.setDate(fechaNueva.getDate() + diaIndex);
-          fecha = fechaNueva.toISOString().split('T')[0];
-          diaIndex++;
-        }
-
-        if (!fecha) {
-          fecha = '2099-12-31';
-        }
-
-        // 🔥 CLAVE: Verificar si este nodo ya fue agregado a ESTE día específico
-        const claveDiaNodo = `${fecha}-${nodo.id}`;
-        if (nodosAgregados.has(claveDiaNodo)) {
-          console.log(`⏭️ Nodo ${nodo.id} ya agregado al día ${fecha}, saltando...`);
-          continue;
-        }
-        nodosAgregados.add(claveDiaNodo);
-
-        // Crear el día si no existe
-        if (!diasMap.has(fecha)) {
-          diasMap.set(fecha, {
-            fecha: fecha,
-            eventos: [],
-            ciudad: this._obtenerCiudad(nodo),
-          });
-        }
-
-        // Buscar arista entrante y saliente para este nodo
-        const aristaEntrante = Array.from(this.aristas.values()).find(
-          a => a.destino_id === nodo.id && a.oculto !== true
-        );
-
-        const aristaSalida = Array.from(this.aristas.values()).find(
-          a => a.origen_id === nodo.id && a.oculto !== true
-        );
-
-        // Obtener hora de inicio y fin
-        let horaInicio = null;
-        let horaFin = null;
-
-        if (aristaEntrante && aristaEntrante.logistica_salida) {
-          if (aristaEntrante.logistica_salida.hora_llegada_destino) {
-            horaInicio = aristaEntrante.logistica_salida.hora_llegada_destino;
-          }
-        }
-
-        if (!horaInicio && aristaSalida && aristaSalida.logistica_salida) {
-          if (aristaSalida.logistica_salida.hora_salida_origen) {
-            horaInicio = aristaSalida.logistica_salida.hora_salida_origen;
-          }
-        }
-
-        // Crear el evento del nodo
-        const eventoNodo = {
-          id: nodo.id,
-          tipo: nodo.tipo,
-          tipoElemento: 'nodo',
-          nombre: nodo.nombre,
-          nodo: nodo,
-          aristaEntrante: aristaEntrante || null,
-          aristaSalida: aristaSalida || null,
-          aristaAsociada: null,
-          horaInicio: horaInicio,
-          horaFin: horaFin,
-          holgura: this._calcularHolgura(aristaEntrante, aristaSalida),
-          ordenVisita: item.indice,
-          modoTransporte: null,
-          esArista: false,
-          nodoOriginal: nodo,
-        };
-
-        // Agregar el nodo al día
-        diasMap.get(fecha).eventos.push(eventoNodo);
-        console.log(`✅ Nodo ${nodo.id} agregado al día ${fecha}`);
-
-        // 🔥 También marcar las aristas como agregadas para evitar duplicados
-        // Buscar aristas de salida que correspondan a este nodo en el orden de visita
-        const aristasSalidaEnOrden = this.ordenVisita.filter(
-          ordenItem => ordenItem.tipo === 'arista' && ordenItem.origen === nodo.id
-        );
-
-        // Usar un Set para aristas ya agregadas en este día
-        const aristasAgregadasEnDia = new Set();
-
-        for (const aristaItem of aristasSalidaEnOrden) {
-          const aristaSalidaCompleta = this.aristas.get(aristaItem.id);
-          if (!aristaSalidaCompleta || aristaSalidaCompleta.oculto === true) continue;
-
-          // 🔥 Verificar si esta arista ya fue agregada en este día
-          if (aristasAgregadasEnDia.has(aristaSalidaCompleta.id)) {
-            console.log(`⏭️ Arista ${aristaSalidaCompleta.id} ya agregada al día ${fecha}, saltando...`);
-            continue;
-          }
-          aristasAgregadasEnDia.add(aristaSalidaCompleta.id);
-
-          const nodoDestino = this.nodos.get(aristaSalidaCompleta.destino_id);
-
-          // Obtener la fecha de la arista
-          let fechaArista = obtenerFechaArista(aristaSalidaCompleta);
-          if (!fechaArista) {
-            fechaArista = fecha;
-          }
-
-          // Crear el día para la arista si no existe
-          if (!diasMap.has(fechaArista)) {
-            diasMap.set(fechaArista, {
-              fecha: fechaArista,
-              eventos: [],
-              ciudad: this._obtenerCiudad(nodo),
-            });
-          }
-
-          const eventoArista = {
-            id: aristaSalidaCompleta.id,
-            tipo: 'arista',
-            tipoElemento: 'arista',
-            nombre: aristaSalidaCompleta.modo,
-            nodo: nodo,
-            nodoDestino: nodoDestino || null,
-            aristaEntrante: null,
-            aristaSalida: aristaSalidaCompleta,
-            aristaAsociada: aristaSalidaCompleta,
-            horaInicio: aristaSalidaCompleta.logistica_salida?.hora_salida_origen || null,
-            horaFin: aristaSalidaCompleta.logistica_salida?.hora_llegada_destino || null,
-            holgura: null,
-            ordenVisita: aristaItem.indice,
-            modoTransporte: aristaSalidaCompleta.modo,
-            esArista: true,
-            transporte: aristaSalidaCompleta.transporte || null,
-            tiempoEstimado: aristaSalidaCompleta.tiempo_estimado || null,
-            costo: aristaSalidaCompleta.costos || null,
-            notas: aristaSalidaCompleta.notas || null,
-            displayName: `${aristaSalidaCompleta.modo}: ${nodoDestino?.nombre || aristaSalidaCompleta.destino_id}`,
-            nodoOrigenNombre: nodo.nombre,
-            nodoDestinoNombre: nodoDestino?.nombre || aristaSalidaCompleta.destino_id,
-          };
-
-          diasMap.get(fechaArista).eventos.push(eventoArista);
-          console.log(`✅ Arista ${aristaSalidaCompleta.id} agregada al día ${fechaArista}`);
-        }
+    // Si el nodo no tiene fecha, buscar la fecha de la arista entrante
+    if (!fecha) {
+      const aristaEntrante = Array.from(this.aristas.values()).find(
+        a => a.destino_id === nodo.id && a.oculto !== true
+      );
+      if (aristaEntrante) {
+        fecha = obtenerFechaArista(aristaEntrante);
       }
     }
+
+    // Si aún no tiene fecha, usar la fecha del viaje + índice
+    if (!fecha && this.raiz) {
+      const fechaInicio = new Date(this.raiz.fechas.inicio);
+      const fechaNueva = new Date(fechaInicio);
+      fechaNueva.setDate(fechaNueva.getDate() + diaIndex);
+      fecha = fechaNueva.toISOString().split('T')[0];
+      diaIndex++;
+    }
+
+    if (!fecha) {
+      fecha = '2099-12-31';
+    }
+
+    // Crear el día si no existe
+    if (!diasMap.has(fecha)) {
+      diasMap.set(fecha, {
+        fecha: fecha,
+        eventos: [],
+        ciudad: this._obtenerCiudad(nodo),
+      });
+    }
+
+    // Buscar arista entrante y saliente para este nodo
+    const aristaEntrante = Array.from(this.aristas.values()).find(
+      a => a.destino_id === nodo.id && a.oculto !== true
+    );
+
+    const aristaSalida = Array.from(this.aristas.values()).find(
+      a => a.origen_id === nodo.id && a.oculto !== true
+    );
+
+    // Obtener hora de inicio y fin
+    let horaInicio = null;
+    let horaFin = null;
+
+    if (aristaEntrante && aristaEntrante.logistica_salida) {
+      if (aristaEntrante.logistica_salida.hora_llegada_destino) {
+        horaInicio = aristaEntrante.logistica_salida.hora_llegada_destino;
+      }
+    }
+
+    if (!horaInicio && aristaSalida && aristaSalida.logistica_salida) {
+      if (aristaSalida.logistica_salida.hora_salida_origen) {
+        horaInicio = aristaSalida.logistica_salida.hora_salida_origen;
+      }
+    }
+
+    // Crear el evento del nodo
+    const eventoNodo = {
+      id: nodo.id,
+      tipo: nodo.tipo,
+      tipoElemento: 'nodo',
+      nombre: nodo.nombre,
+      nodo: nodo,
+      aristaEntrante: aristaEntrante || null,
+      aristaSalida: aristaSalida || null,
+      aristaAsociada: null,
+      horaInicio: horaInicio,
+      horaFin: horaFin,
+      holgura: this._calcularHolgura(aristaEntrante, aristaSalida),
+      ordenVisita: item.indice,
+      modoTransporte: null,
+      esArista: false,
+      nodoOriginal: nodo,
+    };
+
+    // Agregar el nodo al día
+    diasMap.get(fecha).eventos.push(eventoNodo);
+    console.log(`✅ Nodo ${nodo.id} agregado al día ${fecha}`);
+
+    // 5. Buscar aristas de salida que correspondan a este nodo en el orden de visita
+    const aristasSalidaEnOrden = this.ordenVisita.filter(
+      ordenItem => ordenItem.tipo === 'arista' && ordenItem.origen === nodo.id
+    );
+
+    // Usar un Set para aristas ya agregadas en este día
+    const aristasAgregadasEnDia = new Set();
+
+    for (const aristaItem of aristasSalidaEnOrden) {
+      const aristaSalidaCompleta = this.aristas.get(aristaItem.id);
+      if (!aristaSalidaCompleta || aristaSalidaCompleta.oculto === true) continue;
+
+      // Verificar si esta arista ya fue agregada en este día
+      if (aristasAgregadasEnDia.has(aristaSalidaCompleta.id)) {
+        console.log(`⏭️ Arista ${aristaSalidaCompleta.id} ya agregada al día ${fecha}, saltando...`);
+        continue;
+      }
+      aristasAgregadasEnDia.add(aristaSalidaCompleta.id);
+
+      const nodoDestino = this.nodos.get(aristaSalidaCompleta.destino_id);
+
+      // Obtener la fecha de la arista
+      let fechaArista = obtenerFechaArista(aristaSalidaCompleta);
+      if (!fechaArista) {
+        fechaArista = fecha;
+      }
+
+      // Crear el día para la arista si no existe
+      if (!diasMap.has(fechaArista)) {
+        diasMap.set(fechaArista, {
+          fecha: fechaArista,
+          eventos: [],
+          ciudad: this._obtenerCiudad(nodo),
+        });
+      }
+
+      const eventoArista = {
+        id: aristaSalidaCompleta.id,
+        tipo: 'arista',
+        tipoElemento: 'arista',
+        nombre: aristaSalidaCompleta.modo,
+        nodo: nodo,
+        nodoDestino: nodoDestino || null,
+        aristaEntrante: null,
+        aristaSalida: aristaSalidaCompleta,
+        aristaAsociada: aristaSalidaCompleta,
+        horaInicio: aristaSalidaCompleta.logistica_salida?.hora_salida_origen || null,
+        horaFin: aristaSalidaCompleta.logistica_salida?.hora_llegada_destino || null,
+        holgura: null,
+        ordenVisita: aristaItem.indice,
+        modoTransporte: aristaSalidaCompleta.modo,
+        esArista: true,
+        transporte: aristaSalidaCompleta.transporte || null,
+        tiempoEstimado: aristaSalidaCompleta.tiempo_estimado || null,
+        costo: aristaSalidaCompleta.costos || null,
+        notas: aristaSalidaCompleta.notas || null,
+        displayName: `${aristaSalidaCompleta.modo}: ${nodoDestino?.nombre || aristaSalidaCompleta.destino_id}`,
+        nodoOrigenNombre: nodo.nombre,
+        nodoDestinoNombre: nodoDestino?.nombre || aristaSalidaCompleta.destino_id,
+      };
+
+      diasMap.get(fechaArista).eventos.push(eventoArista);
+      console.log(`✅ Arista ${aristaSalidaCompleta.id} agregada al día ${fechaArista}`);
+    }
+  }
+}
 
     // 6. Convertir el mapa a array y ordenar
     this.dias = Array.from(diasMap.values())
