@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "bog-casa-to-bog-airport",
   "origen_id": "bog-casa-david",
   "destino_id": "bog-airport-eldorado",
   "modo": "auto",
+  "oculto": false,
   "transporte": {
     "tipo_vehiculo": "Auto particular",
     "detalles": "Trayecto desde la casa de David al aeropuerto El Dorado."
@@ -22,5 +22,5 @@
     "tiempo_requerido": "3h",
     "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo AV18."
   },
-  "notas": "Considerar tráfico de la tarde en Bogotá. Ruta sugerida: Autopista Norte - Calle 80 - Avenida El Dorado."
+  "notas": "Considerar trafico de la tarde en Bogota. Ruta sugerida: Autopista Norte - Calle 80 - Avenida El Dorado."
 }

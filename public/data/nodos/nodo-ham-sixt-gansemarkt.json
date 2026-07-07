@@ -1,10 +1,10 @@
 {
-  "oculto": false,
   "id": "ham-sixt-gansemarkt",
   "tipo": "oficina_alquiler",
-  "nombre": "Sixt Car Rental Hamburg Gänsemarkt",
+  "nombre": "Sixt Car Rental Hamburg Gansemarkt",
+  "oculto": false,
   "direccion": {
-    "calle": "Parkhaus Gänsemarkt Dammtorwall 5/7",
+    "calle": "Parkhaus Gansemarkt Dammtorwall 5/7",
     "ciudad": "Hamburgo",
     "codigo_postal": "20354",
     "pais": "Alemania",
@@ -12,42 +12,61 @@
       "lat": 53.5553,
       "lng": 9.9898
     },
-    "maps_link": "https://www.google.com/maps?q=Parkhaus+G%C3%A4nsemarkt+Dammtorwall+5+7+20354+Hamburg+Germany"
+    "maps_link": "https://www.google.com/maps?q=Parkhaus+Gansemarkt+Dammtorwall+5+7+20354+Hamburg+Germany"
   },
   "contacto": {
     "telefono": "+49 89 660 6060",
     "email": "ap022@sixt.de",
     "web": "https://www.sixt.com"
   },
-  "reserva": {
-    "codigo_reserva": "9734023976",
-    "confirmada": true,
-    "nombre_titular": "David G.",
-    "plataforma": "Sixt"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-28",
-    "salida": "2026-08-02"
-  },
+  "visitas": [
+    {
+      "entrada": "2026-07-28",
+      "salida": "2026-07-28",
+      "reserva": {
+        "codigo_reserva": "9734023976",
+        "confirmada": true,
+        "nombre_titular": "David G.",
+        "plataforma": "Sixt"
+      },
+      "clima": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "Reserva a nombre de David. Vehiculo: Cupra Formentor. Recoger el carro y completar papeleo."
+    },
+    {
+      "entrada": "2026-08-02",
+      "salida": "2026-08-02",
+      "reserva": {
+        "codigo_reserva": "9734023976",
+        "confirmada": true,
+        "nombre_titular": "David G.",
+        "plataforma": "Sixt"
+      },
+      "clima": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "Entregar el carro lavado y con el tanque lleno. Deposito de seguridad requerido."
+    }
+  ],
   "horarios": {
     "atencion": "08:00 - 18:00"
   },
-  "clima_esperado": {
-    "temperatura_promedio": "16°C - 22°C",
-    "condiciones": "Parcialmente nublado, posibilidad de lluvia",
-    "probabilidad_lluvia": "40%",
-    "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
-  },
-  "idioma_principal": "Alemán, Inglés",
+  "idioma_principal": "Aleman, Ingles",
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
     "tasa_referencia": "1 EUR ≈ 4500 COP"
   },
   "reglas_especiales": [
-    "Se requiere licencia de conducir válida.",
-    "Depósito de seguridad requerido."
+    "Se requiere licencia de conducir valida.",
+    "Deposito de seguridad requerido."
   ],
-  "tiempo_estimado_visita": "30 min",
-  "notas_adicionales": "Reserva a nombre de David. Vehículo: Cupra Formentor. Se debe entregar el carro lavado y con el tanque lleno."
+  "tiempo_estimado_visita": "30 min"
 }

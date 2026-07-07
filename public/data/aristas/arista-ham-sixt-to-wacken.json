@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "ham-sixt-to-wacken",
   "origen_id": "ham-sixt-gansemarkt",
   "destino_id": "wacken-festival",
   "modo": "auto",
+  "oculto": false,
   "transporte": {
     "tipo_vehiculo": "Cupra Formentor",
     "detalles": "Trayecto en carro alquilado desde Hamburgo hasta Wacken."

@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "bog-airport-to-bcn-airport",
   "origen_id": "bog-airport-eldorado",
   "destino_id": "bcn-airport",
   "modo": "avion",
+  "oculto": false,
   "transporte": {
     "compania": "Avianca",
     "tipo_vehiculo": "Boeing 787-8 Dreamliner",
@@ -11,7 +11,7 @@
     "terminal_origen": "T1",
     "terminal_destino": "T1",
     "codigo_reserva_confirmacion": "AV18-2026",
-    "detalles": "Vuelo directo Bogotá - Barcelona."
+    "detalles": "Vuelo directo Bogota - Barcelona."
   },
   "tiempo_estimado": {
     "minutos": 660,
@@ -29,5 +29,5 @@
     "valor": 425000,
     "incluido_en": "Vuelo ida y vuelta"
   },
-  "notas": "Llegada al día siguiente (18 de julio). El vuelo incluye comida y entretenimiento a bordo."
+  "notas": "Llegada al dia siguiente (18 de julio). El vuelo incluye comida y entretenimiento a bordo."
 }

@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "bcn-airport-to-bcn-hotel",
   "origen_id": "bcn-airport",
   "destino_id": "bcn-hotel-upper-diagonal",
   "modo": "metro",
+  "oculto": false,
   "transporte": {
     "compania": "TMB",
     "tipo_vehiculo": "Metro",
@@ -24,5 +24,5 @@
     "moneda": "EUR",
     "valor": 5.50
   },
-  "notas": "Comprar ticket en máquina del aeropuerto. Validar antes de subir al tren."
+  "notas": "Comprar ticket en maquina del aeropuerto. Validar antes de subir al tren."
 }

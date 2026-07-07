@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "ams-hotel-to-ams-airport",
   "origen_id": "ams-zaan-hotel",
   "destino_id": "ams-airport",
   "modo": "tren",
+  "oculto": false,
   "transporte": {
     "compania": "NS",
     "tipo_vehiculo": "Tren",

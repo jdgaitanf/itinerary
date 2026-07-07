@@ -1,5 +1,5 @@
 {
-  "version": "1.0",
+  "version": "3.0",
   "nombre_viaje": "Wacken 2026",
   "fechas": {
     "inicio": "2026-07-17",
@@ -48,7 +48,9 @@
       "aristas/arista-wacken-to-ham-sixt.json",
       "aristas/arista-ham-sixt-to-ham-airport.json",
       "aristas/arista-ham-airport-to-mad-airport.json",
-      "aristas/arista-mad-airport-to-mad-hotel.json"
+      "aristas/arista-mad-airport-to-mad-hotel.json",
+      "aristas/arista-mad-hotel-to-mad-airport.json",
+      "aristas/arista-mad-airport-to-bog-airport.json"
     ]
   }
 }

@@ -1,8 +1,8 @@
 {
-  "oculto": false,
   "id": "ham-airport",
   "tipo": "aeropuerto",
   "nombre": "Aeropuerto de Hamburgo",
+  "oculto": false,
   "codigo_iata": "HAM",
   "direccion": {
     "calle": "Flughafenstr. 1-3",
@@ -19,34 +19,53 @@
     "telefono": "+49 40 5075 0",
     "web": "https://www.hamburg-airport.de"
   },
-  "reserva": {
-    "codigo_reserva": "KL1753-2026",
-    "confirmada": true,
-    "nombre_titular": "Juan David",
-    "plataforma": "KLM"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-27",
-    "salida": "2026-07-27"
-  },
+  "visitas": [
+    {
+      "entrada": "2026-07-27",
+      "salida": "2026-07-27",
+      "reserva": {
+        "codigo_reserva": "KL1753-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "KLM"
+      },
+      "clima": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "KLM llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el S-Bahn linea S1 (direccion Wedel) hasta Reeperbahn (25 min)."
+    },
+    {
+      "entrada": "2026-08-02",
+      "salida": "2026-08-02",
+      "reserva": {
+        "codigo_reserva": "IB774-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Iberia"
+      },
+      "clima": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "Iberia opera desde la Terminal 1 (T1). Llegar 2 horas antes del vuelo."
+    }
+  ],
   "horarios": {
     "atencion": "24h"
   },
-  "clima_esperado": {
-    "temperatura_promedio": "16°C - 22°C",
-    "condiciones": "Parcialmente nublado, posibilidad de lluvia",
-    "probabilidad_lluvia": "40%",
-    "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
-  },
-  "idioma_principal": "Alemán, Inglés",
+  "idioma_principal": "Aleman, Ingles",
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
     "tasa_referencia": "1 EUR ≈ 4500 COP"
   },
   "reglas_especiales": [
-    "Revisión de pasaportes para viajeros extracomunitarios."
+    "Revision de pasaportes para viajeros extracomunitarios."
   ],
-  "tiempo_estimado_visita": "2h",
-  "notas_adicionales": "KLM llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el S-Bahn línea S1 (dirección Wedel) hasta Reeperbahn (25 min)."
+  "tiempo_estimado_visita": "2h"
 }

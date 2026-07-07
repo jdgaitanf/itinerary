@@ -1,13 +1,13 @@
 {
-  "oculto": false,
   "id": "zrh-casa-amiga-to-zrh-airport",
   "origen_id": "zrh-casa-amiga-steven",
   "destino_id": "zrh-airport",
   "modo": "tren",
+  "oculto": false,
   "transporte": {
     "compania": "SBB",
     "tipo_vehiculo": "Tren",
-    "detalles": "Tren S-Bahn o tranvía hacia el aeropuerto."
+    "detalles": "Tren S-Bahn o tranvia hacia el aeropuerto."
   },
   "tiempo_estimado": {
     "minutos": 30,

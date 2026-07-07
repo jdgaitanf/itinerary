@@ -1,10 +1,10 @@
 {
-  "oculto": false,
   "id": "ham-st-joseph-hotel",
   "tipo": "hotel",
   "nombre": "St. Joseph Hotel Hamburg - Reeperbahn St. Pauli Kiez",
+  "oculto": false,
   "direccion": {
-    "calle": "Große Freiheit 22",
+    "calle": "Grosse Freiheit 22",
     "ciudad": "Hamburgo",
     "codigo_postal": "22767",
     "pais": "Alemania",
@@ -12,39 +12,42 @@
       "lat": 53.5502,
       "lng": 9.9591
     },
-    "maps_link": "https://www.google.com/maps?q=Gro%C3%9Fe+Freiheit+22+22767+Hamburg+Germany"
+    "maps_link": "https://www.google.com/maps?q=Grosse+Freiheit+22+22767+Hamburg+Germany"
   },
   "contacto": {
     "telefono": "+49 40 3179 990",
     "web": "https://www.st-joseph-hotel.hamburg"
   },
-  "reserva": {
-    "codigo_reserva": "STJOSEPH-2026",
-    "confirmada": true,
-    "nombre_titular": "Steven Espinel",
-    "plataforma": "Booking.com"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-27",
-    "salida": "2026-07-28"
-  },
+  "visitas": [
+    {
+      "entrada": "2026-07-27",
+      "salida": "2026-07-28",
+      "reserva": {
+        "codigo_reserva": "STJOSEPH-2026",
+        "confirmada": true,
+        "nombre_titular": "Steven Espinel",
+        "plataforma": "Booking.com"
+      },
+      "clima": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "Habitacion a nombre de Steven. Wifi disponible, bar. Ubicado en el corazon de la Reeperbahn."
+    }
+  ],
   "horarios": {
     "check_in": "15:00",
     "check_out": "12:00",
     "atencion": "24h"
-  },
-  "clima_esperado": {
-    "temperatura_promedio": "16°C - 22°C",
-    "condiciones": "Parcialmente nublado, posibilidad de lluvia",
-    "probabilidad_lluvia": "40%",
-    "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
   },
   "equipaje_recomendado": [
     "Ropa ligera",
     "Chaqueta impermeable",
     "Cargador de viaje"
   ],
-  "idioma_principal": "Alemán, Inglés",
+  "idioma_principal": "Aleman, Ingles",
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
@@ -56,6 +59,5 @@
   "imagenes": [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1e/3f/2b/5a/st-joseph-hotel-hamburg.jpg"
   ],
-  "tiempo_estimado_visita": "1 noche",
-  "notas_adicionales": "Habitación a nombre de Steven. Wifi disponible, bar. Ubicado en el corazón de la Reeperbahn."
+  "tiempo_estimado_visita": "1 noche"
 }

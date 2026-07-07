@@ -1,5 +1,4 @@
 {
-  "oculto": false,
   "id": "roma-hotel-to-coliseo",
   "origen_id": "roma-villa-angeli",
   "destino_id": "roma-coliseo",
@@ -9,7 +8,7 @@
     "compania": "ATAC",
     "tipo_vehiculo": "Metro",
     "linea": "Linea B (azul)",
-    "detalles": "Tomar la Linea B desde la estación más cercana (10 min caminando desde el hotel) hasta la estación Colosseo. El Coliseo está a 5 min caminando de la estación."
+    "detalles": "Tomar la Linea B desde la estacion mas cercana (10 min caminando desde el hotel) hasta la estacion Colosseo. El Coliseo esta a 5 min caminando de la estacion."
   },
   "tiempo_estimado": {
     "minutos": 45,

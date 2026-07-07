@@ -1,14 +1,14 @@
 {
-  "oculto": false,
   "id": "bcn-airport",
   "tipo": "aeropuerto",
   "nombre": "Aeropuerto Josep Tarradellas Barcelona-El Prat",
+  "oculto": false,
   "codigo_iata": "BCN",
   "direccion": {
     "calle": "Terminal 1 (T1), 08820",
     "ciudad": "El Prat de Llobregat",
     "codigo_postal": "08820",
-    "pais": "España",
+    "pais": "Espana",
     "coordenadas": {
       "lat": 41.2974,
       "lng": 2.0834
@@ -19,34 +19,53 @@
     "telefono": "+34 913 211 000",
     "web": "https://www.aena.es/es/el-prat-barcelona.html"
   },
-  "reserva": {
-    "codigo_reserva": "AV18-2026",
-    "confirmada": true,
-    "nombre_titular": "Juan David",
-    "plataforma": "Avianca"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-18",
-    "salida": "2026-07-18"
-  },
+  "visitas": [
+    {
+      "entrada": "2026-07-18",
+      "salida": "2026-07-18",
+      "reserva": {
+        "codigo_reserva": "AV18-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Avianca"
+      },
+      "clima": {
+        "temperatura_promedio": "28°C - 32°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+      },
+      "notas": "Avianca llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el metro L9 Sud."
+    },
+    {
+      "entrada": "2026-07-19",
+      "salida": "2026-07-19",
+      "reserva": {
+        "codigo_reserva": "VY6106-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Vueling"
+      },
+      "clima": {
+        "temperatura_promedio": "28°C - 32°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+      },
+      "notas": "Vueling opera desde la Terminal 1 (T1). Llegar 2 horas antes del vuelo."
+    }
+  ],
   "horarios": {
     "atencion": "24h"
   },
-  "clima_esperado": {
-    "temperatura_promedio": "28°C - 32°C",
-    "condiciones": "Soleado",
-    "probabilidad_lluvia": "10%",
-    "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
-  },
-  "idioma_principal": "Español, Catalán",
+  "idioma_principal": "Espanol, Catalan",
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
     "tasa_referencia": "1 EUR ≈ 4500 COP"
   },
   "reglas_especiales": [
-    "Revisión de pasaportes para viajeros extracomunitarios."
+    "Revision de pasaportes para viajeros extracomunitarios."
   ],
-  "tiempo_estimado_visita": "2h",
-  "notas_adicionales": "Avianca llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el metro L9 Sud."
+  "tiempo_estimado_visita": "2h"
 }

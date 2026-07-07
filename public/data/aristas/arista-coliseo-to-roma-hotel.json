@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "coliseo-to-roma-hotel",
   "origen_id": "roma-coliseo",
   "destino_id": "roma-villa-angeli",
   "modo": "caminata",
+  "oculto": false,
   "transporte": {
     "detalles": "Caminata de regreso desde el Coliseo hasta el hotel Villa Angeli (aprox. 25-30 min)."
   },
@@ -22,5 +22,5 @@
     "valor": 0,
     "pagado_por": "N/A"
   },
-  "notas": "Trayecto de regreso al hotel después de visitar el Coliseo. Es una caminata de aproximadamente 30 minutos."
+  "notas": "Trayecto de regreso al hotel despues de visitar el Coliseo. Es una caminata de aproximadamente 30 minutos."
 }

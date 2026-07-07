@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "zrh-airport-to-ams-airport",
   "origen_id": "zrh-airport",
   "destino_id": "ams-airport",
   "modo": "avion",
+  "oculto": false,
   "transporte": {
     "compania": "KLM",
     "tipo_vehiculo": "Embraer 190",
@@ -11,7 +11,7 @@
     "terminal_origen": "T1",
     "terminal_destino": "T1",
     "codigo_reserva_confirmacion": "KL1918-2026",
-    "detalles": "Vuelo directo Zúrich - Ámsterdam."
+    "detalles": "Vuelo directo Zurich - Amsterdam."
   },
   "tiempo_estimado": {
     "minutos": 95,
@@ -28,5 +28,5 @@
     "moneda": "COP",
     "valor": 247000
   },
-  "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+  "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipacion."
 }

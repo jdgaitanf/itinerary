@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "ams-airport-to-ham-airport",
   "origen_id": "ams-airport",
   "destino_id": "ham-airport",
   "modo": "avion",
+  "oculto": false,
   "transporte": {
     "compania": "KLM",
     "tipo_vehiculo": "Embraer 190",
@@ -11,7 +11,7 @@
     "terminal_origen": "T1",
     "terminal_destino": "T1",
     "codigo_reserva_confirmacion": "KL1753-2026",
-    "detalles": "Vuelo directo Ámsterdam - Hamburgo."
+    "detalles": "Vuelo directo Amsterdam - Hamburgo."
   },
   "tiempo_estimado": {
     "minutos": 65,
@@ -28,5 +28,5 @@
     "moneda": "COP",
     "valor": 450000
   },
-  "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+  "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipacion."
 }

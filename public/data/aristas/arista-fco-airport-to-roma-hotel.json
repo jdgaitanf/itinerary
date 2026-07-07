@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "fco-airport-to-roma-hotel",
   "origen_id": "fco-airport",
   "destino_id": "roma-villa-angeli",
   "modo": "tren",
+  "oculto": false,
   "transporte": {
     "compania": "Trenitalia",
     "tipo_vehiculo": "Tren regional",
@@ -24,5 +24,5 @@
     "moneda": "EUR",
     "valor": 8.00
   },
-  "notas": "Comprar ticket en la estación del aeropuerto. El bus local conecta con el hotel."
+  "notas": "Comprar ticket en la estacion del aeropuerto. El bus local conecta con el hotel."
 }

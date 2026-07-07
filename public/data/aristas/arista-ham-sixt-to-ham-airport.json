@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "ham-sixt-to-ham-airport",
   "origen_id": "ham-sixt-gansemarkt",
   "destino_id": "ham-airport",
   "modo": "tren",
+  "oculto": false,
   "transporte": {
     "compania": "S-Bahn Hamburg",
     "tipo_vehiculo": "S-Bahn",

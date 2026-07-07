@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "wacken-to-ham-sixt",
   "origen_id": "wacken-festival",
   "destino_id": "ham-sixt-gansemarkt",
   "modo": "auto",
+  "oculto": false,
   "transporte": {
     "tipo_vehiculo": "Cupra Formentor",
     "detalles": "Trayecto en carro alquilado desde Wacken hasta Hamburgo."
@@ -18,5 +18,5 @@
     "hora_salida_origen": "07:00",
     "hora_llegada_destino": "08:30"
   },
-  "notas": "Salir de Wacken a las 07:00 para evitar el tráfico post-festival y llegar con tiempo a la oficina de Sixt."
+  "notas": "Salir de Wacken a las 07:00 para evitar el trafico post-festival y llegar con tiempo a la oficina de Sixt."
 }

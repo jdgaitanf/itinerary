@@ -1,11 +1,11 @@
 {
-  "oculto": false,
   "id": "ham-hotel-to-ham-sixt",
   "origen_id": "ham-st-joseph-hotel",
   "destino_id": "ham-sixt-gansemarkt",
   "modo": "caminata",
+  "oculto": false,
   "transporte": {
-    "detalles": "Caminata desde el hotel hasta la oficina de Sixt en Gänsemarkt (15 min)."
+    "detalles": "Caminata desde el hotel hasta la oficina de Sixt en Gansemarkt (15 min)."
   },
   "tiempo_estimado": {
     "minutos": 15,

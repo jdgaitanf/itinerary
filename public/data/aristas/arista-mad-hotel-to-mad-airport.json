@@ -1,12 +1,12 @@
 {
-  "oculto": false,
   "id": "mad-hotel-to-mad-airport",
   "origen_id": "mad-sercotel-alcala",
   "destino_id": "mad-airport",
   "modo": "tren",
+  "oculto": false,
   "transporte": {
     "compania": "Renfe",
-    "tipo_vehiculo": "Tren de cercanías",
+    "tipo_vehiculo": "Tren de cercanias",
     "linea": "C-1",
     "detalles": "Caminata a Recoletos o Atocha + Tren C-1 a T4."
   },

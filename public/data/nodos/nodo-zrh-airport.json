@@ -1,8 +1,8 @@
 {
-  "oculto": false,
   "id": "zrh-airport",
   "tipo": "aeropuerto",
-  "nombre": "Aeropuerto de Zúrich",
+  "nombre": "Aeropuerto de Zurich",
+  "oculto": false,
   "codigo_iata": "ZRH",
   "direccion": {
     "calle": "ZRH Flughafenstrasse",
@@ -19,34 +19,53 @@
     "telefono": "+41 43 816 22 11",
     "web": "https://www.zurich-airport.com"
   },
-  "reserva": {
-    "codigo_reserva": "LX1727-2026",
-    "confirmada": true,
-    "nombre_titular": "Juan David",
-    "plataforma": "Swiss"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-21",
-    "salida": "2026-07-21"
-  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-21",
+      "reserva": {
+        "codigo_reserva": "LX1727-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Swiss"
+      },
+      "clima": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "notas": "Swiss llega a la Terminal 1 (T1). La conexion con la ciudad es en tren (S-Bahn) o tranvia."
+    },
+    {
+      "entrada": "2026-07-25",
+      "salida": "2026-07-25",
+      "reserva": {
+        "codigo_reserva": "KL1918-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "KLM"
+      },
+      "clima": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "notas": "KLM opera desde la Terminal 1 (T1). Llegar 2 horas antes del vuelo."
+    }
+  ],
   "horarios": {
     "atencion": "24h"
   },
-  "clima_esperado": {
-    "temperatura_promedio": "18°C - 25°C",
-    "condiciones": "Parcialmente nublado",
-    "probabilidad_lluvia": "30%",
-    "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
-  },
-  "idioma_principal": "Alemán, Francés, Italiano, Inglés",
+  "idioma_principal": "Aleman, Frances, Italiano, Ingles",
   "moneda_local": {
     "codigo": "CHF",
     "simbolo": "Fr.",
     "tasa_referencia": "1 CHF ≈ 4500 COP"
   },
   "reglas_especiales": [
-    "Revisión de pasaportes para viajeros extracomunitarios."
+    "Revision de pasaportes para viajeros extracomunitarios."
   ],
-  "tiempo_estimado_visita": "2h",
-  "notas_adicionales": "Swiss llega a la Terminal 1 (T1). La conexión con la ciudad es en tren (S-Bahn) o tranvía."
+  "tiempo_estimado_visita": "2h"
 }

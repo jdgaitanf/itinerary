@@ -1,13 +1,13 @@
 {
-  "oculto": false,
   "id": "zrh-airport-to-zrh-casa-amiga",
   "origen_id": "zrh-airport",
   "destino_id": "zrh-casa-amiga-steven",
   "modo": "tren",
+  "oculto": false,
   "transporte": {
     "compania": "SBB",
     "tipo_vehiculo": "Tren",
-    "detalles": "Tren S-Bahn o tranvía desde el aeropuerto hacia la ciudad."
+    "detalles": "Tren S-Bahn o tranvia desde el aeropuerto hacia la ciudad."
   },
   "tiempo_estimado": {
     "minutos": 30,
@@ -19,5 +19,5 @@
     "hora_salida_origen": "11:45",
     "hora_llegada_destino": "12:15"
   },
-  "notas": "La ruta exacta se coordinará con la amiga de Steven."
+  "notas": "La ruta exacta se coordinara con la amiga de Steven."
 }

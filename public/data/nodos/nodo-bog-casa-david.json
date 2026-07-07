@@ -1,37 +1,35 @@
 {
-  "oculto": false,
   "id": "bog-casa-david",
-  "tipo": "casa-origen",
+  "tipo": "casa_origen",
   "nombre": "Casa",
+  "oculto": false,
   "direccion": {
-    "ciudad": "Bogotá",
+    "ciudad": "Bogota",
     "pais": "Colombia"
   },
-  "reserva": {
-    "confirmada": true,
-    "nombre_titular": "Juan David"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-17",
-    "salida": "2026-07-17"
-  },
-  "clima_esperado": {
-    "temperatura_promedio": "8°C - 18°C",
-    "condiciones": "Soleado / Lluvias esporádicas",
-    "probabilidad_lluvia": "40%",
-    "recomendacion_vestimenta": "Abrigo ligero, impermeable"
-  },
+  "visitas": [
+    {
+      "entrada": "2026-07-17",
+      "salida": "2026-07-17",
+      "clima": {
+        "temperatura_promedio": "8°C - 18°C",
+        "condiciones": "Soleado / Lluvias esporadicas",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Abrigo ligero, impermeable"
+      },
+      "notas": "Salir con tiempo para evitar trancones en Bogota."
+    }
+  ],
   "equipaje_recomendado": [
     "Pasaporte",
-    "Tarjetas de crédito",
+    "Tarjetas de credito",
     "Adaptador de corriente (tipo C/F para Europa)",
     "Maleta con candado"
   ],
-  "idioma_principal": "Español",
+  "idioma_principal": "Espanol",
   "moneda_local": {
     "codigo": "COP",
     "simbolo": "$",
     "tasa_referencia": "1 EUR ≈ 4500 COP"
-  },
-  "notas_adicionales": "Salir con tiempo para evitar trancones en Bogotá."
+  }
 }

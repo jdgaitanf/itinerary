@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "ham-airport-to-mad-airport",
   "origen_id": "ham-airport",
   "destino_id": "mad-airport",
   "modo": "avion",
+  "oculto": false,
   "transporte": {
     "compania": "Iberia",
     "tipo_vehiculo": "Airbus A320",
@@ -28,5 +28,5 @@
     "moneda": "COP",
     "valor": 261000
   },
-  "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+  "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 2 horas de anticipacion."
 }

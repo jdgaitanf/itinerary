@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "mad-airport-to-bog-airport",
   "origen_id": "mad-airport",
   "destino_id": "bog-airport-eldorado",
   "modo": "avion",
+  "oculto": false,
   "transporte": {
     "compania": "Avianca",
     "tipo_vehiculo": "Boeing 787-8 Dreamliner",
@@ -11,7 +11,7 @@
     "terminal_origen": "T4S",
     "terminal_destino": "T1",
     "codigo_reserva_confirmacion": "AV11-2026",
-    "detalles": "Vuelo directo Madrid - Bogotá."
+    "detalles": "Vuelo directo Madrid - Bogota."
   },
   "tiempo_estimado": {
     "minutos": 610,
@@ -29,5 +29,5 @@
     "valor": 425000,
     "incluido_en": "Vuelo ida y vuelta"
   },
-  "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 3 horas de anticipación."
+  "notas": "Vuelo directo. Se recomienda llegar al aeropuerto con 3 horas de anticipacion."
 }

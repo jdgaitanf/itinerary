@@ -1,8 +1,8 @@
 {
-  "oculto": false,
   "id": "roma-coliseo",
   "tipo": "atraccion",
   "nombre": "Coliseo Romano",
+  "oculto": false,
   "direccion": {
     "calle": "Piazza del Colosseo, 1",
     "ciudad": "Roma",
@@ -17,13 +17,22 @@
   "contacto": {
     "web": "https://www.coopculture.it"
   },
+  "visitas": [
+    {
+      "entrada": "2026-07-20",
+      "salida": "2026-07-20",
+      "clima": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero, protector solar"
+      },
+      "notas": "La entrada incluye el Foro Romano y el Palatino. Se recomienda comprar en linea."
+    }
+  ],
   "horarios": {
     "horario_apertura": "08:30",
     "horario_cierre": "19:15"
-  },
-  "fechas_estadia": {
-    "entrada": "2026-07-19",
-    "salida": "2026-07-19"
   },
   "actividades": [
     {
@@ -36,23 +45,17 @@
       "reserva": {
         "requiere_reserva": true
       },
-      "notas": "La entrada incluye el Foro Romano y el Palatino. Se recomienda comprar en línea."
+      "notas": "La entrada incluye el Foro Romano y el Palatino. Se recomienda comprar en linea."
     }
   ],
-  "clima_esperado": {
-    "temperatura_promedio": "30°C - 35°C",
-    "condiciones": "Soleado",
-    "probabilidad_lluvia": "5%",
-    "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero, protector solar"
-  },
-  "idioma_principal": "Italiano, Inglés",
+  "idioma_principal": "Italiano, Ingles",
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
     "tasa_referencia": "1 EUR ≈ 4500 COP"
   },
   "reglas_especiales": [
-    "Último ingreso: 18:15.",
+    "Ultimo ingreso: 18:15.",
     "Prohibido ingresar con mochilas grandes."
   ],
   "tiempo_estimado_visita": "2h"

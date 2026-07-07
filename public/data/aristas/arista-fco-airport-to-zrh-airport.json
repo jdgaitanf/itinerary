@@ -1,9 +1,9 @@
 {
-  "oculto": false,
   "id": "fco-airport-to-zrh-airport",
   "origen_id": "fco-airport",
   "destino_id": "zrh-airport",
   "modo": "avion",
+  "oculto": false,
   "transporte": {
     "compania": "Swiss",
     "tipo_vehiculo": "Airbus A220",
@@ -11,7 +11,7 @@
     "terminal_origen": "T1",
     "terminal_destino": "T1",
     "codigo_reserva_confirmacion": "LX1727-2026",
-    "detalles": "Vuelo directo Roma - Zúrich."
+    "detalles": "Vuelo directo Roma - Zurich."
   },
   "tiempo_estimado": {
     "minutos": 100,
@@ -28,5 +28,5 @@
     "moneda": "COP",
     "valor": 203000
   },
-  "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipación."
+  "notas": "Vuelo corto. Se recomienda llegar al aeropuerto con 2 horas de anticipacion."
 }
