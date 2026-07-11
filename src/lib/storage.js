@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'viajeGraph';
+const ITINERARY_KEY = 'itineraryList';
 
 export function getViajeGraph() {
   const data = localStorage.getItem(STORAGE_KEY);
@@ -16,4 +17,22 @@ export function setViajeGraph(data) {
 
 export function hasViajeGraph() {
   return localStorage.getItem(STORAGE_KEY) !== null;
+}
+
+export function getItineraryList() {
+  const data = localStorage.getItem(ITINERARY_KEY);
+  if (!data) return null;
+  try {
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
+}
+
+export function setItineraryList(data) {
+  localStorage.setItem(ITINERARY_KEY, JSON.stringify(data));
+}
+
+export function hasItineraryList() {
+  return localStorage.getItem(ITINERARY_KEY) !== null;
 }

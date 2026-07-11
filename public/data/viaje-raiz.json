@@ -50,7 +50,11 @@
       "aristas/arista-ham-airport-to-mad-airport.json",
       "aristas/arista-mad-airport-to-mad-hotel.json",
       "aristas/arista-mad-hotel-to-mad-airport.json",
-      "aristas/arista-mad-airport-to-bog-airport.json"
+      "aristas/arista-mad-airport-to-bog-airport.json",
+      "aristas/arista-roma-hotel-to-1.json",
+      "aristas/arista-roma-hotel-to-2.json",
+      "aristas/arista-roma-hotel-to-3.json",
+      "aristas/arista-roma-hotel-to-4.json"
     ]
   }
 }
