@@ -3,14 +3,22 @@ import {
   setViajeGraph,
   hasViajeGraph,
   setItineraryList,
+  hasItineraryList,
 } from "./storage.js";
 import { buildGraph } from "./graphBuilder.js";
 import { buildItinerary } from "./itineraryBuilder.js";
 
 export async function loadViajeData() {
   if (hasViajeGraph()) {
-    localStorage.clear();
-    //return getViajeGraph();
+    const graph = getViajeGraph();
+    
+    // Si el itinerary no existe, construirlo y guardarlo
+    if (!hasItineraryList()) {
+      const itinerary = buildItinerary(graph);
+      setItineraryList(itinerary);
+    }
+    
+    return graph;
   }
 
   try {
