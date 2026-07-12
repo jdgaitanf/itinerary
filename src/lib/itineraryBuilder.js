@@ -1,12 +1,10 @@
-import LinkedList from "../models/LinkedList.js";
-
 export function buildItinerary(graph) {
   let edgesIds = graph.aristas.map(e => e.id);
   let stack = [];
-  const itineraryList = new LinkedList();
+  let itineraryList = [];
   let nodes = new Set();
   let node = graph.nodos.find(n => n.tipo === "casa_origen");
-  if (node) itineraryList.append(node)
+  if (node) itineraryList.push({"tipo": "nodo", "id": node.id})
 
   let counter = 0;
 
@@ -29,16 +27,23 @@ export function buildItinerary(graph) {
     let edgeId = stack.pop();
     let edge = graph.aristas.find(a => a.id === edgeId);
     if (edge) {
-      itineraryList.append(edge);
+      itineraryList.push({"tipo": "arista", "id": edge.id})
       node = graph.nodos.find(n => n.id === edge.destino_id);
-      if (node) itineraryList.append(node);
+      if (node) itineraryList.push({"tipo": "nodo", "id": node.id});
     }
   } while ((stack.length > 0 || edgesIds.length > 0) && counter < 200);
 
-  console.log("Itinerary built successfully.", itineraryList.toArray());
 
-  // Retornar como array para guardar en localStorage
-  return itineraryList.toArray();
+  console.log(itineraryList)
+  return itineraryList;
+}
+
+function getEdgeById (graph, edgeId){
+  return graph.aristas.filter(edge => edge.id === edgeId);
+}
+
+function getEdgeByNode (graph, nodeId){
+  return graph.nodes.filter(node => node.id === nodeId);
 }
 
 function getEdgesFromNode(graph, nodeId) {
