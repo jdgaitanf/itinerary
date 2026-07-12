@@ -1,5 +1,6 @@
 ---
 import NodeList from '../components/NodeList.astro';
+import '../styles/global.css';
 ---
 
 <html lang="es">
@@ -7,9 +8,13 @@ import NodeList from '../components/NodeList.astro';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hola Mundo</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1" />
   </head>
   <body>
-    <h1>Hola mundo</h1>
-    <NodeList/>
+    <div id="app">
+      <h1>Itinerario</h1>
+      <NodeList />
+    </div>
   </body>
 </html>

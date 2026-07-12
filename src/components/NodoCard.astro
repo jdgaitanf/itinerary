@@ -1,0 +1,81 @@
+---
+// Componente que renderiza una card para un nodo
+// Recibe el nodo como prop
+export interface Props {
+  nodo: any;
+  numero?: number;
+}
+
+const { nodo, numero } = Astro.props;
+
+// Determinar el ícono según el tipo de nodo
+function getIcon(tipo: string): string {
+  const iconMap: Record<string, string> = {
+    'aeropuerto': 'flight_takeoff',
+    'hotel': 'bed',
+    'casa_origen': 'home',
+    'casa_amigo': 'diversity_2',
+    'atraccion': 'theater_comedy',
+    'festival': 'music_note',
+    'oficina_alquiler': 'business_center',
+  };
+  return iconMap[tipo] || 'location_on';
+}
+
+// Determinar el label del tipo para mostrar
+function getTipoLabel(tipo: string): string {
+  const labelMap: Record<string, string> = {
+    'aeropuerto': 'Aeropuerto',
+    'hotel': 'Hotel',
+    'casa_origen': 'Inicio',
+    'casa_amigo': 'Casa de amigo',
+    'atraccion': 'Atracción',
+    'festival': 'Festival',
+    'oficina_alquiler': 'Alquiler de auto',
+  };
+  return labelMap[tipo] || tipo;
+}
+
+const iconName = getIcon(nodo.tipo);
+const tipoLabel = getTipoLabel(nodo.tipo);
+const mostrarNumero = numero !== undefined;
+---
+
+<div class="nodo-card">
+  <div class="nodo-card-header">
+    <span class="nodo-card-icon material-symbols-outlined">{iconName}</span>
+    <div class="nodo-card-content">
+      <div class="nodo-card-title">
+        {mostrarNumero ? `${numero}. ` : ''}{nodo.nombre || nodo.id}
+      </div>
+      <div class="nodo-card-subtitle">
+        <span class={`nodo-card-badge ${nodo.tipo}`}>{tipoLabel}</span>
+        {nodo.direccion?.ciudad ? ` · ${nodo.direccion.ciudad}` : ''}
+        {nodo.direccion?.pais ? `, ${nodo.direccion.pais}` : ''}
+      </div>
+    </div>
+  </div>
+  
+  <div class="nodo-card-meta">
+    {nodo.visitas && nodo.visitas.length > 0 ? (
+      <span class="nodo-card-meta-item">
+        <span class="material-symbols-outlined">calendar_today</span>
+        {nodo.visitas[0].entrada}
+        {nodo.visitas[0].salida && nodo.visitas[0].salida !== nodo.visitas[0].entrada ? ` → ${nodo.visitas[0].salida}` : ''}
+      </span>
+    ) : null}
+    
+    {nodo.direccion?.maps_link ? (
+      <a 
+        href={nodo.direccion.maps_link} 
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="nodo-card-meta-item"
+        style="color: var(--text-muted); text-decoration: none;"
+      >
+        <span class="material-symbols-outlined">map</span>
+        Ver en mapa
+      </a>
+    ) : null}
+  </div>
+</div>

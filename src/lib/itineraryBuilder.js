@@ -32,9 +32,6 @@ export function buildItinerary(graph) {
       if (node) itineraryList.push({"tipo": "nodo", "id": node.id});
     }
   } while ((stack.length > 0 || edgesIds.length > 0) && counter < 200);
-
-
-  console.log(itineraryList)
   return itineraryList;
 }
 
