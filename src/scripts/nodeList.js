@@ -3,21 +3,21 @@ import { loadViajeData } from '../lib/dataLoader.js';
 
 async function displayItinerary() {
   const nodeListElement = document.getElementById('node-list');
-  
+
   if (!nodeListElement) {
     console.error('Element #node-list not found');
     return;
   }
-  
+
   // Cargar datos si no existen
   let graph = getViajeGraph();
   if (!graph) {
     graph = await loadViajeData();
   }
-  
+
   // Obtener el itinerario como array
   const itinerary = getItineraryList();
-  
+
   if (!itinerary || itinerary.length === 0) {
     nodeListElement.textContent = 'No se encontró itinerario';
     return;
@@ -36,7 +36,7 @@ async function displayItinerary() {
 
   // Construir el HTML
   let html = '';
-  
+
   for (const item of itinerary) {
     if (item.tipo === 'nodo') {
       const nodo = nodosMap.get(item.id);
@@ -261,19 +261,20 @@ function buildAristaCardHTML(arista, origen, destino) {
         <span class="arista-card-icon material-symbols-outlined">${iconName}</span>
         <div class="arista-card-content">
           <div class="arista-card-title">
-            ${modoLabel}: ${origenNombre} → ${destinoNombre}
-          </div>
-          <div class="arista-card-subtitle">
-            ${fecha ? ` · ${formatDate(fecha)}` : ''}
-            ${horaSalida ? ` · Salida ${horaSalida}` : ''}
-            ${horaLlegada ? ` → Llegada ${horaLlegada}` : ''}
-            ${tiempo.minutos ? ` · ⏱️ ${tiempo.minutos} min` : ''}
+            <span class="arista-modo">${modoLabel}</span>
+            <span class="arista-fecha">${fecha ? `${formatDate(fecha)} ${horaSalida}` : ''}</span>
+            <span class="arista-duracion">${tiempo.minutos ? `${tiempo.minutos} min` : ''}</span>
           </div>
         </div>
         <span class="arista-card-toggle material-symbols-outlined">expand_more</span>
       </div>
 
       <div class="arista-card-expanded">
+        <div class="arista-detail-row">
+          <span class="material-symbols-outlined">route</span>
+          <span><strong>Trayecto:</strong> ${origenNombre} → ${destinoNombre}</span>
+        </div>
+
         ${transporte.compania || transporte.tipo_vehiculo || transporte.numero_vuelo || transporte.linea ? `
           <div class="arista-detail-row">
             <span class="material-symbols-outlined">directions_car</span>
@@ -368,7 +369,7 @@ function buildAristaCardHTML(arista, origen, destino) {
 function toggleCard(card) {
   const expanded = card.querySelector('.nodo-card-expanded, .arista-card-expanded');
   const toggleIcon = card.querySelector('.nodo-card-toggle, .arista-card-toggle');
-  
+
   if (!expanded || !toggleIcon) return;
 
   // Cerrar cualquier otra card abierta
@@ -385,7 +386,7 @@ function toggleCard(card) {
       }
     }
   });
-  
+
   if (card.classList.contains('expanded')) {
     // Contraer
     expanded.style.maxHeight = '0';
