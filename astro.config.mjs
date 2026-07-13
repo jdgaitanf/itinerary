@@ -1,8 +1,8 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://tu-usuario.github.io/itinerary-app",
-  base: "/",
+  site: "https://jdgaitanf.github.io",
+  base: "/itinerary",
   outDir: "./dist",
   publicDir: "./public",
   server: {
