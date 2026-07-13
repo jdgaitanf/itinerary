@@ -1,0 +1,311 @@
+/* Pantalla de Ajustes */
+#settings-panel {
+  padding: 16px 0;
+}
+
+#settings-panel h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+}
+
+#settings-panel h3 {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 20px 0 12px 0;
+  color: var(--text-secondary);
+}
+
+#settings-info {
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+#settings-info p {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-light);
+}
+
+#settings-info p:last-child {
+  border-bottom: none;
+}
+
+#settings-info p strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+#settings-info span {
+  color: var(--text-primary);
+  font-weight: 400;
+}
+
+#settings-actions {
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+}
+
+#settings-actions input[type="file"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 12px 0;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--background);
+  border: 1px dashed var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#settings-actions input[type="file"]:hover {
+  border-color: var(--text-muted);
+}
+
+#settings-actions button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 4px 0;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--background);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+#settings-actions button:hover {
+  background: var(--border-light);
+  border-color: var(--text-muted);
+}
+
+#settings-actions button:active {
+  transform: scale(0.98);
+}
+
+#settings-actions button#clear-cache-btn {
+  color: #d32f2f;
+  border-color: #ffcdd2;
+}
+
+#settings-actions button#clear-cache-btn:hover {
+  background: #ffebee;
+  border-color: #ef9a9a;
+}
+
+#load-status {
+  margin-top: 12px;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 4px;
+  min-height: 20px;
+}
+
+#load-status.error {
+  color: #d32f2f;
+  background: #ffebee;
+}
+
+#load-status.success {
+  color: #2e7d32;
+  background: #e8f5e9;
+}
+
+#load-status.info {
+  color: #1565c0;
+  background: #e3f2fd;
+}
+
+#load-status.warning {
+  color: #e65100;
+  background: #fff3e0;
+}
+
+/* Ajustes para el espaciado del contenido con footer fijo */
+#tabs-content {
+  padding-bottom: 76px;
+}
+
+/* Ajustes Avanzados (colapsable) */
+#settings-advanced {
+  background: var(--card-background);
+  border-radius: var(--card-radius);
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+
+#settings-advanced-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease;
+}
+
+#settings-advanced-header:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+#settings-advanced-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+#settings-advanced-header .material-symbols-outlined {
+  font-size: 24px;
+  color: var(--text-muted);
+  transition: transform 0.3s ease;
+}
+
+#settings-advanced-header.expanded .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+#settings-advanced-content {
+  padding: 0 16px 16px 16px;
+  transition: all 0.3s ease;
+}
+
+#settings-actions {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
+#settings-actions .file-input-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+#settings-actions .file-input-group input[type="file"] {
+  flex: 1;
+  display: block;
+  padding: 10px;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--background);
+  border: 1px dashed var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+#settings-actions .file-input-group input[type="file"]:hover {
+  border-color: var(--text-muted);
+}
+
+#settings-actions .file-input-group button {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--background);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+#settings-actions .file-input-group button:hover {
+  background: var(--border-light);
+  border-color: var(--text-muted);
+}
+
+#settings-actions .file-input-group button:active {
+  transform: scale(0.98);
+}
+
+#settings-actions .download-group {
+  margin-top: 12px;
+}
+
+#settings-actions .download-group button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: var(--background);
+  border: 1px solid var(--border-light);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+#settings-actions .download-group button:hover {
+  background: var(--border-light);
+  border-color: var(--text-muted);
+}
+
+#settings-actions .download-group button:active {
+  transform: scale(0.98);
+}
+
+#settings-actions button#clear-cache-btn {
+  color: #d32f2f;
+  border-color: #ffcdd2;
+  margin-top: 12px;
+}
+
+#settings-actions button#clear-cache-btn:hover {
+  background: #ffebee;
+  border-color: #ef9a9a;
+}
+
+#load-status {
+  margin-top: 8px;
+  font-size: 14px;
+  padding: 8px;
+  border-radius: 4px;
+  min-height: 20px;
+}
+
+#load-status.error {
+  color: #d32f2f;
+  background: #ffebee;
+}
+
+#load-status.success {
+  color: #2e7d32;
+  background: #e8f5e9;
+}
+
+#load-status.info {
+  color: #1565c0;
+  background: #e3f2fd;
+}
+
+#load-status.warning {
+  color: #e65100;
+  background: #fff3e0;
+}

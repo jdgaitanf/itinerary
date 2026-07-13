@@ -5,6 +5,7 @@
   const tabButtons = document.querySelectorAll('[data-tab]');
 
   function showTab(tab) {
+    // Ocultar/mostrar contenido
     if (tab === 'home') {
       homeContent.style.display = 'block';
       settingsContent.style.display = 'none';
@@ -14,6 +15,16 @@
     } else {
       return;
     }
+    
+    // Actualizar clases activas en los botones
+    tabButtons.forEach(btn => {
+      if (btn.dataset.tab === tab) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+    
     // Guardar preferencia
     try {
       localStorage.setItem('activeTab', tab);

@@ -60,16 +60,32 @@ import "../styles/global.css";
               <p><strong>Aristas:</strong> <span id="aristas-count">-</span></p>
             </div>
 
-            <div id="settings-actions">
-              <h3>Cargar grafo desde archivo</h3>
-              <input type="file" id="graph-file-input" accept=".json" />
-              <button id="load-graph-btn">Cargar grafo</button>
-              <div id="load-status"></div>
+            <div id="settings-advanced">
+              <div id="settings-advanced-header">
+                <h3>Ajustes Avanzados</h3>
+                <span
+                  class="material-symbols-outlined"
+                  id="settings-advanced-toggle">expand_more</span
+                >
+              </div>
+              <div id="settings-advanced-content" style="display: none;">
+                <div id="settings-actions">
+                  <h5>Cargar un nuevo grafo con itinerario</h5>
+                  <div class="file-input-group">
+                    <input type="file" id="graph-file-input" accept=".json" />
+                    <button id="load-graph-btn">Cargar</button>
+                  </div>
+                  <div id="load-status"></div>
 
-              <h3>Descargar definición del itinerario</h3>
-              <button id="download-def-btn">Descargar ItineraryDef.md</button>
+                  <div class="download-group">
+                    <button id="download-def-btn"
+                      >Descargar ItineraryDef.md</button
+                    >
+                  </div>
+                  <button id="clear-cache-btn">Eliminar caché y recargar</button>
+                </div>
+              </div>
             </div>
-            <button id="clear-cache-btn">Eliminar caché y recargar</button>
           </div>
         </div>
       </div>
@@ -77,8 +93,14 @@ import "../styles/global.css";
 
     <!-- Footer con navegación -->
     <footer id="app-footer">
-      <button data-tab="home">Home</button>
-      <button data-tab="settings">Ajustes</button>
+      <button data-tab="home" class="active">
+        <span class="material-symbols-outlined">home</span>
+        <span class="footer-label">Home</span>
+      </button>
+      <button data-tab="settings">
+        <span class="material-symbols-outlined">settings</span>
+        <span class="footer-label">Ajustes</span>
+      </button>
     </footer>
   </body>
 
