@@ -37,7 +37,13 @@ import "../styles/global.css";
   </head>
   <body>
     <div id="app">
-      <h1 id="app-title">Itinerario</h1>
+      <div id="app-header">
+        <h1 id="app-title">Itinerario</h1>
+        <label class="theme-toggle" id="theme-toggle-label">
+          <input type="checkbox" id="theme-toggle-checkbox" />
+          <span class="slider"></span>
+        </label>
+      </div>
 
       <!-- Contenedor de contenido según pestaña -->
       <div id="tabs-content">
@@ -82,7 +88,8 @@ import "../styles/global.css";
                       >Descargar ItineraryDef.md</button
                     >
                   </div>
-                  <button id="clear-cache-btn">Eliminar caché y recargar</button>
+                  <button id="clear-cache-btn">Eliminar caché y recargar</button
+                  >
                 </div>
               </div>
             </div>
@@ -109,6 +116,7 @@ import "../styles/global.css";
     import "../scripts/index.js";
     import "../scripts/tabs.js";
     import "../scripts/settings.js";
+    import "../scripts/theme.js";
 
     // Registrar Service Worker
     if ("serviceWorker" in navigator) {
