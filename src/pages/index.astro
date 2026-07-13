@@ -6,15 +6,26 @@ import "../styles/global.css";
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes"
+    />
     <meta name="theme-color" content="#f5f5f5" />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <title>Itinerario</title>
     <link rel="manifest" href="/itinerary/manifest.json" />
     <link rel="apple-touch-icon" href="/itinerary/icons/apple-touch-icon.png" />
     <link rel="icon" type="image/x-icon" href="/itinerary/icons/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="96x96" href="/itinerary/icons/favicon-96x96.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/itinerary/icons/favicon-96x96.png"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
@@ -26,22 +37,70 @@ import "../styles/global.css";
   </head>
   <body>
     <div id="app">
-      <h1>Itinerario</h1>
-      <NodeList />
+      <h1 id="app-title">Itinerario</h1>
+
+      <!-- Contenedor de contenido según pestaña -->
+      <div id="tabs-content">
+        <div id="home-content" style="display: block;">
+          <NodeList />
+        </div>
+        <div id="settings-content" style="display: none;">
+          <div id="settings-panel">
+            <h2>Ajustes</h2>
+            <div id="settings-info">
+              <p>
+                <strong>Versión del viaje:</strong>
+                <span id="viaje-version">Cargando...</span>
+              </p>
+              <p>
+                <strong>Estado de la caché:</strong>
+                <span id="cache-status">Cargando...</span>
+              </p>
+              <p><strong>Nodos:</strong> <span id="nodos-count">-</span></p>
+              <p><strong>Aristas:</strong> <span id="aristas-count">-</span></p>
+            </div>
+
+            <div id="settings-actions">
+              <h3>Cargar grafo desde archivo</h3>
+              <input type="file" id="graph-file-input" accept=".json" />
+              <button id="load-graph-btn">Cargar grafo</button>
+              <div id="load-status"></div>
+
+              <h3>Descargar definición del itinerario</h3>
+              <button id="download-def-btn">Descargar ItineraryDef.md</button>
+            </div>
+            <button id="clear-cache-btn">Eliminar caché y recargar</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Footer con navegación -->
+    <footer id="app-footer">
+      <button data-tab="home">Home</button>
+      <button data-tab="settings">Ajustes</button>
+    </footer>
   </body>
+
+  <!-- Scripts -->
   <script>
     import "../scripts/index.js";
-    
+    import "../scripts/tabs.js";
+    import "../scripts/settings.js";
+
     // Registrar Service Worker
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/itinerary/sw.js')
-          .then(registration => {
-            console.log('Service Worker registrado con éxito:', registration.scope);
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("/itinerary/sw.js")
+          .then((registration) => {
+            console.log(
+              "Service Worker registrado con éxito:",
+              registration.scope,
+            );
           })
-          .catch(error => {
-            console.error('Error al registrar Service Worker:', error);
+          .catch((error) => {
+            console.error("Error al registrar Service Worker:", error);
           });
       });
     }

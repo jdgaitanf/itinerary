@@ -125,6 +125,5 @@ export function buildItinerary(graph) {
       `Quedan ${pendingEdgeIds.size} aristas sin procesar.`
     );
   }
-  console.log ("Ay sí, ay sí. Yo soy mejor que tú", result)
   return result;
 }
