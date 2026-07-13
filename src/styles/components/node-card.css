@@ -159,7 +159,7 @@
 }
 
 .nodo-detail-notas {
-  background: #f8f8f8;
+  background: var(--background);
   padding: 8px 10px;
   border-radius: 6px;
   border-bottom: none;
