@@ -1,5 +1,5 @@
 import { getViajeGraph } from '../lib/storage.js';
-import { loadViajeData } from '../lib/dataLoader.js';
+import { loadViajeData } from '../lib./dataLoader.js';
 
 async function updateTitle() {
   let nombreViaje = 'Itinerario';
