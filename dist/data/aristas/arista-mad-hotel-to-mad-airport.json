@@ -1,0 +1,28 @@
+{
+  "id": "mad-hotel-to-mad-airport",
+  "origen_id": "mad-sercotel-alcala",
+  "destino_id": "mad-airport",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "Renfe",
+    "tipo_vehiculo": "Tren de cercanias",
+    "linea": "C-1",
+    "detalles": "Caminata a Recoletos o Atocha + Tren C-1 a T4."
+  },
+  "tiempo_estimado": {
+    "minutos": 25,
+    "rango": "20-30",
+    "con_holgura": 30
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-03",
+    "hora_salida_origen": "13:55",
+    "hora_llegada_destino": "14:20"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "3h",
+    "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo AV11."
+  },
+  "notas": "Salir del hotel a las 13:55 para llegar al aeropuerto a las 14:20 (3 horas antes del vuelo)."
+}

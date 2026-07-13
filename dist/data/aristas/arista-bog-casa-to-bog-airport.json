@@ -1,0 +1,26 @@
+{
+  "id": "bog-casa-to-bog-airport",
+  "origen_id": "bog-casa-david",
+  "destino_id": "bog-airport-eldorado",
+  "modo": "auto",
+  "oculto": false,
+  "transporte": {
+    "tipo_vehiculo": "Auto particular",
+    "detalles": "Trayecto desde la casa de David al aeropuerto El Dorado."
+  },
+  "tiempo_estimado": {
+    "minutos": 60,
+    "rango": "45-90",
+    "con_holgura": 90
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-17",
+    "hora_salida_origen": "12:00",
+    "hora_llegada_destino": "13:00"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "3h",
+    "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo AV18."
+  },
+  "notas": "Considerar trafico de la tarde en Bogota. Ruta sugerida: Autopista Norte - Calle 80 - Avenida El Dorado."
+}

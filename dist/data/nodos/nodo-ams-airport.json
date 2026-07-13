@@ -1,0 +1,71 @@
+{
+  "id": "ams-airport",
+  "tipo": "aeropuerto",
+  "nombre": "Aeropuerto de Amsterdam-Schiphol",
+  "oculto": false,
+  "codigo_iata": "AMS",
+  "direccion": {
+    "calle": "Evert van de Beekstraat 202",
+    "ciudad": "Schiphol",
+    "codigo_postal": "1118 CP",
+    "pais": "Paises Bajos",
+    "coordenadas": {
+      "lat": 52.3091,
+      "lng": 4.7634
+    },
+    "maps_link": "https://www.google.com/maps?q=Amsterdam+Schiphol+Airport"
+  },
+  "contacto": {
+    "telefono": "+31 20 794 0800",
+    "web": "https://www.schiphol.nl"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-25",
+      "salida": "2026-07-25",
+      "reserva": {
+        "codigo_reserva": "KL1918-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "KLM"
+      },
+      "clima": {
+        "temperatura_promedio": "18°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "35%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "KLM llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el tren directo a Zaandam (21 min)."
+    },
+    {
+      "entrada": "2026-07-27",
+      "salida": "2026-07-27",
+      "reserva": {
+        "codigo_reserva": "KL1753-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "KLM"
+      },
+      "clima": {
+        "temperatura_promedio": "18°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "35%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "KLM opera desde la Terminal 1 (T1). Llegar 2 horas antes del vuelo."
+    }
+  ],
+  "horarios": {
+    "atencion": "24h"
+  },
+  "idioma_principal": "Neerlandes, Ingles",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "Revision de pasaportes para viajeros extracomunitarios."
+  ],
+  "tiempo_estimado_visita": "2h"
+}

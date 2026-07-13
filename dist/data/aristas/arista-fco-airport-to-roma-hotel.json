@@ -1,0 +1,28 @@
+{
+  "id": "fco-airport-to-roma-hotel",
+  "origen_id": "fco-airport",
+  "destino_id": "roma-villa-angeli",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "Trenitalia",
+    "tipo_vehiculo": "Tren regional",
+    "linea": "FL1",
+    "detalles": "Tren regional desde Fiumicino Aeroporto hasta Roma Trastevere (25-30 min), luego bus al hotel."
+  },
+  "tiempo_estimado": {
+    "minutos": 40,
+    "rango": "35-45",
+    "con_holgura": 45
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "10:30",
+    "hora_llegada_destino": "11:10"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 8.00
+  },
+  "notas": "Comprar ticket en la estacion del aeropuerto. El bus local conecta con el hotel."
+}

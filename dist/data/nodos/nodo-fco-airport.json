@@ -1,0 +1,71 @@
+{
+  "id": "fco-airport",
+  "tipo": "aeropuerto",
+  "nombre": "Aeropuerto de Roma-Fiumicino Leonardo da Vinci",
+  "oculto": false,
+  "codigo_iata": "FCO",
+  "direccion": {
+    "calle": "Via dell'Aeroporto di Fiumicino, 320",
+    "ciudad": "Fiumicino",
+    "codigo_postal": "00054",
+    "pais": "Italia",
+    "coordenadas": {
+      "lat": 41.8003,
+      "lng": 12.2389
+    },
+    "maps_link": "https://www.google.com/maps?q=Aeroporto+di+Roma-Fiumicino"
+  },
+  "contacto": {
+    "telefono": "+39 06 65951",
+    "web": "https://www.adr.it/fiumicino"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-19",
+      "salida": "2026-07-19",
+      "reserva": {
+        "codigo_reserva": "VY6106-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Vueling"
+      },
+      "clima": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+      },
+      "notas": "Vueling llega a la Terminal 1 (T1). Para salir hacia la ciudad, tomar el tren Leonardo Express hasta Roma Termini (32 min) o un tren regional hasta Roma Trastevere (25-30 min)."
+    },
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-21",
+      "reserva": {
+        "codigo_reserva": "LX1727-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Swiss"
+      },
+      "clima": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+      },
+      "notas": "Swiss opera desde la Terminal 1 (T1). Llegar 2 horas antes del vuelo."
+    }
+  ],
+  "horarios": {
+    "atencion": "24h"
+  },
+  "idioma_principal": "Italiano",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "Revision de pasaportes para viajeros extracomunitarios."
+  ],
+  "tiempo_estimado_visita": "2h"
+}

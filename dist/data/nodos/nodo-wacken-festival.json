@@ -1,0 +1,72 @@
+{
+  "id": "wacken-festival",
+  "tipo": "festival",
+  "nombre": "Wacken Open Air 2026",
+  "oculto": false,
+  "direccion": {
+    "calle": "Am Festivalgelande",
+    "ciudad": "Wacken",
+    "codigo_postal": "25596",
+    "pais": "Alemania",
+    "coordenadas": {
+      "lat": 54.0206,
+      "lng": 9.3812
+    },
+    "maps_link": "https://www.google.com/maps?q=Wacken+Open+Air"
+  },
+  "contacto": {
+    "web": "https://www.wacken.com"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-28",
+      "salida": "2026-08-02",
+      "reserva": {
+        "codigo_reserva": "WOA-2026",
+        "confirmada": true,
+        "nombre_titular": "David G. y Steven Espinel",
+        "plataforma": "Wacken"
+      },
+      "clima": {
+        "temperatura_promedio": "15°C - 22°C",
+        "condiciones": "Variable, posible lluvia y barro",
+        "probabilidad_lluvia": "50%",
+        "recomendacion_vestimenta": "Ropa impermeable, botas de barro, ropa abrigada para la noche"
+      },
+      "notas": "El festival se celebra del 29 de julio al 1 de agosto de 2026. Se recomienda llevar una carpa resistente al agua y botas de barro."
+    }
+  ],
+  "horarios": {
+    "horario_apertura": "10:00",
+    "horario_cierre": "03:00"
+  },
+  "actividades": [
+    {
+      "id": "wacken-conciertos",
+      "nombre": "Conciertos del Wacken Open Air",
+      "tipo": "concierto",
+      "duracion_estimada": "5 dias",
+      "horario_recomendado": "Todo el dia",
+      "url_oficial": "https://www.wacken.com"
+    }
+  ],
+  "equipaje_recomendado": [
+    "Carpa",
+    "Botas de barro",
+    "Impermeable",
+    "Ropa abrigada",
+    "Linterna",
+    "Protector solar"
+  ],
+  "idioma_principal": "Aleman, Ingles",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "No se permite vidrio en el area del festival.",
+    "Se recomienda llegar temprano para evitar atascos."
+  ],
+  "tiempo_estimado_visita": "5 dias"
+}

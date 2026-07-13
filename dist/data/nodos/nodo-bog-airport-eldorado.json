@@ -1,0 +1,81 @@
+{
+  "id": "bog-airport-eldorado",
+  "tipo": "aeropuerto",
+  "nombre": "Aeropuerto Internacional El Dorado",
+  "oculto": false,
+  "codigo_iata": "BOG",
+  "direccion": {
+    "calle": "Avenida El Dorado #103-93, Terminal 1 (Avianca)",
+    "ciudad": "Bogota",
+    "codigo_postal": "111611",
+    "pais": "Colombia",
+    "coordenadas": {
+      "lat": 4.7016,
+      "lng": -74.1469
+    },
+    "maps_link": "https://www.google.com/maps?q=Terminal+1+Aeropuerto+El+Dorado+Bogota"
+  },
+  "contacto": {
+    "telefono": "+57 601 266 1000",
+    "web": "https://www.eldorado.aero"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-17",
+      "salida": "2026-07-17",
+      "reserva": {
+        "codigo_reserva": "AV18-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Avianca",
+        "costo": {
+          "moneda": "COP",
+          "valor": 425000,
+          "incluido_en": "Vuelo ida y vuelta"
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "14°C",
+        "condiciones": "Lluvias en la tarde",
+        "probabilidad_lluvia": "60%",
+        "recomendacion_vestimenta": "Chaqueta ligera, paraguas"
+      },
+      "notas": "Facturacion para el vuelo AV18. Avianca opera desde el Terminal 1. Llegar 3 horas antes del vuelo."
+    },
+    {
+      "entrada": "2026-08-03",
+      "salida": "2026-08-03",
+      "reserva": {
+        "codigo_reserva": "AV11-2026",
+        "confirmada": true,
+        "nombre_titular": "Juan David",
+        "plataforma": "Avianca",
+        "costo": {
+          "moneda": "COP",
+          "valor": 425000,
+          "incluido_en": "Vuelo ida y vuelta"
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "14°C",
+        "condiciones": "Lluvias en la tarde",
+        "probabilidad_lluvia": "60%",
+        "recomendacion_vestimenta": "Chaqueta ligera, paraguas"
+      },
+      "notas": "Llegada del vuelo AV11 desde Madrid. Aduana y recogida de equipaje."
+    }
+  ],
+  "horarios": {
+    "atencion": "24h"
+  },
+  "idioma_principal": "Espanol",
+  "moneda_local": {
+    "codigo": "COP",
+    "simbolo": "$"
+  },
+  "reglas_especiales": [
+    "Revision de seguridad en el acceso a la terminal.",
+    "Llegar 2.5-3 horas antes del vuelo."
+  ],
+  "tiempo_estimado_visita": "3h"
+}

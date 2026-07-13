@@ -1,0 +1,22 @@
+{
+  "id": "ham-sixt-to-wacken",
+  "origen_id": "ham-sixt-gansemarkt",
+  "destino_id": "wacken-festival",
+  "modo": "auto",
+  "oculto": false,
+  "transporte": {
+    "tipo_vehiculo": "Cupra Formentor",
+    "detalles": "Trayecto en carro alquilado desde Hamburgo hasta Wacken."
+  },
+  "tiempo_estimado": {
+    "minutos": 75,
+    "rango": "60-90",
+    "con_holgura": 90
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-28",
+    "hora_salida_origen": "11:00",
+    "hora_llegada_destino": "12:15"
+  },
+  "notas": "Salir de Hamburgo a las 11:00 para llegar a Wacken alrededor de las 12:15, instalar la carpa y empezar a disfrutar."
+}

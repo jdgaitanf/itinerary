@@ -1,0 +1,56 @@
+{
+  "version": "3.0",
+  "nombre_viaje": "Wacken 2026",
+  "fechas": {
+    "inicio": "2026-07-17",
+    "fin": "2026-08-03"
+  },
+  "referencias": {
+    "nodos": [
+      "nodos/nodo-bog-casa-david.json",
+      "nodos/nodo-bog-airport-eldorado.json",
+      "nodos/nodo-bcn-airport.json",
+      "nodos/nodo-bcn-hotel-upper-diagonal.json",
+      "nodos/nodo-fco-airport.json",
+      "nodos/nodo-roma-villa-angeli.json",
+      "nodos/nodo-roma-coliseo.json",
+      "nodos/nodo-zrh-airport.json",
+      "nodos/nodo-zrh-casa-amiga-steven.json",
+      "nodos/nodo-ams-airport.json",
+      "nodos/nodo-ams-zaan-hotel.json",
+      "nodos/nodo-ham-airport.json",
+      "nodos/nodo-ham-st-joseph-hotel.json",
+      "nodos/nodo-ham-sixt-gansemarkt.json",
+      "nodos/nodo-wacken-festival.json",
+      "nodos/nodo-mad-airport.json",
+      "nodos/nodo-mad-sercotel-alcala.json"
+    ],
+    "aristas": [
+      "aristas/arista-bog-casa-to-bog-airport.json",
+      "aristas/arista-bog-airport-to-bcn-airport.json",
+      "aristas/arista-bcn-airport-to-bcn-hotel.json",
+      "aristas/arista-bcn-hotel-to-bcn-airport.json",
+      "aristas/arista-bcn-airport-to-fco-airport.json",
+      "aristas/arista-fco-airport-to-roma-hotel.json",
+      "aristas/arista-roma-hotel-to-coliseo.json",
+      "aristas/arista-coliseo-to-roma-hotel.json",
+      "aristas/arista-roma-hotel-to-fco-airport.json",
+      "aristas/arista-fco-airport-to-zrh-airport.json",
+      "aristas/arista-zrh-airport-to-zrh-casa-amiga.json",
+      "aristas/arista-zrh-casa-amiga-to-zrh-airport.json",
+      "aristas/arista-zrh-airport-to-ams-airport.json",
+      "aristas/arista-ams-airport-to-ams-hotel.json",
+      "aristas/arista-ams-hotel-to-ams-airport.json",
+      "aristas/arista-ams-airport-to-ham-airport.json",
+      "aristas/arista-ham-airport-to-ham-hotel.json",
+      "aristas/arista-ham-hotel-to-ham-sixt.json",
+      "aristas/arista-ham-sixt-to-wacken.json",
+      "aristas/arista-wacken-to-ham-sixt.json",
+      "aristas/arista-ham-sixt-to-ham-airport.json",
+      "aristas/arista-ham-airport-to-mad-airport.json",
+      "aristas/arista-mad-airport-to-mad-hotel.json",
+      "aristas/arista-mad-hotel-to-mad-airport.json",
+      "aristas/arista-mad-airport-to-bog-airport.json"
+    ]
+  }
+}

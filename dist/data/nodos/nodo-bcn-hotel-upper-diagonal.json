@@ -1,0 +1,73 @@
+{
+  "id": "bcn-hotel-upper-diagonal",
+  "tipo": "hotel",
+  "nombre": "Hotel Upper Diagonal",
+  "oculto": false,
+  "direccion": {
+    "calle": "Passeig Manuel Girona, 7-21",
+    "ciudad": "Barcelona",
+    "codigo_postal": "08034",
+    "pais": "Espana",
+    "coordenadas": {
+      "lat": 41.3886,
+      "lng": 2.1234
+    },
+    "maps_link": "https://www.google.com/maps?q=Passeig+Manuel+Girona+7-21+08034+Barcelona+Spain"
+  },
+  "contacto": {
+    "telefono": "+34 934 110 101",
+    "web": "https://www.upperdiagonal.com"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-18",
+      "salida": "2026-07-19",
+      "reserva": {
+        "codigo_reserva": "ABC123XYZ",
+        "confirmada": true,
+        "nombre_titular": "Steven Espinel",
+        "plataforma": "Booking.com"
+      },
+      "clima": {
+        "temperatura_promedio": "28°C - 32°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero"
+      },
+      "notas": "Habitacion a nombre de Steven. Wifi disponible, gimnasio, piscina."
+    }
+  ],
+  "horarios": {
+    "check_in": "15:00",
+    "check_out": "12:00",
+    "atencion": "24h"
+  },
+  "actividades": [
+    {
+      "id": "barcelona-exploracion",
+      "nombre": "Exploracion de Barcelona",
+      "tipo": "turismo",
+      "duracion_estimada": "Tarde completa",
+      "horario_recomendado": "12:00",
+      "reserva": {
+        "requiere_reserva": false
+      },
+      "notas": "Recorrer el barrio de Gracia, Parque Guell o Las Ramblas."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa ligera",
+    "Protector solar",
+    "Cargador de viaje"
+  ],
+  "idioma_principal": "Espanol, Catalan",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "imagenes": [
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/4e/fb/04/hotel-upper-diagonal.jpg"
+  ],
+  "tiempo_estimado_visita": "1 noche"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "roma-hotel-to-fco-airport",
+  "origen_id": "roma-villa-angeli",
+  "destino_id": "fco-airport",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "Trenitalia",
+    "tipo_vehiculo": "Tren regional",
+    "linea": "FL1",
+    "detalles": "Bus a Roma Trastevere + Tren regional a Fiumicino Aeroporto."
+  },
+  "tiempo_estimado": {
+    "minutos": 40,
+    "rango": "35-45",
+    "con_holgura": 45
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "06:30",
+    "hora_llegada_destino": "07:10"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2.5h",
+    "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo LX1727."
+  },
+  "notas": "Salir del hotel a las 06:30 para llegar al aeropuerto a las 07:10 (2.5 horas antes del vuelo)."
+}
