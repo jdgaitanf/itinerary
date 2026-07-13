@@ -23,7 +23,7 @@ export async function loadViajeData() {
 
   try {
     // Cargar el archivo raiz con ruta relativa
-    const response = await fetch("./data/viaje-raiz.json");
+    const response = await fetch("./itinerary/data/viaje-raiz.json");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

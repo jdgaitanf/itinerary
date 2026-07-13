@@ -1,0 +1,144 @@
+.arista-card {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  margin-bottom: 2px;
+  margin-left: 29px;
+  overflow: hidden;
+  transition: none;
+  cursor: pointer;
+  border-left: 3px solid var(--text-muted);
+  padding-left: 8px;
+}
+
+.arista-card:hover {
+  box-shadow: none;
+}
+
+.arista-card.expanded {
+  box-shadow: none;
+}
+
+.arista-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 4px;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.arista-card-icon {
+  font-size: 18px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.arista-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.arista-card-title {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.arista-modo {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.arista-fecha {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.arista-duracion {
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+.arista-card-toggle {
+  font-size: 20px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform var(--transition-speed) ease;
+  line-height: 1;
+  margin-left: auto;
+}
+
+.arista-card.expanded .arista-card-toggle {
+  transform: rotate(180deg);
+}
+
+.arista-card-expanded {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height var(--transition-speed) ease, opacity var(--transition-speed) ease;
+  padding: 0 12px 0 8px;
+  background: transparent;
+}
+
+.arista-card.expanded .arista-card-expanded {
+  padding: 0 12px 8px 8px;
+}
+
+.arista-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 4px 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  background: transparent;
+}
+
+.arista-detail-row:last-child {
+  border-bottom: none;
+}
+
+.arista-detail-row .material-symbols-outlined {
+  font-size: 16px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.arista-detail-row strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.arista-detail-holgura {
+  background: rgba(255, 248, 230, 0.5);
+  padding: 6px 10px;
+  border-radius: 4px;
+  border-bottom: none;
+  margin: 2px 0;
+}
+
+.arista-detail-holgura .material-symbols-outlined {
+  color: #c47a1a;
+}
+
+.arista-detail-notas {
+  background: rgba(248, 248, 248, 0.5);
+  padding: 6px 10px;
+  border-radius: 4px;
+  border-bottom: none;
+  margin-top: 2px;
+}
+
+.arista-detail-notas .material-symbols-outlined {
+  color: var(--text-muted);
+}

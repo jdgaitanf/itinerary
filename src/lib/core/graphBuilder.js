@@ -5,7 +5,7 @@ export async function buildGraph(rootData) {
   // Cargar todos los nodos
   for (const nodoPath of rootData.referencias.nodos) {
     try {
-      const response = await fetch(`./data/${nodoPath}`);
+      const response = await fetch(`./itinerary/data/${nodoPath}`);
       if (!response.ok) {
         console.error(`Error loading node: ${nodoPath}`);
         continue;
@@ -20,7 +20,7 @@ export async function buildGraph(rootData) {
   // Cargar todas las aristas
   for (const aristaPath of rootData.referencias.aristas) {
     try {
-      const response = await fetch(`./data/${aristaPath}`);
+      const response = await fetch(`./itinerary/data/${aristaPath}`);
       if (!response.ok) {
         console.error(`Error loading edge: ${aristaPath}`);
         continue;
