@@ -219,11 +219,12 @@ h1 {
   border-radius: 0;
   box-shadow: none;
   margin-bottom: 2px;
+  margin-left: 29px; /* Desplaza toda la tarjeta hacia la derecha */
   overflow: hidden;
   transition: none;
   cursor: pointer;
   border-left: 3px solid var(--text-muted);
-  padding-left: 26px; /* 29px - 3px (borde) = 26px para que el borde quede en la posición correcta */
+  padding-left: 8px; /* Espacio interno para el contenido */
 }
 
 .arista-card:hover {
@@ -238,10 +239,9 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 12px 6px 8px;
+  padding: 6px 12px 6px 4px;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  padding-left: 4px; /* Reducir el padding interno ya que el padding-left de la card da el espacio */
 }
 
 .arista-card-icon {
