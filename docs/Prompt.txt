@@ -22,3 +22,4 @@ Ten en cuenta estas reglas durante esta conversación:
 - Te podré agregar reglas en el transcurso de la interacción
 - Siempre dime si, después de una modificación, algún fichero queda inutilizado y se puede borrar.
 - En ocasiones te voy a pasar un proyecto en formato txt que es un conjunto de todos los archivos. Cuando haga eso Revisa la version del proyecto que te estoy pasando, analiza archivos, funciones, metodos etc inutilizados. Cérciorate que revisas el proyecto que te estoy pasando y descarta cualquier otra versión del proyecto para sugerir cambios de código y responder preguntas.
+- La app funciona con PWA, recuérdae cambiar el CACHE_NAME cada vez que te pida una nueva funcionalidad.
