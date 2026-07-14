@@ -644,3 +644,26 @@ if (source === "user") {
 - Para nodos y aristas generados enteramente por IA, se puede omitir la propiedad `sources` por completo.
 - Al editar un campo, la aplicación debe actualizar `sources` para ese campo específico.
 - En el archivo raíz (`viaje-raiz.json`), si se desea, se puede incluir un `sources` a nivel de viaje (para `nombre_viaje`, `fechas`, etc.) siguiendo el mismo patrón.
+
+
+## 13. Regla de Consistencia Temporal de Rutas
+
+Para garantizar que el itinerario sea físicamente realizable y no contenga actividades inalcanzables, se añade la siguiente regla de validación:
+
+**Regla de Secuencia y Alcanzabilidad:**
+
+Para un mismo nodo origen, en un mismo día calendario:
+
+1. Las aristas salientes deben estar ordenadas cronológicamente de menor a mayor hora de salida.
+2. Si una de esas aristas tiene como destino un nodo de tipo `aeropuerto` y dicho aeropuerto implica un cambio de ciudad, país o un vuelo internacional (es decir, el viajero abandona la ciudad/región), **esta arista debe ser la última arista saliente de ese nodo en ese día**.
+3. Cualquier arista saliente del mismo nodo en el mismo día que tenga una hora posterior a la arista de salida hacia el aeropuerto se considera **inalcanzable** y el grafo será rechazado por el validador.
+
+**Justificación:** Esta regla evita que se programen actividades locales después de que el viajero ya haya partido hacia el aeropuerto para tomar un vuelo, garantizando que el orden de los eventos refleje la ubicación real del viajero en todo momento.
+
+**Ejemplo de error:** Nodo `Hotel-Roma` con dos aristas el 21 de julio:
+- `Hotel-Roma → Aeropuerto-FCO` a las 06:30 (vuelo a Zúrich).
+- `Hotel-Roma → Estadio-Olímpico` a las 09:00 (tour).
+
+El grafo será rechazado porque la arista al estadio es posterior a la arista al aeropuerto, y el viajero ya no está en el hotel a las 09:00.
+
+**Solución sugerida:** Reubicar la actividad local (Estadio Olímpico) en un día anterior, asegurando que todas las aristas de salida del nodo queden antes de la arista de salida definitiva hacia el aeropuerto. Si no es posible acomodar las actividades, el usuario debe escoger solo una.
