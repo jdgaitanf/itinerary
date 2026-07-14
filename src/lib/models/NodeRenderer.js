@@ -9,19 +9,25 @@ export class NodeRenderer {
     this.formatDate = formatDate;
   }
 
-  render(nodo) {
+  render(nodo, visitaIndex = 0, fecha = '') {
     const iconName = this.icons(nodo.tipo);
     const tipoLabel = this.labels(nodo.tipo);
-    const fechaEntrada = nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].entrada : '';
-    const fechaSalida = nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].salida : '';
+    
+    const visita = nodo.visitas && nodo.visitas.length > 0 
+      ? nodo.visitas[Math.min(visitaIndex, nodo.visitas.length - 1)] 
+      : null;
+    
+    // Usar la fecha proporcionada o la de la visita como fallback
+    const fechaMostrar = fecha || visita?.entrada || '';
+    const fechaSalida = visita?.salida || '';
     const ciudad = nodo.direccion?.ciudad || '';
     const pais = nodo.direccion?.pais || '';
     const mapsLink = nodo.direccion?.maps_link || '';
     const contacto = nodo.contacto || {};
     const horarios = nodo.horarios || {};
-    const clima = nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].clima : null;
-    const reserva = nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].reserva : null;
-    const notas = nodo.visitas && nodo.visitas.length > 0 ? nodo.visitas[0].notas : null;
+    const clima = visita?.clima || null;
+    const reserva = visita?.reserva || null;
+    const notas = visita?.notas || null;
     const actividades = nodo.actividades || [];
     const equipaje = nodo.equipaje_recomendado || [];
     const moneda = nodo.moneda_local || {};
@@ -30,7 +36,7 @@ export class NodeRenderer {
     const reglas = nodo.reglas_especiales || [];
 
     return `
-      <div class="nodo-card" data-id="${nodo.id}">
+      <div class="nodo-card" data-id="${nodo.id}" data-visita="${visitaIndex}">
         <div class="nodo-card-header">
           <span class="nodo-card-icon material-symbols-outlined">${iconName}</span>
           <div class="nodo-card-content">
@@ -39,14 +45,14 @@ export class NodeRenderer {
               <span class="nodo-card-badge ${nodo.tipo}">${tipoLabel}</span>
               ${ciudad ? ` · ${ciudad}` : ''}
               ${pais ? `, ${pais}` : ''}
-              ${fechaEntrada ? ` · ${this.formatDate(fechaEntrada)}` : ''}
+              ${fechaMostrar ? ` · ${this.formatDate(fechaMostrar)}` : ''}
             </div>
           </div>
           <span class="nodo-card-toggle material-symbols-outlined">expand_more</span>
         </div>
 
         <div class="nodo-card-expanded">
-          ${this._renderFecha(fechaEntrada, fechaSalida)}
+          ${this._renderFecha(fechaMostrar, fechaSalida)}
           ${this._renderUbicacion(ciudad, pais, mapsLink)}
           ${this._renderContacto(contacto)}
           ${this._renderHorarios(horarios)}

@@ -18,6 +18,41 @@ function findStartNode(graph) {
 }
 
 /**
+ * Obtiene la fecha de un nodo basada en la arista que llega a él.
+ * Si el nodo es el inicial, usa la fecha de su primera visita.
+ * @param {Object} graph - Grafo completo
+ * @param {string} nodeId - ID del nodo
+ * @param {string} edgeId - ID de la arista que llega al nodo (opcional)
+ * @param {number} visitaIndex - Índice de la visita
+ * @returns {string} Fecha en formato YYYY-MM-DD
+ */
+function getNodeDate(graph, nodeId, edgeId, visitaIndex) {
+  const node = graph.nodos.find(n => n.id === nodeId);
+  if (!node) return '';
+
+  // Si es el nodo inicial, usar la fecha de su primera visita
+  if (node.tipo === 'casa_origen') {
+    const visita = node.visitas && node.visitas.length > 0 ? node.visitas[0] : null;
+    return visita?.entrada || '';
+  }
+
+  // Si hay una arista que llega al nodo, usar su fecha de llegada o salida
+  if (edgeId) {
+    const edge = graph.aristas.find(e => e.id === edgeId);
+    if (edge && edge.logistica_salida) {
+      // Priorizar la fecha de salida si no hay fecha de llegada
+      return edge.logistica_salida.fecha_salida || '';
+    }
+  }
+
+  // Fallback: usar la fecha de la visita correspondiente
+  const visita = node.visitas && node.visitas.length > 0 
+    ? node.visitas[Math.min(visitaIndex || 0, node.visitas.length - 1)] 
+    : null;
+  return visita?.entrada || '';
+}
+
+/**
  * Obtiene las aristas salientes de un nodo que aún no ha sido visitado.
  * Marca el nodo como visitado si tiene aristas disponibles.
  * @param {Object} graph - Grafo completo
@@ -29,20 +64,16 @@ function getEdgesForUnvisitedNode(graph, nodeId, visitedNodeIds) {
   if (visitedNodeIds.has(nodeId)) {
     return [];
   }
-  // Marcar como visitado antes de obtener aristas para evitar ciclos infinitos
   visitedNodeIds.add(nodeId);
-  // getEdgesFromNode internamente usa sortEdgesByDate (orden descendente)
-  // Lo cual, al ser apilado (LIFO), resulta en que la arista más temprana se procese primero.
   return getEdgesFromNode(graph, nodeId);
 }
 
 /**
  * Construye el itinerario en orden de visita mediante un recorrido DFS con pila.
- * El algoritmo garantiza que cada nodo se agregue solo una vez al resultado,
- * mientras que las aristas se dibujan en el orden cronológico de salida.
+ * Cada elemento del itinerario incluye su fecha correspondiente.
  * 
  * @param {Object} graph - Grafo completo con nodos y aristas
- * @returns {Array<{tipo: 'nodo'|'arista', id: string}>} Itinerario ordenado
+ * @returns {Array<{tipo: 'nodo'|'arista', id: string, fecha: string, visitaIndex?: number}>} Itinerario ordenado
  */
 export function buildItinerary(graph) {
   // 1. Validar y obtener nodo inicial
@@ -51,24 +82,32 @@ export function buildItinerary(graph) {
   // 2. Inicializar estructuras de estado
   const pendingEdgeIds = new Set(graph.aristas.map(edge => edge.id));
   const visitedNodeIds = new Set();
-  const stack = [];           // Pila LIFO para aristas pendientes de procesar
-  const stackSet = new Set(); // Búsqueda O(1) para evitar duplicados en la pila
+  const nodeVisitIndexMap = new Map();
+  const stack = [];
+  const stackSet = new Set();
   const result = [];
   
   let currentNode = startNode;
   let iteration = 0;
 
   // 3. Agregar nodo inicial al resultado
-  result.push({ tipo: 'nodo', id: startNode.id });
+  nodeVisitIndexMap.set(startNode.id, 0);
+  const startDate = startNode.visitas && startNode.visitas.length > 0 
+    ? startNode.visitas[0].entrada 
+    : '';
+  result.push({ 
+    tipo: 'nodo', 
+    id: startNode.id, 
+    visitaIndex: 0,
+    fecha: startDate
+  });
 
   // 4. Recorrido principal
   while ((stack.length > 0 || pendingEdgeIds.size > 0) && iteration < MAX_TRAVERSAL_ITERATIONS) {
     iteration++;
 
-    // 4a. Obtener aristas salientes del nodo actual (si es la primera vez que se visita)
     const availableEdges = getEdgesForUnvisitedNode(graph, currentNode.id, visitedNodeIds);
 
-    // 4b. Filtrar aristas que aún no han sido procesadas y no están ya en la pila
     for (const edge of availableEdges) {
       if (pendingEdgeIds.has(edge.id) && !stackSet.has(edge.id)) {
         stackSet.add(edge.id);
@@ -76,11 +115,8 @@ export function buildItinerary(graph) {
       }
     }
 
-    // 4c. Obtener la siguiente arista a procesar (LIFO)
     const nextEdgeId = stack.pop();
     if (!nextEdgeId) {
-      // Si la pila está vacía pero aún hay aristas pendientes, el grafo está desconectado.
-      // En lugar de fallar silenciosamente, emitimos una advertencia y rompemos el bucle.
       console.warn(
         `Grafo posiblemente desconectado. Quedan ${pendingEdgeIds.size} aristas sin procesar.`
       );
@@ -88,25 +124,29 @@ export function buildItinerary(graph) {
     }
     stackSet.delete(nextEdgeId);
 
-    // 4d. Verificar que la arista aún esté pendiente (podría haber sido procesada en otro camino)
     if (!pendingEdgeIds.has(nextEdgeId)) {
       continue;
     }
 
-    // 4e. Buscar la arista en el grafo
     const edge = graph.aristas.find(e => e.id === nextEdgeId);
     if (!edge) {
-      // Limpiar el ID huérfano para no bloquear el proceso
       pendingEdgeIds.delete(nextEdgeId);
       console.warn(`Arista con ID "${nextEdgeId}" no encontrada en el grafo. Se omite.`);
       continue;
     }
 
-    // 4f. Agregar arista al resultado y marcarla como procesada
-    result.push({ tipo: 'arista', id: edge.id });
+    // Obtener la fecha de la arista
+    const edgeDate = edge.logistica_salida?.fecha_salida || '';
+
+    // Agregar arista al resultado
+    result.push({ 
+      tipo: 'arista', 
+      id: edge.id,
+      fecha: edgeDate
+    });
     pendingEdgeIds.delete(edge.id);
 
-    // 4g. Moverse al nodo destino
+    // Moverse al nodo destino
     const nextNode = graph.nodos.find(n => n.id === edge.destino_id);
     if (!nextNode) {
       throw new Error(
@@ -114,11 +154,38 @@ export function buildItinerary(graph) {
       );
     }
 
-    result.push({ tipo: 'nodo', id: nextNode.id });
+    // Determinar el índice de visita para el nodo destino
+    const currentVisitIndex = nodeVisitIndexMap.get(nextNode.id) || 0;
+    const existingNodeWithSameIndex = result.find(
+      item => item.tipo === 'nodo' && item.id === nextNode.id && item.visitaIndex === currentVisitIndex
+    );
+    let visitaIndex = currentVisitIndex;
+    if (existingNodeWithSameIndex) {
+      visitaIndex = currentVisitIndex + 1;
+      nodeVisitIndexMap.set(nextNode.id, visitaIndex);
+    } else {
+      nodeVisitIndexMap.set(nextNode.id, currentVisitIndex);
+    }
+
+    // Calcular la fecha del nodo: usar la fecha de la arista que llega
+    // o la fecha de la visita correspondiente como fallback
+    let nodeDate = edge.logistica_salida?.fecha_salida || '';
+    if (!nodeDate) {
+      const visita = nextNode.visitas && nextNode.visitas.length > 0 
+        ? nextNode.visitas[Math.min(visitaIndex, nextNode.visitas.length - 1)] 
+        : null;
+      nodeDate = visita?.entrada || '';
+    }
+
+    result.push({ 
+      tipo: 'nodo', 
+      id: nextNode.id, 
+      visitaIndex: visitaIndex,
+      fecha: nodeDate
+    });
     currentNode = nextNode;
   }
 
-  // 5. Verificar si se alcanzó el límite de seguridad
   if (iteration >= MAX_TRAVERSAL_ITERATIONS) {
     console.warn(
       `El recorrido alcanzó el límite de ${MAX_TRAVERSAL_ITERATIONS} iteraciones. ` +

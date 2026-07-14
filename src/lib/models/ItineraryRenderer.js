@@ -22,7 +22,6 @@ export class ItineraryRenderer {
       return;
     }
 
-    // Crear mapas para búsqueda rápida
     const nodosMap = new Map();
     graph.nodos.forEach(nodo => {
       nodosMap.set(nodo.id, nodo);
@@ -33,17 +32,20 @@ export class ItineraryRenderer {
       aristasMap.set(arista.id, arista);
     });
 
-    // Inicializar el renderer de aristas con el mapa de nodos
     this.edgeRenderer = new EdgeRenderer(nodosMap);
 
-    // Construir el HTML
     let html = '';
 
     for (const item of itinerary) {
       if (item.tipo === 'nodo') {
         const nodo = nodosMap.get(item.id);
         if (nodo) {
-          html += this.nodeRenderer.render(nodo);
+          // Pasar el índice de visita y la fecha al renderizador
+          html += this.nodeRenderer.render(
+            nodo, 
+            item.visitaIndex || 0,
+            item.fecha || ''
+          );
         }
       } else if (item.tipo === 'arista') {
         const arista = aristasMap.get(item.id);
@@ -54,8 +56,6 @@ export class ItineraryRenderer {
     }
 
     container.innerHTML = html;
-
-    // Agregar event listeners para expansión/contracción
     addToggleListeners(container);
   }
 }
