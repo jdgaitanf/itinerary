@@ -15,6 +15,11 @@
     if (themeIcon) {
       themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
     }
+    // Actualizar el meta theme-color para la barra de estado de Android
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.content = isDark ? '#121212' : '#f5f5f5';
+    }
     // Guardar preferencia
     try {
       localStorage.setItem('darkMode', isDark ? 'true' : 'false');
