@@ -1,11 +1,3 @@
-# Definición del Grafo de Viaje (v3.0)
-
-## Estructura General
-
-El grafo está compuesto por **Nodos** y **Aristas** que representan el itinerario completo de un viaje. Cada nodo representa un lugar o evento, y cada arista representa el movimiento entre nodos.
-
----
-
 ## 1. Nodos (Nodes) - v3.0
 
 ### Estructura de un Nodo
@@ -36,12 +28,15 @@ El grafo está compuesto por **Nodos** y **Aristas** que representan el itinerar
     {
       "entrada": "YYYY-MM-DD",       // Fecha de llegada
       "salida": "YYYY-MM-DD",        // Fecha de salida
-      "clima": {                     // Clima específico de esta visita (opcional)
-        "temperatura_promedio": "string",
-        "condiciones": "string",
-        "probabilidad_lluvia": "string",
-        "recomendacion_vestimenta": "string"
-      },
+      "clima": [                     // Arreglo de clima por día de estadía (opcional)
+        {
+          "fecha": "YYYY-MM-DD",     // Fecha específica
+          "temperatura_promedio": "string",
+          "condiciones": "string",
+          "probabilidad_lluvia": "string",
+          "recomendacion_vestimenta": "string"
+        }
+      ],
       "reserva": {                   // Reserva específica de esta visita (opcional)
         "codigo_reserva": "string",
         "confirmada": boolean,
@@ -127,6 +122,36 @@ El grafo está compuesto por **Nodos** y **Aristas** que representan el itinerar
 5. Los campos que antes estaban a nivel de nodo (`fechas_estadia`, `clima_esperado`, `reserva`, `notas_adicionales`) se mueven a cada visita
 6. Los campos que aplican a todas las visitas (horarios, actividades, equipaje) se mantienen a nivel de nodo
 
+### Reglas de `clima` como arreglo
+
+El campo `clima` dentro de cada visita es ahora un arreglo que contiene información climática para cada día de estadía. Esto permite tener predicciones o datos climáticos específicos por fecha.
+
+- Cada elemento del arreglo debe tener al menos el campo `fecha`
+- Las fechas en el arreglo deben estar dentro del rango `entrada`-`salida` de la visita
+- El orden de los elementos en el arreglo debe ser cronológico
+- La UI puede mostrar solo el primer día como resumen, o permitir consultar día por día
+
+**Ejemplo de clima como arreglo:**
+
+```json
+"clima": [
+  {
+    "fecha": "2026-07-28",
+    "temperatura_promedio": "16°C - 22°C",
+    "condiciones": "Parcialmente nublado",
+    "probabilidad_lluvia": "40%",
+    "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+  },
+  {
+    "fecha": "2026-07-29",
+    "temperatura_promedio": "18°C - 24°C",
+    "condiciones": "Soleado",
+    "probabilidad_lluvia": "10%",
+    "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+  }
+]
+```
+
 ### Nodo Especial: Casa-Origen
 
 El nodo de tipo `casa_origen` es el **nodo inicial del viaje**. Debe existir exactamente uno en el grafo.
@@ -189,9 +214,9 @@ El nodo de tipo `casa_origen` es el **nodo inicial del viaje**. Debe existir exa
     "con_holgura": number            // Tiempo con holgura
   },
   "logistica_salida": {
-    "fecha_salida": "YYYY-MM-DD",    // Fecha de salida
-    "hora_salida_origen": "HH:MM",   // Hora de salida del origen
-    "hora_llegada_destino": "HH:MM", // Hora de llegada al destino
+    "fecha_salida": "YYYY-MM-DD",    // Fecha de salida (obligatorio)
+    "hora_salida_origen": "HH:MM",   // Hora de salida del origen (obligatorio)
+    "hora_llegada_destino": "HH:MM", // Hora de llegada al destino (obligatorio)
     "hora_salida_efectiva_transporte": "HH:MM" // Hora real de salida del transporte (opcional)
   },
   "reglas_holgura": {                // Reglas de holgura (opcional)
@@ -218,6 +243,22 @@ El nodo de tipo `casa_origen` es el **nodo inicial del viaje**. Debe existir exa
 | `bus`      | Autobús              | Empresas locales           |
 | `auto`     | Automóvil particular | Alquilado o propio         |
 | `caminata` | A pie                | Trayectos cortos           |
+
+### Reglas de Validación para Aristas
+
+1. **Todas las aristas deben tener fecha y hora concreta** en `logistica_salida.fecha_salida`, `logistica_salida.hora_salida_origen` y `logistica_salida.hora_llegada_destino`. No se permiten valores vacíos o nulos.
+
+2. **Las horas de las aristas no se pueden solapar entre ellas**. Para un mismo nodo origen, las aristas deben tener fechas y horas de salida que no se superpongan. Si dos aristas salen del mismo nodo en el mismo día, sus horas deben ser distintas y con suficiente separación temporal.
+
+3. **La fecha y hora de llegada a un nodo destino no puede estar fuera de las fechas definidas en ese nodo**. Es decir:
+   - La fecha de llegada (de la arista) debe estar dentro del rango `[entrada, salida]` de la visita correspondiente del nodo destino.
+   - Si el nodo destino tiene múltiples visitas, se debe asociar a la visita que cubre esa fecha.
+
+4. **La fecha y hora de salida de un nodo origen no puede estar fuera de las fechas definidas en ese nodo**. Es decir:
+   - La fecha de salida (de la arista) debe estar dentro del rango `[entrada, salida]` de la visita correspondiente del nodo origen.
+   - Si el nodo origen tiene múltiples visitas, se debe asociar a la visita que cubre esa fecha.
+
+5. **Los enlaces de Google Maps para aeropuertos deben incluir la terminal específica** de la aerolínea en la URL o en la dirección, para facilitar la orientación del viajero. Ejemplo: `"maps_link": "https://www.google.com/maps?q=Terminal+1+Aeropuerto+El+Dorado+Bogota"`.
 
 ---
 
@@ -373,45 +414,77 @@ Nodo: aeropuerto-bog (visita 2: 2026-08-03)  ← Mismo nodo, visita diferente (f
 
 ---
 
-## 7. Algoritmo de Orden de Visita
+## 7. Algoritmo de Recorrido y Dibujo
 
-El orden de visita se construye en dos fases:
+El algoritmo actual implementado en el código construye el itinerario mediante un recorrido DFS (Depth-First Search) con pila, que garantiza que cada nodo se agregue una sola vez al resultado, mientras que las aristas se dibujan en el orden cronológico de salida.
 
-### Fase 1 - BFS inicial:
+### Estructura del Itinerario
 
-- Se recorre el grafo desde el nodo `casa_origen` en anchura (BFS)
-- Se asignan índices secuenciales a nodos y aristas
-- Se generan las aristas en orden de: fecha_salida → hora_salida_origen → ID
+El itinerario es un arreglo de elementos, donde cada elemento puede ser:
 
-### Fase 2 - Reordenamiento (Algoritmo de Dibujo):
-
-El algoritmo permite que un nodo aparezca **una sola vez** en el itinerario, mientras que las aristas se dibujan en el orden en que se "descubren" durante el recorrido.
-
-**Pasos del algoritmo:**
-
-1. **Dibujar el primer nodo** (casa_origen): Se agrega al nuevo orden
-
-2. **Mientras haya nodos pendientes:**
-   - Sea N el nodo actual, y PN el siguiente nodo en la lista original
-   - **Si existe arista directa N → PN**: Dibujar la arista, luego dibujar PN (PN pasa a ser N)
-   - **Si N tiene aristas disponibles**: Tomar la primera (A0), dibujar A0, luego dibujar su destino (ND)
-   - **Si ND es PN**: Volver al paso 2 (PN ya está dibujado)
-   - **Si ND no es PN**: Continuar desde ND (paso 3)
-
-3. **Si N no tiene aristas disponibles**: Saltar al siguiente nodo pendiente
-
-**Ejemplo de reordenamiento:**
-
-```
-Orden original (BFS):  casa → hotel → aeropuerto → atracción
-                        ↓         ↓          ↓          ↓
-Aristas disponibles:   casa→hotel, hotel→aeropuerto, hotel→atracción
-
-Nuevo orden (dibujo):
-casa → [arista casa→hotel] → hotel → [arista hotel→atracción] → atracción → [arista hotel→aeropuerto] → aeropuerto
+```javascript
+{ tipo: 'nodo', id: string, visitaIndex: number, fecha: string }
+{ tipo: 'arista', id: string, fecha: string }
 ```
 
-Esto permite representar viajes que regresan a lugares ya visitados (ej: hotel → atracción → hotel → aeropuerto).
+- `tipo`: Indica si el elemento es un nodo o una arista.
+- `id`: Identificador del nodo o arista.
+- `visitaIndex`: (Solo para nodos) Índice de la visita que corresponde a esta aparición del nodo.
+- `fecha`: Fecha en formato YYYY-MM-DD calculada para este elemento.
+
+### Algoritmo de Recorrido
+
+1. **Identificar el nodo inicial**: Se busca el nodo de tipo `casa_origen` en el grafo.
+
+2. **Inicializar estructuras**:
+   - `pendingEdgeIds`: Conjunto de todas las aristas pendientes de procesar.
+   - `visitedNodeIds`: Conjunto de nodos ya visitados (marcados).
+   - `nodeVisitIndexMap`: Mapa que rastrea el índice de visita actual de cada nodo.
+   - `stack`: Pila LIFO para almacenar aristas pendientes de procesar.
+   - `result`: Arreglo que contendrá el itinerario ordenado.
+
+3. **Agregar el nodo inicial**: Se agrega al resultado con `visitaIndex: 0` y su fecha correspondiente.
+
+4. **Bucle principal** (mientras haya aristas pendientes o elementos en la pila):
+   - a. Obtener las aristas salientes del nodo actual que aún no han sido procesadas y añadirlas a la pila.
+   - b. Sacar la siguiente arista de la pila (LIFO - Last In, First Out).
+   - c. Agregar la arista al resultado con su fecha correspondiente.
+   - d. Moverse al nodo destino.
+   - e. Determinar el índice de visita para el nodo destino:
+     - Si el nodo ya ha sido visitado con el mismo índice, se incrementa el contador.
+     - Si es la primera vez que se ve este nodo o el índice no está usado, se mantiene.
+   - f. Calcular la fecha del nodo:
+     - Se usa la fecha de la arista que llega al nodo (`logistica_salida.fecha_salida`).
+     - Si no está disponible, se usa la fecha de la visita correspondiente como fallback.
+   - g. Agregar el nodo al resultado con el índice de visita calculado y su fecha.
+
+5. **Fin del recorrido**: Se retorna el arreglo `result` con el itinerario completo.
+
+### Características del Algoritmo
+
+- **Recorrido DFS con pila LIFO**: Esto asegura que las aristas se procesen en el orden cronológico inverso (la más temprana primero, debido al ordenamiento descendente en `getEdgesFromNode`).
+- **Manejo de ciclos**: Al usar `visitedNodeIds`, se evitan ciclos infinitos, pero se permite que un nodo aparezca múltiples veces con diferentes índices de visita.
+- **Cálculo de fechas**: Cada elemento del itinerario tiene su propia fecha, calculada a partir de la arista que llega al nodo o de la visita correspondiente.
+- **Límite de seguridad**: Se implementa un límite de `MAX_TRAVERSAL_ITERATIONS` (500) para evitar bucles infinitos en grafos mal formados.
+- **Manejo de grafos desconectados**: Si quedan aristas pendientes sin procesar, se emite una advertencia en la consola.
+
+### Ejemplo de Funcionamiento
+
+Para un grafo con las aristas:
+- `casa → hotel` (fecha: 2026-07-17)
+- `hotel → aeropuerto` (fecha: 2026-07-18)
+- `hotel → atraccion` (fecha: 2026-07-17)
+
+El algoritmo produce:
+```
+1. Nodo: casa (visitaIndex: 0, fecha: 2026-07-17)
+2. Arista: casa → hotel (fecha: 2026-07-17)
+3. Nodo: hotel (visitaIndex: 0, fecha: 2026-07-17)
+4. Arista: hotel → atraccion (fecha: 2026-07-17)  ← LIFO, la más temprana primero
+5. Nodo: atraccion (visitaIndex: 0, fecha: 2026-07-17)
+6. Arista: hotel → aeropuerto (fecha: 2026-07-18)  ← Luego la más tardía
+7. Nodo: aeropuerto (visitaIndex: 0, fecha: 2026-07-18)
+```
 
 ---
 
@@ -466,6 +539,14 @@ Cada evento en el itinerario muestra un número de orden (ej: `#1`, `#2`, ...) q
 
 6. **Orden de visitas**: El orden de las visitas en el arreglo debe ser cronológico. El algoritmo de dibujo utiliza este orden para asignar las aristas a la visita correcta.
 
+7. **Clima como arreglo**: El clima ahora es un arreglo que permite tener información por día de estadía. La UI puede mostrar solo el primer día como resumen o permitir consultar día por día.
+
+8. **Fechas y horas en aristas**: Todas las aristas deben tener fecha y hora concreta. No se permiten valores vacíos. Las fechas/horas de las aristas no deben solaparse entre sí para un mismo nodo origen.
+
+9. **Validación de fechas**: Las fechas de llegada y salida de las aristas deben estar dentro del rango de fechas de la visita correspondiente del nodo destino y origen respectivamente.
+
+10. **Maps de aeropuertos**: Los enlaces de Google Maps para aeropuertos deben incluir la terminal específica de la aerolínea.
+
 ---
 
 ## 11. Versiones
@@ -475,3 +556,91 @@ Cada evento en el itinerario muestra un número de orden (ej: `#1`, `#2`, ...) q
 | v1.0    | Estructura inicial con nodos y aristas                                                                                                                                                                                                                   |
 | v2.0    | Añadidos campos detallados (clima, reservas, actividades)                                                                                                                                                                                                |
 | v3.0    | **Migración de `fechas_estadia` a `visitas` (arreglo)**<br>Documentación del algoritmo de orden de visita<br>Estandarización de tipos (`casa_origen`)<br>Reglas de `oculto` para `casa_origen`<br>Validaciones de fechas<br>Documentación de ciclos y UI |
+
+---
+
+## 12. Metadatos de Fuentes (Sources)
+
+Para permitir que la interfaz de usuario distinga entre información introducida por el usuario y la generada por inteligencia artificial, se define un **objeto paralelo de metadatos de fuentes** que acompaña a los datos del grafo.
+
+### Propósito
+
+- Marcar visualmente (ej. con un asterisco) los campos que han sido editados o proporcionados por el usuario.
+- Asumir que todos los campos no marcados tienen origen `"ai"` (inteligencia artificial).
+- Facilitar la auditoría y la edición colaborativa.
+
+### Estructura
+
+Cada archivo de nodo o arista **puede** incluir una propiedad `sources` en el mismo objeto JSON. Esta propiedad replica la estructura del nodo/arista, pero los valores son cadenas que indican la procedencia:
+
+- `"user"`: El campo ha sido proporcionado o modificado por el usuario.
+- `"ai"`: El campo ha sido generado automáticamente (por defecto, si no aparece en `sources`).
+
+**Ejemplo de nodo con sources:**
+
+```json
+{
+  "id": "bog-casa-david",
+  "tipo": "casa_origen",
+  "nombre": "Casa",
+  "direccion": {
+    "ciudad": "Bogotá",
+    "pais": "Colombia"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-17",
+      "salida": "2026-07-17",
+      "notas": "Salir con tiempo para evitar trancones"
+    }
+  ],
+  "sources": {
+    "nombre": "user",
+    "direccion": {
+      "ciudad": "user"
+    },
+    "visitas": [
+      {
+        "notas": "user"
+      }
+    ]
+  }
+}
+```
+
+En este ejemplo:
+- `nombre` y `direccion.ciudad` fueron proporcionados por el usuario.
+- `pais` no aparece en `sources`, por lo que se asume `"ai"`.
+- La nota de la primera visita es `"user"`.
+
+### Reglas para `sources`
+
+1. **Solo se incluyen en `sources` los campos que tienen origen `"user"`**. Los campos `"ai"` se omiten para reducir el tamaño.
+2. Si un campo es un objeto o un array, su `sources` debe reflejar la misma estructura anidada.
+3. Para arrays, se puede usar el índice numérico (0, 1, ...) para referirse a un elemento específico, o bien, cada elemento puede tener un `_id` único y usar ese `_id` como clave en `sources`. Se recomienda el uso de índices para simplicidad.
+4. Si un array tiene múltiples elementos y solo algunos tienen origen `"user"`, se especifica solo el índice correspondiente.
+5. La UI, al renderizar, debe consultar `sources[campo]` (o `sources[indice]` para arrays) para determinar el origen y aplicar el marcado correspondiente.
+
+### Consumo en la UI
+
+La interfaz recibe tanto el objeto `data` como el objeto `sources` (si existe). Para cada campo mostrado:
+
+```javascript
+const source = data.sources?.nombre || "ai";
+if (source === "user") {
+  // Mostrar con un asterisco o distintivo
+}
+```
+
+### Ventajas
+
+- No modifica la estructura principal de datos, manteniéndola limpia.
+- Fácil de serializar y transmitir.
+- Permite una evolución gradual: los nodos antiguos sin `sources` se tratan como totalmente `"ai"`.
+- Escalable a cualquier nivel de anidación.
+
+### Consideraciones adicionales
+
+- Para nodos y aristas generados enteramente por IA, se puede omitir la propiedad `sources` por completo.
+- Al editar un campo, la aplicación debe actualizar `sources` para ese campo específico.
+- En el archivo raíz (`viaje-raiz.json`), si se desea, se puede incluir un `sources` a nivel de viaje (para `nombre_viaje`, `fechas`, etc.) siguiendo el mismo patrón.

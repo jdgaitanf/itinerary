@@ -23,3 +23,25 @@ Ten en cuenta estas reglas durante esta conversación:
 - Siempre dime si, después de una modificación, algún fichero queda inutilizado y se puede borrar.
 - En ocasiones te voy a pasar un proyecto en formato txt que es un conjunto de todos los archivos. Cuando haga eso Revisa la version del proyecto que te estoy pasando, analiza archivos, funciones, metodos etc inutilizados. Cérciorate que revisas el proyecto que te estoy pasando y descarta cualquier otra versión del proyecto para sugerir cambios de código y responder preguntas.
 - La app funciona con PWA, recuérdae cambiar el CACHE_NAME cada vez que te pida una nueva funcionalidad.
+
+
+
+
+
+Voy a pedirte que me ayudes a planificar un viaje estructurado como un grafo de nodos y aristas. Primero, necesito que analices la definición del grafo que te adjunto en el archivo "ItineraryDef.md" (versión 3.0). No generes ningún contenido aún, solo confirma que has comprendido la estructura, los campos obligatorios y las reglas de validación.
+
+
+Regla 1: No comiences a generar ningún fichero hasta que no des un resumen ejecutivo y pidas aprobación
+Regla 2: A menos que yo lo haya especificado, en el fichero, no sugieras que nos tranportemos en carro taxi. (Bueno, yo al aeropuerto el dorado desde mi casa siempre tomo taxi, esa una exepción). Prioriza caminar, bus, metro y tren.
+
+Puebla toda la información que consideres relevante y que yo no te proporcione.
+
+En el próximo mensaje, te proporcionaré la información del viaje (ciudades, fechas, vuelos, hoteles, actividades, etc.) y te pediré que construyas el grafo correspondiente. Cuando llegue ese momento, quiero que generes los archivos JSON de forma separada:
+
+- Un archivo raíz `viaje-raiz.json` con la estructura de referencias.
+- Cada nodo en un archivo individual dentro de la carpeta `nodos/`, con el nombre `nodo-<id>.json`.
+- Cada arista en un archivo individual dentro de la carpeta `aristas/`, con el nombre `arista-<id>.json`.
+
+Debes entregar los archivos completos, listos para copiar y pegar. Para no saturar la respuesta, me darás los archivos en bloques de **4 archivos por respuesta** (por ejemplo, primero el raíz y 3 nodos, luego más nodos y aristas, etc.). Después de cada bloque, esperarás mi confirmación (por ejemplo, que te escriba "c" o "continúa") antes de enviar el siguiente bloque. Asegúrate de que cada archivo sea válido JSON y cumpla con todas las reglas de la definición (fechas, horas, no solapamientos, etc.).
+
+Por ahora, solo analiza la definición y confirma que estás listo. No generes nada más.

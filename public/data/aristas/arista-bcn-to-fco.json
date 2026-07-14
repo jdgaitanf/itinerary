@@ -1,0 +1,34 @@
+{
+  "id": "arista-bcn-to-fco",
+  "origen_id": "aeropuerto-bcn",
+  "destino_id": "aeropuerto-fco",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "Vueling Airlines",
+    "tipo_vehiculo": "Airbus A320",
+    "numero_vuelo": "VY6106",
+    "terminal_origen": "Terminal 1 - Barcelona",
+    "terminal_destino": "Terminal 3 - Roma Fiumicino",
+    "codigo_reserva_confirmacion": "(por confirmar)",
+    "detalles": "Vuelo directo Barcelona - Roma. Duración estimada: 1h 50min."
+  },
+  "tiempo_estimado": {
+    "minutos": 110,
+    "rango": "105-115",
+    "con_holgura": 120
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "08:00",
+    "hora_llegada_destino": "09:50"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 160000
+  },
+  "notas": "Sin cambio de huso horario (Barcelona y Roma comparten UTC+2). Llegada a la Terminal 3 de Fiumicino.",
+  "sources": {
+    "costo": "user"
+  }
+}

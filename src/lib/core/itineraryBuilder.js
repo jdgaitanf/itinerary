@@ -192,5 +192,7 @@ export function buildItinerary(graph) {
       `Quedan ${pendingEdgeIds.size} aristas sin procesar.`
     );
   }
+
+  console.log(result)
   return result;
 }

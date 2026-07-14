@@ -1,0 +1,29 @@
+{
+  "id": "arista-mad-airport-to-hotel",
+  "origen_id": "aeropuerto-mad",
+  "destino_id": "hotel-sercotel-madrid",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "linea": "Metro Línea 8 + Cercanías",
+    "detalles": "Metro L8 desde Barajas a Nuevos Ministerios, luego Cercanías C1 o C10 a Estación Alcalá de Henares o bus a la zona del hotel."
+  },
+  "tiempo_estimado": {
+    "minutos": 45,
+    "rango": "40-50",
+    "con_holgura": 55
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "18:45",
+    "hora_llegada_destino": "19:30"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 5
+  },
+  "notas": "El aeropuerto tiene conexión directa al centro. El hotel está cerca del estadio.",
+  "sources": {
+    "modo": "user"
+  }
+}

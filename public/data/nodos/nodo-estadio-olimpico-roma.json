@@ -1,0 +1,54 @@
+{
+  "id": "estadio-olimpico-roma",
+  "tipo": "atraccion",
+  "nombre": "Estadio Olímpico de Roma (AS Roma)",
+  "oculto": false,
+  "direccion": {
+    "calle": "Viale dei Gladiatori, 3",
+    "ciudad": "Roma",
+    "codigo_postal": "00135",
+    "pais": "Italia",
+    "coordenadas": {
+      "lat": 41.9339,
+      "lng": 12.4549
+    },
+    "maps_link": "https://www.google.com/maps?q=Estadio+Ol%C3%ADmpico+Roma"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-21",
+      "clima": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+      },
+      "notas": "Tour guiado por el estadio, vestuarios, palco y museo del deporte (desde ~€15). Verificar disponibilidad en la web del Stadio Olimpico."
+    }
+  ],
+  "horarios": {
+    "horario_apertura": "10:00",
+    "horario_cierre": "18:00"
+  },
+  "actividades": [
+    {
+      "id": "tour-estadio-olimpico",
+      "nombre": "Tour por el Estadio Olímpico",
+      "tipo": "deportes",
+      "duracion_estimada": "1.5h",
+      "horario_recomendado": "10:00",
+      "reserva": {
+        "requiere_reserva": true,
+        "notas": "Reservar en la web oficial del Stadio Olimpico."
+      },
+      "notas": "Incluye vestuarios, palco, sala de prensa y museo del deporte."
+    }
+  ],
+  "idioma_principal": "Italiano, Inglés",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€"
+  },
+  "tiempo_estimado_visita": "1.5h"
+}

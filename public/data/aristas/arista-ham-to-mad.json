@@ -1,0 +1,34 @@
+{
+  "id": "arista-ham-to-mad",
+  "origen_id": "aeropuerto-ham",
+  "destino_id": "aeropuerto-mad",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "Iberia",
+    "tipo_vehiculo": "Airbus A321",
+    "numero_vuelo": "IB774",
+    "terminal_origen": "Terminal 1 - Hamburgo",
+    "terminal_destino": "Terminal 4 - Madrid-Barajas",
+    "codigo_reserva_confirmacion": "(por confirmar)",
+    "detalles": "Vuelo directo Hamburgo - Madrid. Duración estimada: 3h."
+  },
+  "tiempo_estimado": {
+    "minutos": 180,
+    "rango": "175-185",
+    "con_holgura": 190
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "15:45",
+    "hora_llegada_destino": "18:45"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 261000
+  },
+  "notas": "Sin cambio de huso horario (Alemania y España comparten UTC+2).",
+  "sources": {
+    "costo": "user"
+  }
+}

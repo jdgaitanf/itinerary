@@ -1,0 +1,35 @@
+{
+  "id": "casa-origen-bogota",
+  "tipo": "casa_origen",
+  "nombre": "Casa de David - Bogotá",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Bogotá",
+    "pais": "Colombia"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-17",
+      "salida": "2026-07-17",
+      "clima": {
+        "temperatura_promedio": "8°C - 18°C",
+        "condiciones": "Soleado / Lluvias esporádicas",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Abrigo ligero, impermeable"
+      },
+      "notas": "Salir con tiempo para evitar trancones en Bogotá."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Pasaporte",
+    "Tarjetas de crédito",
+    "Adaptador de corriente (tipo C/F para Europa)",
+    "Maleta con candado"
+  ],
+  "idioma_principal": "Español",
+  "moneda_local": {
+    "codigo": "COP",
+    "simbolo": "$",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  }
+}

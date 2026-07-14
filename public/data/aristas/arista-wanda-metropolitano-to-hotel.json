@@ -1,0 +1,31 @@
+{
+  "id": "arista-wanda-metropolitano-to-hotel",
+  "origen_id": "wanda-metropolitano-madrid",
+  "destino_id": "hotel-sercotel-madrid",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "compania": "Metro de Madrid",
+    "tipo_vehiculo": "Metro",
+    "linea": "Línea 7",
+    "detalles": "Metro Línea 7 desde el estadio de vuelta al hotel."
+  },
+  "tiempo_estimado": {
+    "minutos": 5,
+    "rango": "4-6",
+    "con_holgura": 10
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-03",
+    "hora_salida_origen": "11:30",
+    "hora_llegada_destino": "11:35"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 1.5
+  },
+  "notas": "Regreso al hotel después del tour y fotos en el Wanda Metropolitano. Recoger equipaje y salir al aeropuerto.",
+  "sources": {
+    "modo": "user"
+  }
+}

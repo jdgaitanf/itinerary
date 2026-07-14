@@ -1,0 +1,25 @@
+{
+  "id": "arista-rental-to-stjoseph-hotel",
+  "origen_id": "rental-car-hamburg",
+  "destino_id": "hotel-st-joseph-hamburg",
+  "modo": "caminata",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Caminata desde Sixt Gänsemarkt hasta el St. Joseph Hotel (Brennerstraße 15)."
+  },
+  "tiempo_estimado": {
+    "minutos": 10,
+    "rango": "8-15",
+    "con_holgura": 15
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "12:00",
+    "hora_llegada_destino": "12:10"
+  },
+  "notas": "Devolver el auto en Sixt Gänsemarkt a las 12:00 PM, luego caminar al hotel para dejar el equipaje.",
+  "sources": {
+    "modo": "user",
+    "logistica_salida": "user"
+  }
+}

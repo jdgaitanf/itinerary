@@ -1,0 +1,36 @@
+{
+  "id": "arista-mad-to-bog",
+  "origen_id": "aeropuerto-mad",
+  "destino_id": "aeropuerto-eldorado-bog",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "Avianca",
+    "tipo_vehiculo": "Boeing 787-8 Dreamliner",
+    "numero_vuelo": "AV11",
+    "terminal_origen": "T4S",
+    "terminal_destino": "T1",
+    "codigo_reserva_confirmacion": "AV11-2026",
+    "detalles": "Vuelo directo Madrid - Bogotá. Duración estimada: 10h 10min."
+  },
+  "tiempo_estimado": {
+    "minutos": 610,
+    "rango": "10h 10min",
+    "con_holgura": 630
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-03",
+    "hora_salida_origen": "17:20",
+    "hora_llegada_destino": "20:30",
+    "hora_salida_efectiva_transporte": "17:20"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 450000,
+    "incluido_en": "Vuelo ida y vuelta"
+  },
+  "notas": "Cambio de huso horario: Madrid (UTC+2) → Bogotá (UTC-5). El vuelo llega a las 8:30 PM de Bogotá.",
+  "sources": {
+    "costo": "user"
+  }
+}

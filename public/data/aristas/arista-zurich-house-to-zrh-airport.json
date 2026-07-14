@@ -1,0 +1,34 @@
+{
+  "id": "arista-zurich-house-to-zrh-airport",
+  "origen_id": "casa-amiga-zurich",
+  "destino_id": "aeropuerto-zrh",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "SBB (Swiss Federal Railways)",
+    "linea": "S2 o S8",
+    "detalles": "Tranvía o bus a Zúrich HB, luego tren al aeropuerto."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "25-35",
+    "con_holgura": 40
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-25",
+    "hora_salida_origen": "06:30",
+    "hora_llegada_destino": "07:00"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2 horas antes del vuelo",
+    "motivo": "Check-in para vuelo KL1918 a Ámsterdam (sale a las 09:20)"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 10
+  },
+  "notas": "El tren S2 o S8 conecta Zúrich HB con el aeropuerto cada 10-15 minutos. Salir temprano para asegurar la llegada con tiempo.",
+  "sources": {
+    "modo": "user"
+  }
+}

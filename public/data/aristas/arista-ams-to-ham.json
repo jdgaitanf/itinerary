@@ -1,0 +1,34 @@
+{
+  "id": "arista-ams-to-ham",
+  "origen_id": "aeropuerto-ams",
+  "destino_id": "aeropuerto-ham",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "KLM Royal Dutch Airlines",
+    "tipo_vehiculo": "Boeing 737-700",
+    "numero_vuelo": "KL1753",
+    "terminal_origen": "Terminal 1 - Schiphol",
+    "terminal_destino": "Terminal 1 - Hamburgo",
+    "codigo_reserva_confirmacion": "(por confirmar)",
+    "detalles": "Vuelo directo Ámsterdam - Hamburgo. Duración estimada: 1h 5min."
+  },
+  "tiempo_estimado": {
+    "minutos": 65,
+    "rango": "60-70",
+    "con_holgura": 75
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-27",
+    "hora_salida_origen": "10:10",
+    "hora_llegada_destino": "11:15"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 450000
+  },
+  "notas": "Sin cambio de huso horario (Países Bajos y Alemania comparten UTC+2).",
+  "sources": {
+    "costo": "user"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "id": "ajax-arena-amsterdam",
+  "tipo": "atraccion",
+  "nombre": "Johan Cruijff ArenA - Estadio del Ajax",
+  "oculto": false,
+  "direccion": {
+    "calle": "ArenA Boulevard 1",
+    "ciudad": "Ámsterdam",
+    "codigo_postal": "1101 AX",
+    "pais": "Países Bajos",
+    "coordenadas": {
+      "lat": 52.3143,
+      "lng": 4.9420
+    },
+    "maps_link": "https://www.google.com/maps?q=Johan+Cruijff+ArenA+Amsterdam"
+  },
+  "contacto": {
+    "web": "https://www.ajax.nl/stadion"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-26",
+      "salida": "2026-07-26",
+      "clima": {
+        "temperatura_promedio": "18°C - 22°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta ligera"
+      },
+      "notas": "Tour clásico de 75 minutos: túnel de jugadores, vestuarios, palco real y sala de prensa. Metro 50/54 hasta Bijlmer ArenA."
+    }
+  ],
+  "horarios": {
+    "horario_apertura": "09:30",
+    "horario_cierre": "16:30"
+  },
+  "actividades": [
+    {
+      "id": "tour-ajax",
+      "nombre": "Tour por el Johan Cruijff ArenA",
+      "tipo": "deportes",
+      "duracion_estimada": "1.5h",
+      "horario_recomendado": "11:00",
+      "url_oficial": "https://www.ajax.nl/stadion",
+      "reserva": {
+        "requiere_reserva": true
+      },
+      "notas": "Incluye túnel de jugadores, vestuarios, palco real, zona mixta, sala de prensa."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Cámara fotográfica",
+    "Ropa cómoda"
+  ],
+  "idioma_principal": "Neerlandés, Inglés",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€"
+  },
+  "reglas_especiales": [
+    "No se permiten mochilas grandes en el interior."
+  ],
+  "tiempo_estimado_visita": "1.5h"
+}

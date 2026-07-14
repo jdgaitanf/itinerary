@@ -1,0 +1,23 @@
+Voy a pedirte que me ayudes a planificar un viaje estructurado como un grafo de nodos y aristas. Primero, necesito que analices la definición del grafo que te adjunto en el archivo "ItineraryDef.md" (versión 3.0). No generes ningún contenido aún, solo confirma que has comprendido la estructura, los campos obligatorios y las reglas de validación.
+
+En el próximo mensaje, te proporcionaré la información del viaje (ciudades, fechas, vuelos, hoteles, actividades, etc.) y te pediré que construyas el grafo correspondiente. Cuando llegue ese momento, quiero que generes un **único archivo JSON** que contenga todo el grafo (nodos y aristas) en una sola línea (minificado) para ahorrar tamaño. El objeto debe tener la siguiente estructura:
+
+{
+  "version": "3.0",
+  "nombre_viaje": "...",
+  "fechas": { "inicio": "...", "fin": "..." },
+  "nodos": [ ... ],
+  "aristas": [ ... ]
+}
+
+No incluyas espacios ni saltos de línea innecesarios. (Debería quedar en una sola línea)
+
+El archivo debe ser válido y cumplir con todas las reglas de validación (fechas, horas, no solapamientos, etc.). Entrégalo como un bloque de texto plano para que pueda copiarlo directamente.
+
+Por ahora, solo analiza la definición y confirma que estás listo. No generes nada más.
+
+Regla 1: No comiences a generar ningún objeto hasta que no des un resumen ejecutivo y pidas aprobación.
+
+Regla 2: A menos que yo lo haya especificado, en el fichero, no sugieras que nos tranportemos en carro taxi. (Bueno, yo al aeropuerto el dorado desde mi casa siempre tomo taxi, esa una exepción). Prioriza caminar, bus, metro y tren.
+
+Puebla toda la información que consideres relevante y que yo no te proporcione.

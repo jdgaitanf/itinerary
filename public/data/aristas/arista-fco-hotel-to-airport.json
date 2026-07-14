@@ -1,0 +1,34 @@
+{
+  "id": "arista-fco-hotel-to-airport",
+  "origen_id": "hotel-villa-angeli-roma",
+  "destino_id": "aeropuerto-fco",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "linea": "Metro B + Leonardo Express",
+    "detalles": "Caminata 8 min a Metro B (Policlinico → Termini), luego Leonardo Express a Fiumicino."
+  },
+  "tiempo_estimado": {
+    "minutos": 55,
+    "rango": "50-60",
+    "con_holgura": 65
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "06:30",
+    "hora_llegada_destino": "07:25"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2 horas antes del vuelo",
+    "motivo": "Check-in para vuelo LX1727 a Zúrich (sale a las 09:45)"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 14
+  },
+  "notas": "Salir temprano para evitar contratiempos. El Leonardo Express es puntual.",
+  "sources": {
+    "modo": "user",
+    "logistica_salida": "user"
+  }
+}

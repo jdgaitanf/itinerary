@@ -1,0 +1,81 @@
+{
+  "id": "hotel-sercotel-madrid",
+  "tipo": "hotel",
+  "nombre": "Sercotel Alcalá 611",
+  "oculto": false,
+  "direccion": {
+    "calle": "Calle de Alcalá, 611",
+    "ciudad": "Madrid",
+    "codigo_postal": "28022",
+    "pais": "España",
+    "coordenadas": {
+      "lat": 40.4329,
+      "lng": -3.6005
+    },
+    "maps_link": "https://www.google.com/maps?q=Sercotel+Alcal%C3%A1+611+Madrid"
+  },
+  "contacto": {
+    "telefono": "+34 917 48 35 00",
+    "web": "https://www.sercotelalcala611.com"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-08-02",
+      "salida": "2026-08-03",
+      "reserva": {
+        "codigo_reserva": "SERCOTEL-2026",
+        "confirmada": true,
+        "nombre_titular": "Steven",
+        "plataforma": "Booking.com",
+        "costo": {
+          "moneda": "COP",
+          "valor": 137500,
+          "pagado_por": "Steven",
+          "incluido_en": "Alojamiento compartido"
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "25°C - 35°C",
+        "condiciones": "Soleado, caluroso",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa muy ligera, gafas de sol, sombrero"
+      },
+      "notas": "Habitación a nombre de Steven. Wifi disponible, gimnasio, piscina. El hotel está muy cerca del estadio Wanda Metropolitano."
+    }
+  ],
+  "horarios": {
+    "check_in": "14:00",
+    "check_out": "12:00",
+    "atencion": "24h"
+  },
+  "actividades": [
+    {
+      "id": "mad-wanda",
+      "nombre": "Visita al Wanda Metropolitano",
+      "tipo": "deportes",
+      "duracion_estimada": "2h",
+      "horario_recomendado": "3 de agosto, 10:00",
+      "reserva": {
+        "requiere_reserva": true,
+        "notas": "Reservar en la web del Atlético de Madrid. Tour + Museo desde €24."
+      },
+      "notas": "El estadio está a solo 5 min en metro desde el hotel (Línea 7)."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa muy ligera",
+    "Protector solar",
+    "Gafas de sol",
+    "Cargador de viaje"
+  ],
+  "idioma_principal": "Español",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "imagenes": [
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1f/8e/5a/2d/sercotel-alcala-611.jpg"
+  ],
+  "tiempo_estimado_visita": "1 noche"
+}

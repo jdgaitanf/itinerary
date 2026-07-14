@@ -1,0 +1,69 @@
+{
+  "id": "vaticano-roma",
+  "tipo": "atraccion",
+  "nombre": "Ciudad del Vaticano",
+  "oculto": false,
+  "direccion": {
+    "calle": "Viale Vaticano",
+    "ciudad": "Roma",
+    "codigo_postal": "00120",
+    "pais": "Italia",
+    "coordenadas": {
+      "lat": 41.9029,
+      "lng": 12.4534
+    },
+    "maps_link": "https://www.google.com/maps?q=Ciudad+del+Vaticano+Roma"
+  },
+  "contacto": {
+    "web": "https://www.museivaticani.va"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-20",
+      "salida": "2026-07-20",
+      "clima": {
+        "temperatura_promedio": "30°C - 35°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero, protector solar"
+      },
+      "notas": "Visita a la Basílica de San Pedro (gratuita), Museos Vaticanos y Capilla Sixtina (reserva obligatoria, ~€20). Subida a la Cúpula (~€8). Código de vestimenta: hombros y rodillas cubiertos."
+    }
+  ],
+  "horarios": {
+    "horario_apertura": "09:00",
+    "horario_cierre": "18:00",
+    "atencion": "Museos Vaticanos: 09:00-18:00, Basílica: 07:00-19:00"
+  },
+  "actividades": [
+    {
+      "id": "visita-vaticano",
+      "nombre": "Visita al Vaticano",
+      "tipo": "tour",
+      "duracion_estimada": "4h",
+      "horario_recomendado": "14:00",
+      "url_oficial": "https://www.museivaticani.va",
+      "reserva": {
+        "requiere_reserva": true
+      },
+      "notas": "Reservar entrada a Museos Vaticanos en la web oficial. La Basílica es gratuita (con fila)."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa ligera",
+    "Gafas de sol",
+    "Sombrero",
+    "Protector solar"
+  ],
+  "idioma_principal": "Italiano, Inglés",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "reglas_especiales": [
+    "Código de vestimenta: hombros y rodillas cubiertos.",
+    "Prohibido el uso de flash en la Capilla Sixtina."
+  ],
+  "tiempo_estimado_visita": "4h"
+}

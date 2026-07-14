@@ -1,0 +1,52 @@
+{
+  "id": "hotel-booking-hamburg",
+  "tipo": "hotel",
+  "nombre": "Booking Hotel - Hamburgo",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Hamburgo",
+    "pais": "Alemania"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-27",
+      "salida": "2026-07-28",
+      "reserva": {
+        "codigo_reserva": "(por confirmar)",
+        "confirmada": true,
+        "nombre_titular": "Steven",
+        "plataforma": "Booking.com",
+        "costo": {
+          "moneda": "COP",
+          "valor": 212500,
+          "pagado_por": "Steven",
+          "incluido_en": "Alojamiento compartido"
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "16°C - 22°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "40%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta ligera"
+      },
+      "notas": "Check-in por la tarde. Preparar equipaje para Wacken. Alquiler de auto al día siguiente."
+    }
+  ],
+  "horarios": {
+    "check_in": "15:00",
+    "check_out": "12:00"
+  },
+  "equipaje_recomendado": [
+    "Ropa para el festival",
+    "Botas de barro",
+    "Chaqueta impermeable",
+    "Linterna"
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "tiempo_estimado_visita": "1 noche"
+}

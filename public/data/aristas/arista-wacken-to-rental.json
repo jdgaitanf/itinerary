@@ -1,0 +1,28 @@
+{
+  "id": "arista-wacken-to-rental",
+  "origen_id": "wacken-festival",
+  "destino_id": "rental-car-hamburg",
+  "modo": "auto",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Auto rentado desde Wacken de regreso a Hamburgo. Ruta por autopista A23."
+  },
+  "tiempo_estimado": {
+    "minutos": 80,
+    "rango": "70-90",
+    "con_holgura": 100
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "08:00",
+    "hora_llegada_destino": "09:20"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 75000
+  },
+  "notas": "Salir temprano de Wacken para evitar tráfico y devolver el auto a tiempo. El rental car cierra a las 18:00.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

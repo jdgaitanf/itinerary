@@ -1,0 +1,30 @@
+{
+  "id": "arista-fco-airport-to-hotel",
+  "origen_id": "aeropuerto-fco",
+  "destino_id": "hotel-villa-angeli-roma",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "linea": "Leonardo Express + Metro B",
+    "detalles": "Tren Leonardo Express desde Fiumicino a Roma Termini (30 min), luego Metro B (Termini → Policlinico) y caminata 8 min al hotel."
+  },
+  "tiempo_estimado": {
+    "minutos": 50,
+    "rango": "45-55",
+    "con_holgura": 60
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "09:50",
+    "hora_llegada_destino": "10:40"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 14
+  },
+  "notas": "El Leonardo Express sale cada 15-30 minutos. El metro B de Roma conecta bien con la zona del hotel.",
+  "sources": {
+    "modo": "user",
+    "logistica_salida": "user"
+  }
+}

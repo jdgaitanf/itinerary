@@ -1,0 +1,29 @@
+{
+  "id": "arista-ham-airport-to-booking-hotel",
+  "origen_id": "aeropuerto-ham",
+  "destino_id": "hotel-booking-hamburg",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "linea": "S-Bahn S1",
+    "detalles": "S-Bahn S1 desde el aeropuerto (HAM) hasta Hauptbahnhof, luego caminata al hotel."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "25-35",
+    "con_holgura": 40
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-27",
+    "hora_salida_origen": "11:15",
+    "hora_llegada_destino": "11:45"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 3.5
+  },
+  "notas": "El S-Bahn S1 pasa cada 10 minutos. El hotel está cerca de la estación central.",
+  "sources": {
+    "modo": "user"
+  }
+}

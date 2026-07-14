@@ -1,0 +1,72 @@
+{
+  "id": "casa-amiga-wilderswil",
+  "tipo": "casa_amigo",
+  "nombre": "Casa de la amiga de Steven - Wilderswil",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Wilderswil",
+    "pais": "Suiza"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-25",
+      "clima": [
+        {
+          "fecha": "2026-07-21",
+          "temperatura_promedio": "13°C - 22°C",
+          "condiciones": "Parcialmente nublado",
+          "probabilidad_lluvia": "20%"
+        },
+        {
+          "fecha": "2026-07-22",
+          "temperatura_promedio": "12°C - 20°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "10%"
+        },
+        {
+          "fecha": "2026-07-23",
+          "temperatura_promedio": "14°C - 23°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "5%"
+        },
+        {
+          "fecha": "2026-07-24",
+          "temperatura_promedio": "15°C - 24°C",
+          "condiciones": "Parcialmente nublado",
+          "probabilidad_lluvia": "30%"
+        },
+        {
+          "fecha": "2026-07-25",
+          "temperatura_promedio": "16°C - 25°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "15%"
+        }
+      ],
+      "notas": "Pasar 4 noches increíbles en los Alpes suizos."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "act-jungfraujoch",
+      "nombre": "Excursión al Jungfraujoch - Top of Europe",
+      "tipo": "aventura",
+      "duracion_estimada": "Día completo",
+      "horario_recomendado": "22 de julio, salida temprano desde Interlaken",
+      "notas": "Ruta: Wilderswil → Interlaken Ost → Grindelwald (Eiger Express) → Jungfraujoch. Costo estimado desde CHF 271.20 por persona. Imperdible."
+    },
+    {
+      "id": "act-lauterbrunnen",
+      "nombre": "Visita al Valle de Lauterbrunnen y Grindelwald",
+      "tipo": "naturaleza",
+      "duracion_estimada": "Medio día",
+      "horario_recomendado": "23 de julio, por la mañana",
+      "notas": "Explorar las 72 cascadas del valle, incluyendo Staubbach. Luego subir a Grindelwald-First."
+    }
+  ],
+  "idioma_principal": "Alemán / Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "CHF"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "arista-ams-hotel-to-airport",
+  "origen_id": "zaan-hotel-amsterdam",
+  "destino_id": "aeropuerto-ams",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "linea": "Ferry + NS Intercity",
+    "detalles": "Ferry gratuito de Amsterdam Noord a Centraal, luego tren a Schiphol."
+  },
+  "tiempo_estimado": {
+    "minutos": 35,
+    "rango": "30-40",
+    "con_holgura": 45
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-27",
+    "hora_salida_origen": "07:30",
+    "hora_llegada_destino": "08:05"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2 horas antes del vuelo",
+    "motivo": "Check-in y seguridad para vuelo KL1753 a Hamburgo (sale a las 10:10)"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 5.5
+  },
+  "notas": "El ferry es gratuito. El tren a Schiphol sale cada 10-15 minutos.",
+  "sources": {
+    "modo": "user"
+  }
+}

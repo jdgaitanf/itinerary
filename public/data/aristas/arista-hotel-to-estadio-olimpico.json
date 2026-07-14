@@ -1,0 +1,31 @@
+{
+  "id": "arista-hotel-to-estadio-olimpico",
+  "origen_id": "hotel-villa-angeli-roma",
+  "destino_id": "estadio-olimpico-roma",
+  "modo": "bus",
+  "oculto": false,
+  "transporte": {
+    "compania": "ATAC",
+    "tipo_vehiculo": "Autobús",
+    "linea": "Bus 910",
+    "detalles": "Bus 910 desde el hotel hasta el Estadio Olímpico."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "25-35",
+    "con_holgura": 40
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "09:00",
+    "hora_llegada_destino": "09:30"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 1.5
+  },
+  "notas": "Tour guiado por el estadio. Verificar horarios en la web del Stadio Olimpico.",
+  "sources": {
+    "modo": "user"
+  }
+}

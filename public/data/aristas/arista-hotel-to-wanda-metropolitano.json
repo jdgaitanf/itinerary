@@ -1,0 +1,31 @@
+{
+  "id": "arista-hotel-to-wanda-metropolitano",
+  "origen_id": "hotel-sercotel-madrid",
+  "destino_id": "wanda-metropolitano-madrid",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "compania": "Metro de Madrid",
+    "tipo_vehiculo": "Metro",
+    "linea": "Línea 7",
+    "detalles": "Metro Línea 7 desde Estadio Metropolitano (cerca del hotel) hasta el estadio."
+  },
+  "tiempo_estimado": {
+    "minutos": 5,
+    "rango": "4-6",
+    "con_holgura": 10
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-03",
+    "hora_salida_origen": "09:30",
+    "hora_llegada_destino": "09:35"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 1.5
+  },
+  "notas": "El hotel está muy cerca del estadio. Metro directo en 1 parada.",
+  "sources": {
+    "modo": "user"
+  }
+}
