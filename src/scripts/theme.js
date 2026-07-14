@@ -1,6 +1,7 @@
 // Gestión del tema oscuro/claro
 (function() {
   const toggleCheckbox = document.getElementById('theme-toggle-checkbox');
+  const themeIcon = document.getElementById('theme-icon');
   const htmlElement = document.documentElement;
 
   // Función para aplicar el tema
@@ -9,6 +10,10 @@
       htmlElement.classList.add('dark-mode');
     } else {
       htmlElement.classList.remove('dark-mode');
+    }
+    // Actualizar ícono
+    if (themeIcon) {
+      themeIcon.textContent = isDark ? 'dark_mode' : 'light_mode';
     }
     // Guardar preferencia
     try {
@@ -32,7 +37,7 @@
   if (savedTheme !== null) {
     setTheme(savedTheme === 'true');
   } else {
-    // Opcional: detectar preferencia del sistema
+    // Detectar preferencia del sistema
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     setTheme(prefersDark);
   }
