@@ -16,9 +16,9 @@
     "con_holgura": 50
   },
   "logistica_salida": {
-    "fecha_salida": "2026-07-20",
-    "hora_salida_origen": "10:00",
-    "hora_llegada_destino": "10:45"
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "11:30",
+    "hora_llegada_destino": "12:15"
   },
   "costos": {
     "moneda": "EUR",
