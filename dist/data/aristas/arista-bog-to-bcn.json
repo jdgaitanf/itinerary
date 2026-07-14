@@ -1,0 +1,31 @@
+{
+  "id": "arista-bog-to-bcn",
+  "origen_id": "aeropuerto-eldorado-bog",
+  "destino_id": "aeropuerto-bcn",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "Avianca",
+    "tipo_vehiculo": "Airbus A330-200",
+    "numero_vuelo": "AV18",
+    "terminal_origen": "Terminal 1 - El Dorado",
+    "terminal_destino": "Terminal 1 - Barcelona",
+    "codigo_reserva_confirmacion": "(por confirmar)",
+    "detalles": "Vuelo directo Bogotá - Barcelona. Duración ~10h 10min."
+  },
+  "tiempo_estimado": {
+    "minutos": 610,
+    "rango": "610-620",
+    "con_holgura": 630
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-17",
+    "hora_salida_origen": "15:20",
+    "hora_llegada_destino": "08:30"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 450000
+  },
+  "notas": "Llegada al día siguiente (18 de julio). Cambio de huso horario: Bogotá (UTC-5) → Barcelona (UTC+2)."
+}

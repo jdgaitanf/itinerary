@@ -1,0 +1,99 @@
+{
+  "id": "casa-amiga-zurich",
+  "tipo": "casa_amigo",
+  "nombre": "Casa de la amiga de Steven - Zúrich",
+  "oculto": false,
+  "direccion": {
+    "calle": "Klusplatz 8",
+    "ciudad": "Zúrich",
+    "codigo_postal": "8048",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 47.3542,
+      "lng": 8.5162
+    },
+    "maps_link": "https://www.google.com/maps?q=Klusplatz+8+8048+Zurich"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-25",
+      "reserva": {
+        "confirmada": true,
+        "nombre_titular": "Amiga de Steven"
+      },
+      "clima": [
+        {
+          "fecha": "2026-07-21",
+          "temperatura_promedio": "18°C - 25°C",
+          "condiciones": "Parcialmente nublado",
+          "probabilidad_lluvia": "30%",
+          "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+        },
+        {
+          "fecha": "2026-07-22",
+          "temperatura_promedio": "16°C - 24°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "10%",
+          "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+        },
+        {
+          "fecha": "2026-07-23",
+          "temperatura_promedio": "15°C - 23°C",
+          "condiciones": "Parcialmente nublado",
+          "probabilidad_lluvia": "20%",
+          "recomendacion_vestimenta": "Ropa ligera, chaqueta ligera"
+        },
+        {
+          "fecha": "2026-07-24",
+          "temperatura_promedio": "17°C - 26°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "5%",
+          "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+        }
+      ],
+      "notas": "Pasar 4 noches en la casa de la amiga de Steven en Zúrich. Excelente base para explorar la ciudad y los Alpes."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "act-jungfraujoch",
+      "nombre": "Excursión al Jungfraujoch - Top of Europe",
+      "tipo": "aventura",
+      "duracion_estimada": "Día completo",
+      "horario_recomendado": "22 de julio, salida temprano desde Zúrich",
+      "url_oficial": "https://www.jungfrau.ch",
+      "notas": "Ruta: Zúrich HB → Interlaken Ost → Grindelwald (Eiger Express) → Jungfraujoch. Costo estimado desde CHF 271.20 por persona. Imperdible."
+    },
+    {
+      "id": "act-lauterbrunnen",
+      "nombre": "Visita al Valle de Lauterbrunnen y Grindelwald",
+      "tipo": "naturaleza",
+      "duracion_estimada": "Medio día",
+      "horario_recomendado": "23 de julio, por la mañana",
+      "notas": "Explorar las 72 cascadas del valle, incluyendo Staubbach. Luego subir a Grindelwald-First."
+    },
+    {
+      "id": "act-zurich-city",
+      "nombre": "Explorar Zúrich",
+      "tipo": "ciudad",
+      "duracion_estimada": "Medio día",
+      "horario_recomendado": "24 de julio, tarde",
+      "notas": "Visitar el casco antiguo (Altstadt), el lago de Zúrich y la Bahnhofstrasse."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa de abrigo para los Alpes",
+    "Zapatos cómodos para caminar",
+    "Protector solar",
+    "Gafas de sol",
+    "Adaptador de corriente tipo C/J (Suiza)"
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4500 COP"
+  },
+  "tiempo_estimado_visita": "4 noches"
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arista-hotel-to-coliseo",
+  "origen_id": "hotel-villa-angeli-roma",
+  "destino_id": "coliseo-roma",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "compania": "ATAC",
+    "tipo_vehiculo": "Metro",
+    "linea": "Línea B (azul)",
+    "detalles": "Tomar la Línea B desde la estación más cercana (10 min caminando desde el hotel) hasta la estación Colosseo. El Coliseo está a 5 min caminando de la estación."
+  },
+  "tiempo_estimado": {
+    "minutos": 45,
+    "rango": "40-50",
+    "con_holgura": 50
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "11:30",
+    "hora_llegada_destino": "12:15"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 1.5
+  },
+  "notas": "El costo es por persona (BIT). Recordar validar el ticket al entrar. La entrada al Coliseo requiere reserva online aparte.",
+  "sources": {
+    "modo": "user"
+  }
+}

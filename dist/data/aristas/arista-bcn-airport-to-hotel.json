@@ -1,0 +1,26 @@
+{
+  "id": "arista-bcn-airport-to-hotel",
+  "origen_id": "aeropuerto-bcn",
+  "destino_id": "hotel-upper-diagonal-bcn",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "linea": "L9 Sud",
+    "detalles": "Metro desde el aeropuerto (T1) hasta estación Zona Universitària, luego caminata o bus."
+  },
+  "tiempo_estimado": {
+    "minutos": 40,
+    "rango": "35-45",
+    "con_holgura": 50
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-18",
+    "hora_salida_origen": "08:30",
+    "hora_llegada_destino": "09:10"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 5.5
+  },
+  "notas": "Tarifa del aeropuerto (suplemento). Metro cada 7-10 minutos."
+}

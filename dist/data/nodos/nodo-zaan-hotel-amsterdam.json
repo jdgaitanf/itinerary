@@ -1,0 +1,78 @@
+{
+  "id": "zaan-hotel-amsterdam",
+  "tipo": "hotel",
+  "nombre": "Zaan Hotel Amsterdam - Zaandam",
+  "oculto": false,
+  "direccion": {
+    "calle": "Ebbehout 22",
+    "ciudad": "Zaandam",
+    "codigo_postal": "1507 EA",
+    "pais": "Países Bajos",
+    "coordenadas": {
+      "lat": 52.4386,
+      "lng": 4.8136
+    },
+    "maps_link": "https://www.google.com/maps?q=Ebbehout+22+1507+EA+Zaandam+Netherlands"
+  },
+  "contacto": {
+    "telefono": "+31 20 226 5218",
+    "email": "info@zaanhotel.com",
+    "web": "https://www.zaanhotel.com"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-25",
+      "salida": "2026-07-27",
+      "reserva": {
+        "codigo_reserva": "ZAAN-2026",
+        "confirmada": true,
+        "nombre_titular": "David",
+        "plataforma": "Booking.com",
+        "costo": {
+          "moneda": "COP",
+          "valor": 611000,
+          "pagado_por": "David",
+          "incluido_en": "Alojamiento compartido"
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "18°C - 22°C",
+        "condiciones": "Parcialmente nublado, posibilidad de lluvia",
+        "probabilidad_lluvia": "35%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta impermeable"
+      },
+      "notas": "Habitación a nombre de David. Wifi disponible, gimnasio, bar. Esta junto a la estación de tren de Zaandam."
+    }
+  ],
+  "horarios": {
+    "check_in": "15:00",
+    "check_out": "11:00",
+    "atencion": "24h"
+  },
+  "actividades": [
+    {
+      "id": "ams-zaandam",
+      "nombre": "Explorar Zaandam y Ámsterdam",
+      "tipo": "turismo",
+      "duracion_estimada": "Día completo",
+      "horario_recomendado": "09:00",
+      "notas": "Zaandam tiene un centro pintoresco con casas tradicionales. Ámsterdam está a 15 min en tren."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa ligera",
+    "Chaqueta impermeable",
+    "Cargador de viaje",
+    "Adaptador de corriente tipo C/F"
+  ],
+  "idioma_principal": "Neerlandés, Inglés",
+  "moneda_local": {
+    "codigo": "EUR",
+    "simbolo": "€",
+    "tasa_referencia": "1 EUR ≈ 4500 COP"
+  },
+  "imagenes": [
+    "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/9f/8e/6d/zaan-hotel-amsterdam-zaandam.jpg"
+  ],
+  "tiempo_estimado_visita": "2 noches"
+}

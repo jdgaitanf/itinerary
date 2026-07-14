@@ -1,0 +1,34 @@
+{
+  "id": "arista-zrh-to-ams",
+  "origen_id": "aeropuerto-zrh",
+  "destino_id": "aeropuerto-ams",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "KLM Royal Dutch Airlines",
+    "tipo_vehiculo": "Boeing 737-800",
+    "numero_vuelo": "KL1918",
+    "terminal_origen": "Terminal 1 - Zúrich Kloten",
+    "terminal_destino": "Terminal 1 - Ámsterdam Schiphol",
+    "codigo_reserva_confirmacion": "(por confirmar)",
+    "detalles": "Vuelo directo Zúrich - Ámsterdam. Duración estimada: 1h 45min."
+  },
+  "tiempo_estimado": {
+    "minutos": 105,
+    "rango": "100-110",
+    "con_holgura": 115
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-25",
+    "hora_salida_origen": "09:20",
+    "hora_llegada_destino": "10:55"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 247000
+  },
+  "notas": "Sin cambio de huso horario (Suiza y Países Bajos comparten UTC+2 en verano).",
+  "sources": {
+    "costo": "user"
+  }
+}

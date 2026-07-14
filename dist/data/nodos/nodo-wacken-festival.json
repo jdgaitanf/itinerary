@@ -4,7 +4,7 @@
   "nombre": "Wacken Open Air 2026",
   "oculto": false,
   "direccion": {
-    "calle": "Am Festivalgelande",
+    "calle": "Am Festivalgelände",
     "ciudad": "Wacken",
     "codigo_postal": "25596",
     "pais": "Alemania",
@@ -24,16 +24,60 @@
       "reserva": {
         "codigo_reserva": "WOA-2026",
         "confirmada": true,
-        "nombre_titular": "David G. y Steven Espinel",
-        "plataforma": "Wacken"
+        "nombre_titular": "David y Steven",
+        "plataforma": "Wacken",
+        "costo": {
+          "moneda": "COP",
+          "valor": 150000,
+          "pagado_por": "Steven",
+          "incluido_en": "Access Pass compartido"
+        }
       },
-      "clima": {
-        "temperatura_promedio": "15°C - 22°C",
-        "condiciones": "Variable, posible lluvia y barro",
-        "probabilidad_lluvia": "50%",
-        "recomendacion_vestimenta": "Ropa impermeable, botas de barro, ropa abrigada para la noche"
-      },
-      "notas": "El festival se celebra del 29 de julio al 1 de agosto de 2026. Se recomienda llevar una carpa resistente al agua y botas de barro."
+      "clima": [
+        {
+          "fecha": "2026-07-28",
+          "temperatura_promedio": "15°C - 22°C",
+          "condiciones": "Parcialmente nublado",
+          "probabilidad_lluvia": "30%",
+          "recomendacion_vestimenta": "Ropa cómoda, chaqueta ligera"
+        },
+        {
+          "fecha": "2026-07-29",
+          "temperatura_promedio": "16°C - 23°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "10%",
+          "recomendacion_vestimenta": "Ropa ligera, gafas de sol, bloqueador"
+        },
+        {
+          "fecha": "2026-07-30",
+          "temperatura_promedio": "14°C - 21°C",
+          "condiciones": "Nublado, posibilidad de lluvia",
+          "probabilidad_lluvia": "50%",
+          "recomendacion_vestimenta": "Chaqueta impermeable, botas de barro"
+        },
+        {
+          "fecha": "2026-07-31",
+          "temperatura_promedio": "13°C - 20°C",
+          "condiciones": "Lluvia ligera",
+          "probabilidad_lluvia": "60%",
+          "recomendacion_vestimenta": "Impermeable, botas de agua"
+        },
+        {
+          "fecha": "2026-08-01",
+          "temperatura_promedio": "15°C - 22°C",
+          "condiciones": "Parcialmente nublado",
+          "probabilidad_lluvia": "20%",
+          "recomendacion_vestimenta": "Ropa de abrigo ligera, chaqueta"
+        },
+        {
+          "fecha": "2026-08-02",
+          "temperatura_promedio": "16°C - 24°C",
+          "condiciones": "Soleado",
+          "probabilidad_lluvia": "5%",
+          "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+        }
+      ],
+      "notas": "El festival se celebra oficialmente del 29 de julio al 1 de agosto de 2026. Se recomienda llevar una carpa resistente al agua y botas de barro."
     }
   ],
   "horarios": {
@@ -45,28 +89,42 @@
       "id": "wacken-conciertos",
       "nombre": "Conciertos del Wacken Open Air",
       "tipo": "concierto",
-      "duracion_estimada": "5 dias",
-      "horario_recomendado": "Todo el dia",
-      "url_oficial": "https://www.wacken.com"
+      "duracion_estimada": "5 días",
+      "horario_recomendado": "Todo el día",
+      "url_oficial": "https://www.wacken.com",
+      "notas": "Escenarios: Better Wacken (principal), Stronger Wacken, W.E.T. Stage, Bullhead City Circus."
+    },
+    {
+      "id": "wacken-camping",
+      "nombre": "Camping en Wacken",
+      "tipo": "camping",
+      "duracion_estimada": "5 noches",
+      "notas": "Llevar carpa, sleeping bag, aislante, linterna, y silla de camping."
     }
   ],
   "equipaje_recomendado": [
-    "Carpa",
+    "Carpa resistente al agua",
+    "Sleeping bag",
+    "Aislante térmico",
     "Botas de barro",
-    "Impermeable",
-    "Ropa abrigada",
+    "Chaqueta impermeable",
+    "Ropa de abrigo para la noche",
     "Linterna",
-    "Protector solar"
+    "Protector solar",
+    "Silla de camping"
   ],
-  "idioma_principal": "Aleman, Ingles",
+  "idioma_principal": "Alemán, Inglés",
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
     "tasa_referencia": "1 EUR ≈ 4500 COP"
   },
   "reglas_especiales": [
-    "No se permite vidrio en el area del festival.",
+    "No se permite vidrio en el área del festival.",
+    "No se permiten armas o objetos punzantes.",
+    "Edad mínima: 16 años (con acompañante).",
+    "Se requiere pulsera oficial de acceso.",
     "Se recomienda llegar temprano para evitar atascos."
   ],
-  "tiempo_estimado_visita": "5 dias"
+  "tiempo_estimado_visita": "5 días"
 }

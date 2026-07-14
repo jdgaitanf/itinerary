@@ -1,0 +1,35 @@
+{
+  "id": "arista-mad-hotel-to-airport",
+  "origen_id": "hotel-sercotel-madrid",
+  "destino_id": "aeropuerto-mad",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "compania": "Metro de Madrid",
+    "tipo_vehiculo": "Metro",
+    "linea": "Línea 7 + Línea 8",
+    "detalles": "Metro Línea 7 (Estadio Metropolitano → Nuevos Ministerios) → Línea 8 (Nuevos Ministerios → Aeropuerto T4)."
+  },
+  "tiempo_estimado": {
+    "minutos": 40,
+    "rango": "35-45",
+    "con_holgura": 50
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-03",
+    "hora_salida_origen": "13:50",
+    "hora_llegada_destino": "14:30"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "3h",
+    "motivo": "Llegar con tiempo para facturar y pasar seguridad del vuelo AV11."
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 5
+  },
+  "notas": "Salir del hotel a las 13:50 para llegar al aeropuerto a las 14:30 (3 horas antes del vuelo). El vuelo AV11 sale a las 17:20.",
+  "sources": {
+    "modo": "user"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "id": "arista-hotel-to-ajax-arena",
+  "origen_id": "zaan-hotel-amsterdam",
+  "destino_id": "ajax-arena-amsterdam",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "compania": "GVB",
+    "tipo_vehiculo": "Metro",
+    "linea": "Metro 50 + Ferry",
+    "detalles": "Ferry gratuito a Amsterdam Centraal, luego Metro 50 hasta Bijlmer ArenA."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "25-35",
+    "con_holgura": 40
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-26",
+    "hora_salida_origen": "10:00",
+    "hora_llegada_destino": "10:30"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 3
+  },
+  "notas": "El ferry a Amsterdam Noord es gratuito. El metro desde Centraal a Bijlmer ArenA tarda ~15 min.",
+  "sources": {
+    "modo": "user"
+  }
+}

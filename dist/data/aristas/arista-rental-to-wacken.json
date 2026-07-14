@@ -1,0 +1,28 @@
+{
+  "id": "arista-rental-to-wacken",
+  "origen_id": "rental-car-hamburg",
+  "destino_id": "wacken-festival",
+  "modo": "auto",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Auto rentado (Cupra Formentor o similar) desde Sixt Gänsemarkt hasta Wacken. Ruta por autopista A23."
+  },
+  "tiempo_estimado": {
+    "minutos": 80,
+    "rango": "70-90",
+    "con_holgura": 100
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-28",
+    "hora_salida_origen": "12:00",
+    "hora_llegada_destino": "13:20"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 75000
+  },
+  "notas": "El viaje dura aproximadamente 1 hora y 20 minutos. Buscar estacionamiento para el camping.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

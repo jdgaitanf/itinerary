@@ -1,0 +1,31 @@
+{
+  "id": "arista-coliseo-to-vaticano",
+  "origen_id": "coliseo-roma",
+  "destino_id": "vaticano-roma",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "compania": "ATAC",
+    "tipo_vehiculo": "Metro",
+    "linea": "Línea B + Línea A",
+    "detalles": "Metro B (Colosseo → Termini) → Metro A (Termini → Ottaviano). Salida: Viale Vaticano, a 5 min caminando."
+  },
+  "tiempo_estimado": {
+    "minutos": 20,
+    "rango": "18-22",
+    "con_holgura": 25
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "14:00",
+    "hora_llegada_destino": "14:20"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 1.5
+  },
+  "notas": "Después de visitar el Coliseo, tomar el metro al Vaticano. Los Museos Vaticanos cierran a las 18:00, llegar antes de las 15:00.",
+  "sources": {
+    "modo": "user"
+  }
+}

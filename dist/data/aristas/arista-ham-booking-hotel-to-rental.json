@@ -1,0 +1,29 @@
+{
+  "id": "arista-ham-booking-hotel-to-rental",
+  "origen_id": "hotel-booking-hamburg",
+  "destino_id": "rental-car-hamburg",
+  "modo": "caminata",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Caminata desde el hotel cerca de Hauptbahnhof hasta Sixt en Gänsemarkt (aproximadamente 15 min a pie)."
+  },
+  "tiempo_estimado": {
+    "minutos": 15,
+    "rango": "10-20",
+    "con_holgura": 20
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-28",
+    "hora_salida_origen": "11:30",
+    "hora_llegada_destino": "11:45"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "15 minutos antes",
+    "motivo": "Llegar puntual a la recogida del auto a las 12:00 PM"
+  },
+  "notas": "Sixt Gänsemarkt está a unos 15 min caminando desde Hauptbahnhof. Llegar a las 11:45 para el proceso de recogida.",
+  "sources": {
+    "modo": "user",
+    "logistica_salida": "user"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "id": "arista-bcn-hotel-to-airport",
+  "origen_id": "hotel-upper-diagonal-bcn",
+  "destino_id": "aeropuerto-bcn",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "linea": "L9 Sud",
+    "detalles": "Metro desde la estación Zona Universitària (caminata desde el hotel) hasta el Aeropuerto T1."
+  },
+  "tiempo_estimado": {
+    "minutos": 40,
+    "rango": "35-45",
+    "con_holgura": 50
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-19",
+    "hora_salida_origen": "05:45",
+    "hora_llegada_destino": "06:25"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "1.5 horas antes del vuelo",
+    "motivo": "Check-in, equipaje y migración para vuelo VY6106 (que sale a las 08:00)"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 5.5
+  },
+  "notas": "El metro L9 Sud comienza a operar a las 5:00 AM, tiempo justo para llegar. Se recomienda salir del hotel a las 5:30 AM para no correr.",
+  "sources": {
+    "modo": "user",
+    "logistica_salida": "user"
+  }
+}

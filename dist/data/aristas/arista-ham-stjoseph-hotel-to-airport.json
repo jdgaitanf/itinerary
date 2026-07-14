@@ -1,0 +1,34 @@
+{
+  "id": "arista-ham-stjoseph-hotel-to-airport",
+  "origen_id": "hotel-st-joseph-hamburg",
+  "destino_id": "aeropuerto-ham",
+  "modo": "metro",
+  "oculto": false,
+  "transporte": {
+    "linea": "U-Bahn U1 + S-Bahn S1",
+    "detalles": "Caminata a la estación Hauptbahnhof, U-Bahn U1 o S-Bahn S1 al aeropuerto."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "25-35",
+    "con_holgura": 40
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-02",
+    "hora_salida_origen": "12:30",
+    "hora_llegada_destino": "13:00"
+  },
+  "reglas_holgura": {
+    "tiempo_requerido": "2 horas antes del vuelo",
+    "motivo": "Check-in para vuelo IB774 a Madrid (sale a las 15:45)"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 3.5
+  },
+  "notas": "Salir con tiempo para llegar al aeropuerto con 2 horas de anticipación.",
+  "sources": {
+    "modo": "user",
+    "logistica_salida": "user"
+  }
+}

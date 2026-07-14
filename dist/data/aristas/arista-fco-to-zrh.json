@@ -1,0 +1,37 @@
+{
+  "id": "arista-fco-to-zrh",
+  "origen_id": "aeropuerto-fco",
+  "destino_id": "aeropuerto-zrh",
+  "modo": "avion",
+  "oculto": false,
+  "transporte": {
+    "compania": "Swiss International Air Lines",
+    "tipo_vehiculo": "Airbus A220-300",
+    "numero_vuelo": "LX1727",
+    "terminal_origen": "Terminal 3 - Roma Fiumicino",
+    "terminal_destino": "Terminal 1 - Zúrich Kloten",
+    "codigo_reserva_confirmacion": "(por confirmar)",
+    "detalles": "Vuelo directo Roma - Zúrich. Duración estimada: 1h 40min."
+  },
+  "tiempo_estimado": {
+    "minutos": 100,
+    "rango": "95-105",
+    "con_holgura": 110
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "09:45",
+    "hora_llegada_destino": "11:15"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 203000
+  },
+  "notas": "Sin cambio de huso horario (Roma y Zúrich comparten UTC+2).",
+  "sources": {
+    "costo": "user",
+    "transporte": {
+      "codigo_reserva_confirmacion": "user"
+    }
+  }
+}

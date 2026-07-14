@@ -1,0 +1,29 @@
+{
+  "id": "arista-ams-airport-to-hotel",
+  "origen_id": "aeropuerto-ams",
+  "destino_id": "zaan-hotel-amsterdam",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "linea": "NS Intercity + Ferry",
+    "detalles": "Tren desde Schiphol a Amsterdam Centraal, luego ferry gratuito a Amsterdam Noord y caminata 10 min al hotel."
+  },
+  "tiempo_estimado": {
+    "minutos": 35,
+    "rango": "30-40",
+    "con_holgura": 45
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-25",
+    "hora_salida_origen": "10:55",
+    "hora_llegada_destino": "11:30"
+  },
+  "costos": {
+    "moneda": "EUR",
+    "valor": 5.5
+  },
+  "notas": "El ferry a Amsterdam Noord es gratuito y sale cada 10 minutos.",
+  "sources": {
+    "modo": "user"
+  }
+}

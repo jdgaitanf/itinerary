@@ -1,0 +1,29 @@
+{
+  "id": "arista-bog-airport-to-casa",
+  "origen_id": "aeropuerto-eldorado-bog",
+  "destino_id": "casa-origen-bogota",
+  "modo": "auto",
+  "oculto": false,
+  "transporte": {
+    "tipo_vehiculo": "Taxi",
+    "detalles": "Taxi desde el aeropuerto El Dorado a la casa de David."
+  },
+  "tiempo_estimado": {
+    "minutos": 45,
+    "rango": "40-60",
+    "con_holgura": 60
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-08-03",
+    "hora_salida_origen": "20:30",
+    "hora_llegada_destino": "21:15"
+  },
+  "costos": {
+    "moneda": "COP",
+    "valor": 40000
+  },
+  "notas": "Fin del viaje. Llegada a casa, descansar y disfrutar de los recuerdos.",
+  "sources": {
+    "modo": "user"
+  }
+}
