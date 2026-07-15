@@ -88,37 +88,23 @@ export class ItineraryRenderer {
     `;
   }
 
-  _addDayToggleListeners(container) {
+    _addDayToggleListeners(container) {
     const dayHeaders = container.querySelectorAll('.dia-card-header');
     dayHeaders.forEach(header => {
       header.addEventListener('click', () => {
         const card = header.closest('.dia-card');
         if (!card) return;
-        const body = card.querySelector('.dia-card-body');
-        if (!body) return;
 
-        // Cerrar otros días abiertos (opcional)
+        // Cerrar otros días abiertos (opcional, comenta si quieres varios abiertos)
         const allOpen = container.querySelectorAll('.dia-card.expanded');
         allOpen.forEach(other => {
           if (other !== card) {
-            const otherBody = other.querySelector('.dia-card-body');
-            if (otherBody) {
-              otherBody.style.maxHeight = '0';
-              otherBody.style.opacity = '0';
-              other.classList.remove('expanded');
-            }
+            other.classList.remove('expanded');
           }
         });
 
-        if (card.classList.contains('expanded')) {
-          body.style.maxHeight = '0';
-          body.style.opacity = '0';
-          card.classList.remove('expanded');
-        } else {
-          body.style.maxHeight = body.scrollHeight + 'px';
-          body.style.opacity = '1';
-          card.classList.add('expanded');
-        }
+        // Toggle el día actual
+        card.classList.toggle('expanded');
       });
     });
   }

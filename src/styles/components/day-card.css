@@ -4,7 +4,7 @@
   background: transparent;
   box-shadow: none;
   border-radius: 0;
-  overflow: visible;
+  overflow: visible; /* Para que los hijos no se corten */
 }
 
 .dia-card-header {
@@ -26,14 +26,15 @@
 
 .dia-card-body {
   max-height: 0;
-  opacity: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.4s ease;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
   padding: 0;
 }
 
 .dia-card.expanded .dia-card-body {
-  padding: 8px 0 4px 0;
-  max-height: 10000px; /* valor alto para que se expanda completamente */
+  max-height: 9999px;  /* valor suficientemente grande para cualquier contenido */
+  overflow: visible;
   opacity: 1;
+  padding: 8px 0 4px 0;
 }
