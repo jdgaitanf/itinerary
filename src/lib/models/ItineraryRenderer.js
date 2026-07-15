@@ -13,7 +13,7 @@ export class ItineraryRenderer {
 
   render(itinerary, graph, container) {
     this.container = container;
-
+    
     if (!itinerary || itinerary.length === 0) {
       container.textContent = 'No se encontró itinerario';
       return;
@@ -48,7 +48,14 @@ export class ItineraryRenderer {
 
     container.innerHTML = html;
 
-    // Listeners para nodos y aristas (ya existentes)
+    // Determinar la fecha actual (real o simulada)
+    // Para simular: en consola del navegador, escribe window.__simulatedDate = '2026-07-19'; y recarga
+    const today = (typeof window !== 'undefined' && window.__simulatedDate)
+      ? window.__simulatedDate
+      : new Date().toISOString().slice(0, 10);
+    this._expandirDiaCorrecto(today, container);
+
+    // Listeners para nodos y aristas
     addToggleListeners(container);
 
     // Listeners para los días (toggle de día)
@@ -64,7 +71,7 @@ export class ItineraryRenderer {
     for (const item of items) {
       if (item.tipo === 'nodo') {
         const nodo = nodosMap.get(item.id);
-        const eventTypes = ['atraccion', 'festival']
+        const eventTypes = ['atraccion', 'festival'];
         if (eventTypes.includes(nodo.tipo)) eventoCount++;
         if (nodo && nodo.direccion && nodo.direccion.ciudad) {
           ciudades.add(nodo.direccion.ciudad);
@@ -85,7 +92,7 @@ export class ItineraryRenderer {
     }
 
     const ciudadText = ciudades.size > 0 ? Array.from(ciudades).join(', ') : '';
-    const eventoText = eventoCount > 0 ?  ` · ${eventoCount} eventos` : ''
+    const eventoText = eventoCount > 0 ? ` · ${eventoCount} eventos` : '';
     const resumen = ciudadText ? `${ciudadText}${eventoText}` : eventoText;
 
     let eventsHtml = '';
@@ -108,7 +115,7 @@ export class ItineraryRenderer {
     }
 
     return `
-      <div class="dia-card expanded">
+      <div class="dia-card" data-fecha="${fecha}">
         <div class="dia-card-header">
           <span class="dia-card-fecha">${fechaFormateada}</span>
           <span class="dia-card-resumen">${resumen}</span>
@@ -120,6 +127,61 @@ export class ItineraryRenderer {
     `;
   }
 
+  _expandirDiaCorrecto(today, container) {
+    const dayCards = container.querySelectorAll('.dia-card');
+    if (dayCards.length === 0) return;
+
+    const dates = [];
+    dayCards.forEach(card => {
+      const fecha = card.dataset.fecha;
+      if (fecha) dates.push(fecha);
+    });
+    if (dates.length === 0) return;
+
+    // Ordenar fechas
+    dates.sort((a, b) => a.localeCompare(b));
+    const firstDate = dates[0];
+    const lastDate = dates[dates.length - 1];
+
+    let targetDate = null;
+
+    // Si hoy es antes de la primera fecha → expandir el primer día
+    if (today < firstDate) {
+      targetDate = firstDate;
+    } 
+    // Si hoy es después de la última fecha → no expandir ninguno
+    else if (today > lastDate) {
+      return;
+    } 
+    // Si hoy está dentro del rango
+    else {
+      // Buscar fecha exacta
+      if (dates.includes(today)) {
+        targetDate = today;
+      } else {
+        // Buscar la fecha más cercana anterior (menor o igual)
+        for (let i = dates.length - 1; i >= 0; i--) {
+          if (dates[i] <= today) {
+            targetDate = dates[i];
+            break;
+          }
+        }
+        // Fallback: primera fecha
+        if (!targetDate) {
+          targetDate = firstDate;
+        }
+      }
+    }
+
+    if (targetDate) {
+      const targetCard = container.querySelector(`.dia-card[data-fecha="${targetDate}"]`);
+      if (targetCard) {
+        targetCard.classList.add('expanded');
+        // El CSS se encarga del resto
+      }
+    }
+  }
+
   _addDayToggleListeners(container) {
     const dayHeaders = container.querySelectorAll('.dia-card-header');
     dayHeaders.forEach(header => {
@@ -127,7 +189,7 @@ export class ItineraryRenderer {
         const card = header.closest('.dia-card');
         if (!card) return;
 
-        // Cerrar otros días abiertos (opcional, comenta si quieres varios abiertos)
+        // Cerrar otros días abiertos (opcional)
         const allOpen = container.querySelectorAll('.dia-card.expanded');
         allOpen.forEach(other => {
           if (other !== card) {
