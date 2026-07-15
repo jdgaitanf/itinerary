@@ -25,13 +25,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 203000
+    "valor": 203000,
+    "pagado_por": null
   },
   "notas": "Sin cambio de huso horario (Roma y Zúrich comparten UTC+2).",
   "sources": {
-    "costo": "user",
-    "transporte": {
-      "codigo_reserva_confirmacion": "user"
-    }
+    "costos": "user"
   }
 }

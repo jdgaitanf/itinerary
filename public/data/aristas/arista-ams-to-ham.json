@@ -25,10 +25,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 450000
+    "valor": 450000,
+    "pagado_por": null
   },
   "notas": "Sin cambio de huso horario (Países Bajos y Alemania comparten UTC+2).",
   "sources": {
-    "costo": "user"
+    "costos": "user"
   }
 }

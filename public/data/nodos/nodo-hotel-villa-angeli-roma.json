@@ -29,9 +29,8 @@
         "plataforma": "Booking.com",
         "costo": {
           "moneda": "COP",
-          "valor": 380000,
-          "pagado_por": "Steven",
-          "incluido_en": "Alojamiento compartido"
+          "valor": 760000,
+          "pagado_por": "Steven"
         }
       },
       "clima": {
@@ -97,7 +96,7 @@
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
-    "tasa_referencia": "1 EUR ≈ 4500 COP"
+    "tasa_referencia": "1 EUR ≈ 4088 COP"
   },
   "reglas_especiales": [
     "Horario de silencio: 22:00 - 08:00"
@@ -105,5 +104,18 @@
   "imagenes": [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/7b/5c/4d/villa-angeli.jpg"
   ],
-  "tiempo_estimado_visita": "2 noches"
+  "tiempo_estimado_visita": "2 noches",
+  "sources": {
+    "visitas": [
+      {
+        "reserva": {
+          "costo": "user",
+          "pagado_por": "user"
+        }
+      }
+    ],
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
 }

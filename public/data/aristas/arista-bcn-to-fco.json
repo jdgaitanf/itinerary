@@ -25,10 +25,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 160000
+    "valor": 160000,
+    "pagado_por": null
   },
   "notas": "Sin cambio de huso horario (Barcelona y Roma comparten UTC+2). Llegada a la Terminal 3 de Fiumicino.",
   "sources": {
-    "costo": "user"
+    "costos": "user"
   }
 }

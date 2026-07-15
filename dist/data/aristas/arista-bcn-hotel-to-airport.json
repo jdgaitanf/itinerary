@@ -24,11 +24,13 @@
   },
   "costos": {
     "moneda": "EUR",
-    "valor": 5.5
+    "valor": 5.5,
+    "pagado_por": null
   },
   "notas": "El metro L9 Sud comienza a operar a las 5:00 AM, tiempo justo para llegar. Se recomienda salir del hotel a las 5:30 AM para no correr.",
   "sources": {
     "modo": "user",
-    "logistica_salida": "user"
+    "logistica_salida": "user",
+    "costos": "user"
   }
 }

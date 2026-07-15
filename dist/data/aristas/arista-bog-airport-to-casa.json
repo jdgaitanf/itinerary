@@ -20,10 +20,12 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 40000
+    "valor": 40000,
+    "pagado_por": null
   },
   "notas": "Fin del viaje. Llegada a casa, descansar y disfrutar de los recuerdos.",
   "sources": {
-    "modo": "user"
+    "modo": "user",
+    "costos": "user"
   }
 }

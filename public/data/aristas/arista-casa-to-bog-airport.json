@@ -5,6 +5,7 @@
   "modo": "auto",
   "oculto": false,
   "transporte": {
+    "tipo_vehiculo": "Taxi",
     "detalles": "Taxi desde la casa de David. Excepción a la regla de no usar taxi (traslado al aeropuerto)."
   },
   "tiempo_estimado": {
@@ -23,11 +24,13 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 35000
+    "valor": 35000,
+    "pagado_por": null
   },
   "notas": "Se recomienda salir a la 1:00 PM para llegar con holgura (el vuelo sale a las 3:20 PM).",
   "sources": {
     "modo": "user",
-    "logistica_salida": "user"
+    "logistica_salida": "user",
+    "costos": "user"
   }
 }

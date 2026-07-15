@@ -1,6 +1,9 @@
+// src/lib/models/NodeRenderer.js
+
 import { getNodeIcon } from '../utils/iconUtils.js';
 import { getNodeLabel } from '../utils/labelUtils.js';
 import { formatDate } from '../utils/dateUtils.js';
+import { formatMoney } from '../utils/formatUtils.js';
 
 export class NodeRenderer {
   constructor() {
@@ -17,7 +20,6 @@ export class NodeRenderer {
       ? nodo.visitas[Math.min(visitaIndex, nodo.visitas.length - 1)] 
       : null;
     
-    // Usar la fecha proporcionada o la de la visita como fallback
     const fechaMostrar = fecha || visita?.entrada || '';
     const fechaSalida = visita?.salida || '';
     const ciudad = nodo.direccion?.ciudad || '';
@@ -58,7 +60,7 @@ export class NodeRenderer {
           ${this._renderHorarios(horarios)}
           ${this._renderClima(clima)}
           ${this._renderReserva(reserva)}
-          ${this._renderActividades(actividades)}
+          ${this._renderActividades(actividades, moneda)}
           ${this._renderEquipaje(equipaje)}
           ${this._renderTiempoVisita(tiempoVisita)}
           ${this._renderIdioma(idioma)}
@@ -137,6 +139,18 @@ export class NodeRenderer {
 
   _renderReserva(reserva) {
     if (!reserva) return '';
+    let costoHtml = '';
+    if (reserva.costo) {
+      if (reserva.costo.moneda && reserva.costo.valor !== undefined) {
+        costoHtml = ` · 💰 ${formatMoney(reserva.costo.valor, reserva.costo.moneda)}`;
+      } else if (Array.isArray(reserva.costo)) {
+        // Si es array (futuro), mostrar lista
+        const items = reserva.costo.map(c => 
+          `${c.concepto || 'Costo'}: ${formatMoney(c.valor, c.moneda)}`
+        ).join(' · ');
+        costoHtml = ` · 💰 ${items}`;
+      }
+    }
     return `
       <div class="nodo-detail-row">
         <span class="material-symbols-outlined">confirmation_number</span>
@@ -145,13 +159,13 @@ export class NodeRenderer {
           ${reserva.nombre_titular ? ` · Titular: ${reserva.nombre_titular}` : ''}
           ${reserva.codigo_reserva ? ` · Código: ${reserva.codigo_reserva}` : ''}
           ${reserva.plataforma ? ` · ${reserva.plataforma}` : ''}
-          ${reserva.costo ? ` · 💰 ${reserva.costo.valor} ${reserva.costo.moneda}` : ''}
+          ${costoHtml}
         </span>
       </div>
     `;
   }
 
-  _renderActividades(actividades) {
+  _renderActividades(actividades, moneda) {
     if (actividades.length === 0) return '';
     return `
       <div class="nodo-detail-row nodo-detail-actividades">
@@ -159,15 +173,23 @@ export class NodeRenderer {
         <span>
           <strong>Actividades:</strong>
           <ul class="nodo-detail-list">
-            ${actividades.map(act => `
-              <li>
-                ${act.nombre || act.id}
-                ${act.tipo ? ` (${act.tipo})` : ''}
-                ${act.duracion_estimada ? ` · ⏱️ ${act.duracion_estimada}` : ''}
-                ${act.horario_recomendado ? ` · 🕐 ${act.horario_recomendado}` : ''}
-                ${act.notas ? ` · ${act.notas}` : ''}
-              </li>
-            `).join('')}
+            ${actividades.map(act => {
+              let costoHtml = '';
+              if (act.reserva && act.reserva.costo) {
+                const c = act.reserva.costo;
+                costoHtml = ` · 💰 ${formatMoney(c.valor, c.moneda)}`;
+              }
+              return `
+                <li>
+                  ${act.nombre || act.id}
+                  ${act.tipo ? ` (${act.tipo})` : ''}
+                  ${act.duracion_estimada ? ` · ⏱️ ${act.duracion_estimada}` : ''}
+                  ${act.horario_recomendado ? ` · 🕐 ${act.horario_recomendado}` : ''}
+                  ${costoHtml}
+                  ${act.notas ? ` · ${act.notas}` : ''}
+                </li>
+              `;
+            }).join('')}
           </ul>
         </span>
       </div>

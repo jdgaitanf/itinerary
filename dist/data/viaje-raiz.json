@@ -5,6 +5,16 @@
     "inicio": "2026-07-17",
     "fin": "2026-08-03"
   },
+  "companeros": [
+    {
+      "nombre": "Juan",
+      "apodo": "Juan David"
+    },
+    {
+      "nombre": "Steven",
+      "apodo": "Steven"
+    }
+  ],
   "referencias": {
     "nodos": [
       "nodos/nodo-casa-origen-bogota.json",
@@ -69,6 +79,7 @@
   },
   "sources": {
     "nombre_viaje": "user",
-    "fechas": "user"
+    "fechas": "user",
+    "companeros": "user"
   }
 }

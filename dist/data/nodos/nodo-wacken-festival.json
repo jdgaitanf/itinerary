@@ -24,14 +24,22 @@
       "reserva": {
         "codigo_reserva": "WOA-2026",
         "confirmada": true,
-        "nombre_titular": "David y Steven",
+        "nombre_titular": "Juan y Steven",
         "plataforma": "Wacken",
-        "costo": {
-          "moneda": "COP",
-          "valor": 150000,
-          "pagado_por": "Steven",
-          "incluido_en": "Access Pass compartido"
-        }
+        "costo": [
+          {
+            "concepto": "Boleta Wacken",
+            "moneda": "COP",
+            "valor": 1700000,
+            "pagado_por": null
+          },
+          {
+            "concepto": "Access Pass (parqueadero)",
+            "moneda": "COP",
+            "valor": 150000,
+            "pagado_por": "Steven"
+          }
+        ]
       },
       "clima": [
         {
@@ -117,7 +125,7 @@
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
-    "tasa_referencia": "1 EUR ≈ 4500 COP"
+    "tasa_referencia": "1 EUR ≈ 4088 COP"
   },
   "reglas_especiales": [
     "No se permite vidrio en el área del festival.",
@@ -126,5 +134,17 @@
     "Se requiere pulsera oficial de acceso.",
     "Se recomienda llegar temprano para evitar atascos."
   ],
-  "tiempo_estimado_visita": "5 días"
+  "tiempo_estimado_visita": "5 días",
+  "sources": {
+    "visitas": [
+      {
+        "reserva": {
+          "costo": "user"
+        }
+      }
+    ],
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
 }

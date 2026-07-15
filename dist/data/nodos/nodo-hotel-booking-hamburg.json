@@ -18,9 +18,8 @@
         "plataforma": "Booking.com",
         "costo": {
           "moneda": "COP",
-          "valor": 212500,
-          "pagado_por": "Steven",
-          "incluido_en": "Alojamiento compartido"
+          "valor": 440000,
+          "pagado_por": "Steven"
         }
       },
       "clima": {
@@ -46,7 +45,20 @@
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
-    "tasa_referencia": "1 EUR ≈ 4500 COP"
+    "tasa_referencia": "1 EUR ≈ 4088 COP"
   },
-  "tiempo_estimado_visita": "1 noche"
+  "tiempo_estimado_visita": "1 noche",
+  "sources": {
+    "visitas": [
+      {
+        "reserva": {
+          "costo": "user",
+          "pagado_por": "user"
+        }
+      }
+    ],
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
 }

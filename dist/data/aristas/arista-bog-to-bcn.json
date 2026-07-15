@@ -25,7 +25,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 450000
+    "valor": 450000,
+    "pagado_por": null
   },
-  "notas": "Llegada al día siguiente (18 de julio). Cambio de huso horario: Bogotá (UTC-5) → Barcelona (UTC+2)."
+  "notas": "Llegada al día siguiente (18 de julio). Cambio de huso horario: Bogotá (UTC-5) → Barcelona (UTC+2).",
+  "sources": {
+    "costos": "user"
+  }
 }

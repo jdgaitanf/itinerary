@@ -25,10 +25,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 247000
+    "valor": 246243,
+    "pagado_por": "Juan"
   },
-  "notas": "Sin cambio de huso horario (Suiza y Países Bajos comparten UTC+2 en verano).",
+  "notas": "Sin cambio de huso horario (Suiza y Países Bajos comparten UTC+2 en verano). Este tiquete lo pagó Juan completo porque la tarjeta de Steven no funcionó. El valor total fue el doble (492486 COP), pero aquí se refleja solo la parte individual de Juan.",
   "sources": {
-    "costo": "user"
+    "costos": "user"
   }
 }

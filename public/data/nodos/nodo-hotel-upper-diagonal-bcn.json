@@ -25,13 +25,12 @@
       "reserva": {
         "codigo_reserva": "ABC123XYZ",
         "confirmada": true,
-        "nombre_titular": "Steven",
+        "nombre_titular": "Juan",
         "plataforma": "Booking.com",
         "costo": {
           "moneda": "COP",
-          "valor": 279000,
-          "pagado_por": "David",
-          "incluido_en": "Alojamiento compartido"
+          "valor": 558000,
+          "pagado_por": "Juan"
         }
       },
       "clima": {
@@ -40,7 +39,7 @@
         "probabilidad_lluvia": "10%",
         "recomendacion_vestimenta": "Ropa ligera, gafas de sol, sombrero"
       },
-      "notas": "Habitación a nombre de Steven. Wifi disponible, gimnasio, piscina."
+      "notas": "Habitación a nombre de Juan. Wifi disponible, gimnasio, piscina."
     }
   ],
   "horarios": {
@@ -70,10 +69,23 @@
   "moneda_local": {
     "codigo": "EUR",
     "simbolo": "€",
-    "tasa_referencia": "1 EUR ≈ 4500 COP"
+    "tasa_referencia": "1 EUR ≈ 4088 COP"
   },
   "imagenes": [
     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/4e/fb/04/hotel-upper-diagonal.jpg"
   ],
-  "tiempo_estimado_visita": "1 noche"
+  "tiempo_estimado_visita": "1 noche",
+  "sources": {
+    "visitas": [
+      {
+        "reserva": {
+          "costo": "user",
+          "pagado_por": "user"
+        }
+      }
+    ],
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
 }

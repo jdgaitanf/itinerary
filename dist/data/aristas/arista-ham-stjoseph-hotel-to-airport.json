@@ -5,8 +5,8 @@
   "modo": "metro",
   "oculto": false,
   "transporte": {
-    "linea": "U-Bahn U1 + S-Bahn S1",
-    "detalles": "Caminata a la estación Hauptbahnhof, U-Bahn U1 o S-Bahn S1 al aeropuerto."
+    "linea": "S-Bahn S1",
+    "detalles": "Caminata desde el hotel hasta la estación Hauptbahnhof (5 min), luego S-Bahn S1 al aeropuerto."
   },
   "tiempo_estimado": {
     "minutos": 30,
@@ -28,7 +28,7 @@
   },
   "notas": "Salir con tiempo para llegar al aeropuerto con 2 horas de anticipación.",
   "sources": {
-    "modo": "user",
-    "logistica_salida": "user"
+    "costos": "user",
+    "modo": "user"
   }
 }

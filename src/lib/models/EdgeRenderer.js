@@ -1,6 +1,9 @@
+// src/lib/models/EdgeRenderer.js
+
 import { getEdgeIcon } from '../utils/iconUtils.js';
 import { getEdgeLabel } from '../utils/labelUtils.js';
 import { formatDate } from '../utils/dateUtils.js';
+import { formatMoney } from '../utils/formatUtils.js';
 
 export class EdgeRenderer {
   constructor(nodosMap) {
@@ -147,11 +150,12 @@ export class EdgeRenderer {
 
   _renderCostos(costos) {
     if (!costos.valor && !costos.moneda) return '';
+    const moneda = costos.moneda || 'COP';
     return `
       <div class="arista-detail-row">
         <span class="material-symbols-outlined">payments</span>
         <span>
-          <strong>Costo:</strong> ${costos.valor || ''} ${costos.moneda || ''}
+          <strong>Costo:</strong> ${formatMoney(costos.valor, moneda)}
           ${costos.pagado_por ? ` · Pagado por: ${costos.pagado_por}` : ''}
           ${costos.incluido_en ? ` · Incluido en: ${costos.incluido_en}` : ''}
         </span>

@@ -53,6 +53,14 @@ import "../styles/global.css";
         <div id="home-content" style="display: block;">
           <NodeList />
         </div>
+        <div id="finance-content" style="display: none;">
+          <div id="finance-panel">
+            <h2>Finanzas</h2>
+            <div id="finance-container">
+              <p>Cargando datos financieros...</p>
+            </div>
+          </div>
+        </div>
         <div id="settings-content" style="display: none;">
           <div id="settings-panel">
             <h2>Ajustes</h2>
@@ -107,6 +115,10 @@ import "../styles/global.css";
         <span class="material-symbols-outlined">home</span>
         <span class="footer-label">Home</span>
       </button>
+      <button data-tab="finance">
+        <span class="material-symbols-outlined">payments</span>
+        <span class="footer-label">Finanzas</span>
+      </button>
       <button data-tab="settings">
         <span class="material-symbols-outlined">settings</span>
         <span class="footer-label">Ajustes</span>
@@ -118,6 +130,7 @@ import "../styles/global.css";
   <script>
     import "../scripts/index.js";
     import "../scripts/tabs.js";
+    import "../scripts/finance.js";
     import "../scripts/settings.js";
     import "../scripts/theme.js";
 

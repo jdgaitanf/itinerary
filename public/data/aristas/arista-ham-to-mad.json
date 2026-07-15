@@ -25,10 +25,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 261000
+    "valor": 261000,
+    "pagado_por": null
   },
   "notas": "Sin cambio de huso horario (Alemania y España comparten UTC+2).",
   "sources": {
-    "costo": "user"
+    "costos": "user"
   }
 }

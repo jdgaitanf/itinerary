@@ -6,7 +6,7 @@
   "oculto": false,
   "transporte": {
     "linea": "L9 Sud",
-    "detalles": "Metro desde el aeropuerto (T1) hasta estación Zona Universitària, luego caminata o bus."
+    "detalles": "Metro desde el aeropuerto (T1) hasta estación Zona Universitària, luego caminata o bus al hotel."
   },
   "tiempo_estimado": {
     "minutos": 40,
@@ -20,7 +20,11 @@
   },
   "costos": {
     "moneda": "EUR",
-    "valor": 5.5
+    "valor": 5.5,
+    "pagado_por": null
   },
-  "notas": "Tarifa del aeropuerto (suplemento). Metro cada 7-10 minutos."
+  "notas": "Tarifa del aeropuerto (suplemento). Metro cada 7-10 minutos.",
+  "sources": {
+    "costos": "user"
+  }
 }

@@ -19,10 +19,11 @@
   },
   "costos": {
     "moneda": "COP",
-    "valor": 75000
+    "valor": 75000,
+    "pagado_por": null
   },
-  "notas": "Salir temprano de Wacken para evitar tráfico y devolver el auto a tiempo. El rental car cierra a las 18:00.",
+  "notas": "Salir temprano de Wacken para evitar tráfico y devolver el auto a tiempo. El rental car cierra a las 18:00. Gasolina vuelta.",
   "sources": {
-    "logistica_salida": "user"
+    "costos": "user"
   }
 }

@@ -8,8 +8,8 @@
     "compania": "Avianca",
     "tipo_vehiculo": "Boeing 787-8 Dreamliner",
     "numero_vuelo": "AV11",
-    "terminal_origen": "T4S",
-    "terminal_destino": "T1",
+    "terminal_origen": "Terminal 4S - Madrid-Barajas",
+    "terminal_destino": "Terminal 1 - El Dorado",
     "codigo_reserva_confirmacion": "AV11-2026",
     "detalles": "Vuelo directo Madrid - Bogotá. Duración estimada: 10h 10min."
   },
@@ -27,10 +27,11 @@
   "costos": {
     "moneda": "COP",
     "valor": 450000,
+    "pagado_por": null,
     "incluido_en": "Vuelo ida y vuelta"
   },
   "notas": "Cambio de huso horario: Madrid (UTC+2) → Bogotá (UTC-5). El vuelo llega a las 8:30 PM de Bogotá.",
   "sources": {
-    "costo": "user"
+    "costos": "user"
   }
 }

@@ -30,6 +30,7 @@
   },
   "notas": "Salir del hotel a las 13:50 para llegar al aeropuerto a las 14:30 (3 horas antes del vuelo). El vuelo AV11 sale a las 17:20.",
   "sources": {
+    "costos": "user",
     "modo": "user"
   }
 }
