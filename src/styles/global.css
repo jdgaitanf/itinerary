@@ -1,5 +1,6 @@
 @import './components/node-card.css';
 @import './components/edge-card.css';
+@import './components/day-card.css';
 @import './components/footer.css';
 @import './pages/settings.css';
 @import './utils/utilities.css';

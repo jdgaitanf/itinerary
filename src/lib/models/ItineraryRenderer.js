@@ -1,6 +1,8 @@
 import { NodeRenderer } from './NodeRenderer.js';
 import { EdgeRenderer } from './EdgeRenderer.js';
 import { addToggleListeners } from '../utils/domUtils.js';
+import { agruparPorDias } from '../utils/groupUtils.js';
+import { formatDate } from '../utils/dateUtils.js';
 
 export class ItineraryRenderer {
   constructor() {
@@ -34,15 +36,34 @@ export class ItineraryRenderer {
 
     this.edgeRenderer = new EdgeRenderer(nodosMap);
 
-    let html = '';
+    // Agrupar por días
+    const diasAgrupados = agruparPorDias(itinerary);
+    const fechasOrdenadas = Object.keys(diasAgrupados).sort();
 
-    for (const item of itinerary) {
+    let html = '';
+    for (const fecha of fechasOrdenadas) {
+      const items = diasAgrupados[fecha];
+      html += this._renderDay(fecha, items, nodosMap, aristasMap);
+    }
+
+    container.innerHTML = html;
+
+    // Listeners para nodos y aristas (ya existentes)
+    addToggleListeners(container);
+
+    // Listeners para los días (toggle de día)
+    this._addDayToggleListeners(container);
+  }
+
+    _renderDay(fecha, items, nodosMap, aristasMap) {
+    const fechaFormateada = formatDate(fecha);
+    let eventsHtml = '';
+    for (const item of items) {
       if (item.tipo === 'nodo') {
         const nodo = nodosMap.get(item.id);
         if (nodo) {
-          // Pasar el índice de visita y la fecha al renderizador
-          html += this.nodeRenderer.render(
-            nodo, 
+          eventsHtml += this.nodeRenderer.render(
+            nodo,
             item.visitaIndex || 0,
             item.fecha || ''
           );
@@ -50,12 +71,55 @@ export class ItineraryRenderer {
       } else if (item.tipo === 'arista') {
         const arista = aristasMap.get(item.id);
         if (arista) {
-          html += this.edgeRenderer.render(arista);
+          eventsHtml += this.edgeRenderer.render(arista);
         }
       }
     }
 
-    container.innerHTML = html;
-    addToggleListeners(container);
+    return `
+      <div class="dia-card expanded">
+        <div class="dia-card-header">
+          <span class="dia-card-fecha">${fechaFormateada}</span>
+        </div>
+        <div class="dia-card-body">
+          ${eventsHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  _addDayToggleListeners(container) {
+    const dayHeaders = container.querySelectorAll('.dia-card-header');
+    dayHeaders.forEach(header => {
+      header.addEventListener('click', () => {
+        const card = header.closest('.dia-card');
+        if (!card) return;
+        const body = card.querySelector('.dia-card-body');
+        if (!body) return;
+
+        // Cerrar otros días abiertos (opcional)
+        const allOpen = container.querySelectorAll('.dia-card.expanded');
+        allOpen.forEach(other => {
+          if (other !== card) {
+            const otherBody = other.querySelector('.dia-card-body');
+            if (otherBody) {
+              otherBody.style.maxHeight = '0';
+              otherBody.style.opacity = '0';
+              other.classList.remove('expanded');
+            }
+          }
+        });
+
+        if (card.classList.contains('expanded')) {
+          body.style.maxHeight = '0';
+          body.style.opacity = '0';
+          card.classList.remove('expanded');
+        } else {
+          body.style.maxHeight = body.scrollHeight + 'px';
+          body.style.opacity = '1';
+          card.classList.add('expanded');
+        }
+      });
+    });
   }
 }

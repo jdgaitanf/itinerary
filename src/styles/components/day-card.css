@@ -1,0 +1,39 @@
+.dia-card {
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--border-light);
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.dia-card-header {
+  padding: 8px 0;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background: transparent;
+  border-bottom: none;
+}
+
+.dia-card-fecha {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.dia-card-body {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.4s ease;
+  padding: 0;
+}
+
+.dia-card.expanded .dia-card-body {
+  padding: 8px 0 4px 0;
+  max-height: 10000px; /* valor alto para que se expanda completamente */
+  opacity: 1;
+}

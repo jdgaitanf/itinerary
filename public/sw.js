@@ -1,5 +1,5 @@
 // Service Worker para Itinerario PWA
-const CACHE_NAME = 'itinerario-v1.2';
+const CACHE_NAME = 'itinerario-v1.3';
 const ASSETS_TO_CACHE = [
   '/itinerary/',
   '/itinerary/index.html',
