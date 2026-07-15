@@ -13,7 +13,7 @@ export class ItineraryRenderer {
 
   render(itinerary, graph, container) {
     this.container = container;
-    
+
     if (!itinerary || itinerary.length === 0) {
       container.textContent = 'No se encontró itinerario';
       return;
@@ -55,8 +55,39 @@ export class ItineraryRenderer {
     this._addDayToggleListeners(container);
   }
 
-    _renderDay(fecha, items, nodosMap, aristasMap) {
+  _renderDay(fecha, items, nodosMap, aristasMap) {
     const fechaFormateada = formatDate(fecha);
+
+    // Construir resumen del día
+    const ciudades = new Set();
+    let eventoCount = 0;
+    for (const item of items) {
+      if (item.tipo === 'nodo') {
+        const nodo = nodosMap.get(item.id);
+        const eventTypes = ['atraccion', 'festival']
+        if (eventTypes.includes(nodo.tipo)) eventoCount++;
+        if (nodo && nodo.direccion && nodo.direccion.ciudad) {
+          ciudades.add(nodo.direccion.ciudad);
+        }
+      } else if (item.tipo === 'arista') {
+        const arista = aristasMap.get(item.id);
+        if (arista) {
+          const origen = nodosMap.get(arista.origen_id);
+          const destino = nodosMap.get(arista.destino_id);
+          if (origen && origen.direccion && origen.direccion.ciudad) {
+            ciudades.add(origen.direccion.ciudad);
+          }
+          if (destino && destino.direccion && destino.direccion.ciudad) {
+            ciudades.add(destino.direccion.ciudad);
+          }
+        }
+      }
+    }
+
+    const ciudadText = ciudades.size > 0 ? Array.from(ciudades).join(', ') : '';
+    const eventoText = eventoCount > 0 ?  ` · ${eventoCount} eventos` : ''
+    const resumen = ciudadText ? `${ciudadText}${eventoText}` : eventoText;
+
     let eventsHtml = '';
     for (const item of items) {
       if (item.tipo === 'nodo') {
@@ -80,6 +111,7 @@ export class ItineraryRenderer {
       <div class="dia-card expanded">
         <div class="dia-card-header">
           <span class="dia-card-fecha">${fechaFormateada}</span>
+          <span class="dia-card-resumen">${resumen}</span>
         </div>
         <div class="dia-card-body">
           ${eventsHtml}
@@ -88,7 +120,7 @@ export class ItineraryRenderer {
     `;
   }
 
-    _addDayToggleListeners(container) {
+  _addDayToggleListeners(container) {
     const dayHeaders = container.querySelectorAll('.dia-card-header');
     dayHeaders.forEach(header => {
       header.addEventListener('click', () => {

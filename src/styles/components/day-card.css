@@ -4,10 +4,13 @@
   background: transparent;
   box-shadow: none;
   border-radius: 0;
-  overflow: visible; /* Para que los hijos no se corten */
+  overflow: visible;
 }
 
 .dia-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   padding: 8px 0;
   cursor: pointer;
   user-select: none;
@@ -24,6 +27,16 @@
   text-transform: uppercase;
 }
 
+.dia-card-resumen {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+}
+
 .dia-card-body {
   max-height: 0;
   overflow: hidden;
@@ -33,7 +46,7 @@
 }
 
 .dia-card.expanded .dia-card-body {
-  max-height: 9999px;  /* valor suficientemente grande para cualquier contenido */
+  max-height: 9999px;
   overflow: visible;
   opacity: 1;
   padding: 8px 0 4px 0;
