@@ -26,20 +26,11 @@
         "confirmada": true,
         "nombre_titular": "Juan y Steven",
         "plataforma": "Wacken",
-        "costo": [
-          {
-            "concepto": "Boleta Wacken",
-            "moneda": "COP",
-            "valor": 1700000,
-            "pagado_por": null
-          },
-          {
-            "concepto": "Access Pass (parqueadero)",
-            "moneda": "COP",
-            "valor": 150000,
-            "pagado_por": "Steven"
-          }
-        ]
+        "costo": {
+          "moneda": "COP",
+          "valor": 1850000,
+          "pagado_por": null
+        }
       },
       "clima": [
         {

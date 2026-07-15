@@ -61,32 +61,15 @@ export class FinanceService {
       if (nodo.visitas) {
         for (let vi = 0; vi < nodo.visitas.length; vi++) {
           const visita = nodo.visitas[vi];
+          // Costo de reserva del nodo
           if (visita.reserva && visita.reserva.costo) {
-            const costo = visita.reserva.costo;
-            const source = getNodoSource(nodo, `visitas[${vi}].reserva.costo`);
-            const desc = `${nodo.nombre || nodo.id} - Reserva`;
-            const cat = CATEGORY_MAP[nodo.tipo] || 'Otros';
-            expenses.push({
-              descripcion: desc,
-              categoria: cat,
-              monto: costo.valor,
-              moneda: costo.moneda || 'COP',
-              pagado_por: costo.pagado_por || '',
-              source: source,
-              nodoId: nodo.id,
-              tipo: 'nodo',
-            });
-          }
-          if (visita.reserva && visita.reserva.costo) {
-            // Ya agregado, pero si hay más costos en actividades?
-          }
-          if (visita.actividades) {
-            for (let ai = 0; ai < visita.actividades.length; ai++) {
-              const act = visita.actividades[ai];
-              if (act.reserva && act.reserva.costo) {
-                const costo = act.reserva.costo;
-                const source = getNodoSource(nodo, `visitas[${vi}].actividades[${ai}].reserva.costo`);
-                const desc = `${nodo.nombre || nodo.id} - ${act.nombre || 'Actividad'}`;
+            const costoData = visita.reserva.costo;
+            // Si es array, sumar todos o tomar el primero? Tomamos el primero por simplicidad, pero mejor sumar
+            let costosArray = Array.isArray(costoData) ? costoData : [costoData];
+            for (const costo of costosArray) {
+              if (costo && typeof costo.valor === 'number') {
+                const source = getNodoSource(nodo, `visitas[${vi}].reserva.costo`);
+                const desc = `${nodo.nombre || nodo.id} - Reserva${costo.concepto ? ' (' + costo.concepto + ')' : ''}`;
                 const cat = CATEGORY_MAP[nodo.tipo] || 'Otros';
                 expenses.push({
                   descripcion: desc,
@@ -96,8 +79,35 @@ export class FinanceService {
                   pagado_por: costo.pagado_por || '',
                   source: source,
                   nodoId: nodo.id,
-                  tipo: 'actividad',
+                  tipo: 'nodo',
                 });
+              }
+            }
+          }
+          // Costos de actividades
+          if (visita.actividades) {
+            for (let ai = 0; ai < visita.actividades.length; ai++) {
+              const act = visita.actividades[ai];
+              if (act.reserva && act.reserva.costo) {
+                const costoData = act.reserva.costo;
+                let costosArray = Array.isArray(costoData) ? costoData : [costoData];
+                for (const costo of costosArray) {
+                  if (costo && typeof costo.valor === 'number') {
+                    const source = getNodoSource(nodo, `visitas[${vi}].actividades[${ai}].reserva.costo`);
+                    const desc = `${nodo.nombre || nodo.id} - ${act.nombre || 'Actividad'}`;
+                    const cat = CATEGORY_MAP[nodo.tipo] || 'Otros';
+                    expenses.push({
+                      descripcion: desc,
+                      categoria: cat,
+                      monto: costo.valor,
+                      moneda: costo.moneda || 'COP',
+                      pagado_por: costo.pagado_por || '',
+                      source: source,
+                      nodoId: nodo.id,
+                      tipo: 'actividad',
+                    });
+                  }
+                }
               }
             }
           }
@@ -109,29 +119,35 @@ export class FinanceService {
     for (const arista of graph.aristas) {
       if (arista.costos && arista.costos.valor) {
         const costo = arista.costos;
-        const source = getAristaSource(arista, 'costos');
-        const nodoOrigen = graph.nodos.find(n => n.id === arista.origen_id);
-        const nodoDestino = graph.nodos.find(n => n.id === arista.destino_id);
-        const desc = `Traslado: ${nodoOrigen?.nombre || arista.origen_id} → ${nodoDestino?.nombre || arista.destino_id}`;
-        const cat = EDGE_CATEGORY_MAP[arista.modo] || 'Transporte';
-        expenses.push({
-          descripcion: desc,
-          categoria: cat,
-          monto: costo.valor,
-          moneda: costo.moneda || 'COP',
-          pagado_por: costo.pagado_por || '',
-          source: source,
-          aristaId: arista.id,
-          tipo: 'arista',
-        });
+        if (typeof costo.valor === 'number') {
+          const source = getAristaSource(arista, 'costos');
+          const nodoOrigen = graph.nodos.find(n => n.id === arista.origen_id);
+          const nodoDestino = graph.nodos.find(n => n.id === arista.destino_id);
+          const desc = `Traslado: ${nodoOrigen?.nombre || arista.origen_id} → ${nodoDestino?.nombre || arista.destino_id}`;
+          const cat = EDGE_CATEGORY_MAP[arista.modo] || 'Transporte';
+          expenses.push({
+            descripcion: desc,
+            categoria: cat,
+            monto: costo.valor,
+            moneda: costo.moneda || 'COP',
+            pagado_por: costo.pagado_por || '',
+            source: source,
+            aristaId: arista.id,
+            tipo: 'arista',
+          });
+        }
       }
     }
 
-    // Convertir todos los montos a la moneda objetivo y sumar
+    // Convertir todos los montos a la moneda objetivo
+    // Fórmula correcta: (monto * RATES[moneda_origen]) / RATES[moneda_destino]
+    // Donde RATES es COP por unidad de moneda
     const convertedExpenses = expenses.map(exp => {
-      const rate = RATES[exp.moneda] || 1;
-      const targetRate = RATES[targetCurrency] || 1;
-      const converted = (exp.monto / rate) / targetRate;
+      const rateOrigen = RATES[exp.moneda] || 1;
+      const rateDestino = RATES[targetCurrency] || 1;
+      // Si la moneda origen es COP, rateOrigen = 1, entonces monto * 1 / rateDestino = monto / rateDestino (COP a destino)
+      // Si destino es COP, rateDestino = 1, entonces monto * rateOrigen (moneda a COP)
+      const converted = (exp.monto * rateOrigen) / rateDestino;
       return { ...exp, montoConvertido: converted, monedaOriginal: exp.moneda };
     });
 
