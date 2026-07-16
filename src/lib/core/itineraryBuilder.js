@@ -36,12 +36,12 @@ function getNodeDate(graph, nodeId, edgeId, visitaIndex) {
     return visita?.entrada || '';
   }
 
-  // Si hay una arista que llega al nodo, usar su fecha de llegada o salida
+  // Si hay una arista que llega al nodo, usar su fecha de llegada si existe, o la de salida
   if (edgeId) {
     const edge = graph.aristas.find(e => e.id === edgeId);
     if (edge && edge.logistica_salida) {
-      // Priorizar la fecha de salida si no hay fecha de llegada
-      return edge.logistica_salida.fecha_salida || '';
+      // Priorizar fecha_llegada si existe, de lo contrario fecha_salida
+      return edge.logistica_salida.fecha_llegada || edge.logistica_salida.fecha_salida || '';
     }
   }
 
@@ -167,9 +167,9 @@ export function buildItinerary(graph) {
       nodeVisitIndexMap.set(nextNode.id, currentVisitIndex);
     }
 
-    // Calcular la fecha del nodo: usar la fecha de la arista que llega
-    // o la fecha de la visita correspondiente como fallback
-    let nodeDate = edge.logistica_salida?.fecha_salida || '';
+    // Calcular la fecha del nodo: usar fecha_llegada de la arista si existe, o fecha_salida,
+    // o fallback a la fecha de la visita correspondiente
+    let nodeDate = edge.logistica_salida?.fecha_llegada || edge.logistica_salida?.fecha_salida || '';
     if (!nodeDate) {
       const visita = nextNode.visitas && nextNode.visitas.length > 0 
         ? nextNode.visitas[Math.min(visitaIndex, nextNode.visitas.length - 1)] 

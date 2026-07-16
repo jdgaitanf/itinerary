@@ -7,17 +7,17 @@
   "transporte": {
     "compania": "SBB (Swiss Federal Railways)",
     "linea": "S2 o S8",
-    "detalles": "Tranvía o bus a Zúrich HB, luego tren al aeropuerto."
+    "detalles": "Caminata 32 min desde Bachmattstrasse 29 hasta Zúrich HB, o tranvía 5/13. Luego tren a aeropuerto (10 min)."
   },
   "tiempo_estimado": {
-    "minutos": 30,
-    "rango": "25-35",
-    "con_holgura": 40
+    "minutos": 42,
+    "rango": "40-45",
+    "con_holgura": 50
   },
   "logistica_salida": {
     "fecha_salida": "2026-07-25",
     "hora_salida_origen": "06:30",
-    "hora_llegada_destino": "07:00"
+    "hora_llegada_destino": "07:12"
   },
   "reglas_holgura": {
     "tiempo_requerido": "2 horas antes del vuelo",
@@ -27,8 +27,9 @@
     "moneda": "CHF",
     "valor": 10
   },
-  "notas": "El tren S2 o S8 conecta Zúrich HB con el aeropuerto cada 10-15 minutos. Salir temprano para asegurar la llegada con tiempo.",
+  "notas": "Salir temprano para asegurar la llegada con tiempo.",
   "sources": {
-    "modo": "user"
+    "modo": "user",
+    "logistica_salida": "user"
   }
 }

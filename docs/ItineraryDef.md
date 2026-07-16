@@ -1,4 +1,12 @@
-## 1. Nodos (Nodes) - v3.0
+
+---
+
+## Archivo: `docs/ItineraryDef.md`
+
+Reemplaza el contenido completo con este:
+
+```markdown
+## 1. Nodos (Nodes) - v3.1
 
 ### Estructura de un Nodo
 
@@ -42,11 +50,12 @@
         "confirmada": boolean,
         "nombre_titular": "string",
         "plataforma": "string",
-        "costo": {
+        "costo": {                   // Puede ser un objeto único o un array de objetos
           "moneda": "string",
           "valor": number,
           "pagado_por": "string",
-          "incluido_en": "string"
+          "incluido_en": "string",
+          "concepto": "string"       // Opcional, para costos múltiples
         }
       },
       "notas": "string"              // Notas específicas de esta visita (opcional)
@@ -88,7 +97,7 @@
   "moneda_local": {                  // Moneda local (opcional)
     "codigo": "string",
     "simbolo": "string",
-    "tasa_referencia": "string"
+    "tasa_referencia": "string"      // Ej: "1 EUR ≈ 4088 COP" (para referencia visual)
   },
   "reglas_especiales": [             // Reglas especiales (opcional)
     "string"
@@ -215,6 +224,7 @@ El nodo de tipo `casa_origen` es el **nodo inicial del viaje**. Debe existir exa
   },
   "logistica_salida": {
     "fecha_salida": "YYYY-MM-DD",    // Fecha de salida (obligatorio)
+    "fecha_llegada": "YYYY-MM-DD",   // Fecha de llegada (opcional, para vuelos que cruzan medianoche)
     "hora_salida_origen": "HH:MM",   // Hora de salida del origen (obligatorio)
     "hora_llegada_destino": "HH:MM", // Hora de llegada al destino (obligatorio)
     "hora_salida_efectiva_transporte": "HH:MM" // Hora real de salida del transporte (opcional)
@@ -258,7 +268,9 @@ El nodo de tipo `casa_origen` es el **nodo inicial del viaje**. Debe existir exa
    - La fecha de salida (de la arista) debe estar dentro del rango `[entrada, salida]` de la visita correspondiente del nodo origen.
    - Si el nodo origen tiene múltiples visitas, se debe asociar a la visita que cubre esa fecha.
 
-5. **Los enlaces de Google Maps para aeropuertos deben incluir la terminal específica** de la aerolínea en la URL o en la dirección, para facilitar la orientación del viajero. Ejemplo: `"maps_link": "https://www.google.com/maps?q=Terminal+1+Aeropuerto+El+Dorado+Bogota"`.
+5. **Para vuelos que cruzan la medianoche**, se debe especificar `fecha_llegada` en `logistica_salida` con la fecha de llegada real. El algoritmo de dibujo usará esta fecha para el nodo destino si está presente.
+
+6. **Los enlaces de Google Maps para aeropuertos deben incluir la terminal específica** de la aerolínea en la URL o en la dirección, para facilitar la orientación del viajero. Ejemplo: `"maps_link": "https://www.google.com/maps?q=Terminal+1+Aeropuerto+El+Dorado+Bogota"`.
 
 ---
 
@@ -310,7 +322,7 @@ El grafo puede contener:
 
 ## 4. Archivo Raíz (`viaje-raiz.json`)
 
-El archivo raíz es el punto de entrada del grafo. Contiene las referencias a todos los nodos y aristas.
+El archivo raíz es el punto de entrada del grafo. Contiene las referencias a todos los nodos y aristas, así como la lista de compañeros de viaje.
 
 ```json
 {
@@ -320,6 +332,12 @@ El archivo raíz es el punto de entrada del grafo. Contiene las referencias a to
     "inicio": "YYYY-MM-DD", // Fecha de inicio del viaje
     "fin": "YYYY-MM-DD" // Fecha de fin del viaje
   },
+  "companeros": [
+    {
+      "nombre": "string",
+      "apodo": "string"
+    }
+  ],
   "referencias": {
     "nodos": [
       // Lista de rutas de archivos de nodos
@@ -335,18 +353,18 @@ El archivo raíz es el punto de entrada del grafo. Contiene las referencias a to
 
 ---
 
-## 5. Ejemplo de Grafo Completo (v3.0)
+## 5. Ejemplo de Grafo Completo (v3.1)
 
 ```
 Nodo Inicial: casa_origen (casa-david)
   ↓ [arista: casa-to-aeropuerto]
 Nodo: aeropuerto-bog (visita 1: 2026-07-17)
-  ↓ [arista: bog-to-bcn]
-Nodo: aeropuerto-bcn (visita 1: 2026-07-18)
+  ↓ [arista: bog-to-bcn] (fecha_salida: 2026-07-17, fecha_llegada: 2026-07-18)
+Nodo: aeropuerto-bcn (visita 1: 2026-07-18)  ← Usa fecha_llegada
   ↓ [arista: bcn-airport-to-hotel]
 Nodo: hotel-bcn (visita 1: 2026-07-18 → 2026-07-19)
   ↓ [arista: bcn-hotel-to-airport]
-Nodo: aeropuerto-bcn (visita 2: 2026-07-19)  ← Mismo nodo, visita diferente
+Nodo: aeropuerto-bcn (visita 2: 2026-07-19)
   ↓ [arista: bcn-to-roma]
 Nodo: aeropuerto-fco (visita 1: 2026-07-19)
   ↓ [arista: fco-to-hotel]
@@ -354,21 +372,47 @@ Nodo: hotel-roma (visita 1: 2026-07-19 → 2026-07-21)
   ↓ [arista: hotel-to-coliseo]
 Nodo: coliseo (visita 1: 2026-07-20)
   ↓ [arista: coliseo-to-hotel]
-Nodo: hotel-roma (visita 1: 2026-07-19 → 2026-07-21)  ← Mismo nodo, misma visita (ciclo)
+Nodo: hotel-roma (visita 1: 2026-07-19 → 2026-07-21)
   ↓ [arista: hotel-to-aeropuerto]
-Nodo: aeropuerto-fco (visita 2: 2026-07-21)  ← Mismo nodo, visita diferente
+Nodo: aeropuerto-fco (visita 2: 2026-07-21)
   ↓ [arista: fco-to-zrh]
 Nodo: aeropuerto-zrh (visita 1: 2026-07-21)
   ↓ [arista: zrh-to-amiga]
 Nodo: casa-amiga-zrh (visita 1: 2026-07-21 → 2026-07-25)
+  ↓ [arista: amiga-to-altstadt]
+Nodo: zurich-altstadt (visita 1: 2026-07-21)
+  ↓ [arista: altstadt-to-bahnhof]
+Nodo: zurich-bahnhofstrasse (visita 1: 2026-07-21)
+  ↓ [arista: bahnhof-to-lake]
+Nodo: zurich-lake (visita 1: 2026-07-21)
+  ↓ [arista: lake-to-casa]
+Nodo: casa-amiga-zrh (visita 1: 2026-07-21 → 2026-07-25)
+  ↓ [arista: casa-to-jungfrau]
+Nodo: jungfraujoch (visita 1: 2026-07-22)
+  ↓ [arista: jungfrau-to-casa]
+Nodo: casa-amiga-zrh (visita 1: 2026-07-21 → 2026-07-25)
+  ↓ [arista: casa-to-lauterbrunnen]
+Nodo: lauterbrunnen (visita 1: 2026-07-23)
+  ↓ [arista: lauterbrunnen-to-grindelwald]
+Nodo: grindelwald (visita 1: 2026-07-23)
+  ↓ [arista: grindelwald-to-casa]
+Nodo: casa-amiga-zrh (visita 1: 2026-07-21 → 2026-07-25)
+  ↓ [arista: casa-to-lucerne]
+Nodo: lucerne (visita 1: 2026-07-24)
+  ↓ [arista: lucerne-to-pilatus]
+Nodo: pilatus-kulm (visita 1: 2026-07-24)
+  ↓ [arista: pilatus-to-lucerne]
+Nodo: lucerne (visita 1: 2026-07-24)
+  ↓ [arista: lucerne-to-casa]
+Nodo: casa-amiga-zrh (visita 1: 2026-07-21 → 2026-07-25)
   ↓ [arista: amiga-to-airport]
-Nodo: aeropuerto-zrh (visita 2: 2026-07-25)  ← Mismo nodo, visita diferente
+Nodo: aeropuerto-zrh (visita 2: 2026-07-25)
   ↓ [arista: zrh-to-ams]
 Nodo: aeropuerto-ams (visita 1: 2026-07-25)
   ↓ [arista: ams-to-hotel]
 Nodo: hotel-ams (visita 1: 2026-07-25 → 2026-07-27)
   ↓ [arista: hotel-to-airport]
-Nodo: aeropuerto-ams (visita 2: 2026-07-27)  ← Mismo nodo, visita diferente
+Nodo: aeropuerto-ams (visita 2: 2026-07-27)
   ↓ [arista: ams-to-ham]
 Nodo: aeropuerto-ham (visita 1: 2026-07-27)
   ↓ [arista: ham-to-hotel]
@@ -378,17 +422,17 @@ Nodo: sixt-ham (visita 1: 2026-07-28)
   ↓ [arista: sixt-to-wacken]
 Nodo: wacken-festival (visita 1: 2026-07-28 → 2026-08-02)
   ↓ [arista: wacken-to-sixt]
-Nodo: sixt-ham (visita 2: 2026-08-02)  ← Mismo nodo, visita diferente
+Nodo: sixt-ham (visita 2: 2026-08-02)
   ↓ [arista: sixt-to-ham-airport]
-Nodo: aeropuerto-ham (visita 2: 2026-08-02)  ← Mismo nodo, visita diferente
+Nodo: aeropuerto-ham (visita 2: 2026-08-02)
   ↓ [arista: ham-to-mad]
 Nodo: aeropuerto-mad (visita 1: 2026-08-02)
   ↓ [arista: mad-to-hotel]
 Nodo: hotel-mad (visita 1: 2026-08-02 → 2026-08-03)
   ↓ [arista: hotel-to-airport]
-Nodo: aeropuerto-mad (visita 2: 2026-08-03)  ← Mismo nodo, visita diferente
+Nodo: aeropuerto-mad (visita 2: 2026-08-03)
   ↓ [arista: mad-to-bog]
-Nodo: aeropuerto-bog (visita 2: 2026-08-03)  ← Mismo nodo, visita diferente (fin del viaje)
+Nodo: aeropuerto-bog (visita 2: 2026-08-03)
 ```
 
 ---
@@ -453,8 +497,9 @@ El itinerario es un arreglo de elementos, donde cada elemento puede ser:
    - e. Determinar el índice de visita para el nodo destino:
      - Si el nodo ya ha sido visitado con el mismo índice, se incrementa el contador.
      - Si es la primera vez que se ve este nodo o el índice no está usado, se mantiene.
-   - f. Calcular la fecha del nodo:
-     - Se usa la fecha de la arista que llega al nodo (`logistica_salida.fecha_salida`).
+   - f. **Calcular la fecha del nodo**:
+     - Se usa `logistica_salida.fecha_llegada` de la arista que llega al nodo (si existe).
+     - Si no, se usa `logistica_salida.fecha_salida`.
      - Si no está disponible, se usa la fecha de la visita correspondiente como fallback.
    - g. Agregar el nodo al resultado con el índice de visita calculado y su fecha.
 
@@ -547,6 +592,8 @@ Cada evento en el itinerario muestra un número de orden (ej: `#1`, `#2`, ...) q
 
 10. **Maps de aeropuertos**: Los enlaces de Google Maps para aeropuertos deben incluir la terminal específica de la aerolínea.
 
+11. **Campo `fecha_llegada`**: Para vuelos que cruzan la medianoche, se debe especificar `fecha_llegada` en `logistica_salida` para que el nodo destino tenga la fecha correcta.
+
 ---
 
 ## 11. Versiones
@@ -556,6 +603,7 @@ Cada evento en el itinerario muestra un número de orden (ej: `#1`, `#2`, ...) q
 | v1.0    | Estructura inicial con nodos y aristas                                                                                                                                                                                                                   |
 | v2.0    | Añadidos campos detallados (clima, reservas, actividades)                                                                                                                                                                                                |
 | v3.0    | **Migración de `fechas_estadia` a `visitas` (arreglo)**<br>Documentación del algoritmo de orden de visita<br>Estandarización de tipos (`casa_origen`)<br>Reglas de `oculto` para `casa_origen`<br>Validaciones de fechas<br>Documentación de ciclos y UI |
+| v3.1    | **Añadido campo `fecha_llegada` en aristas** para vuelos que cruzan medianoche<br>**Documentación de costos como array** en reservas<br>**Actualización de la lógica de fechas** en el algoritmo de recorrido                                               |
 
 ---
 
@@ -667,3 +715,4 @@ Para un mismo nodo origen, en un mismo día calendario:
 El grafo será rechazado porque la arista al estadio es posterior a la arista al aeropuerto, y el viajero ya no está en el hotel a las 09:00.
 
 **Solución sugerida:** Reubicar la actividad local (Estadio Olímpico) en un día anterior, asegurando que todas las aristas de salida del nodo queden antes de la arista de salida definitiva hacia el aeropuerto. Si no es posible acomodar las actividades, el usuario debe escoger solo una.
+```

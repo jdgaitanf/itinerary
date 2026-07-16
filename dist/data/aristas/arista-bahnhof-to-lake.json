@@ -1,0 +1,28 @@
+{
+  "id": "arista-bahnhof-to-lake",
+  "origen_id": "zurich-bahnhofstrasse",
+  "destino_id": "zurich-lake",
+  "modo": "caminata",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Caminata desde Bahnhofstrasse hasta la orilla del lago de Zúrich. Paseo por el paseo marítimo."
+  },
+  "tiempo_estimado": {
+    "minutos": 10,
+    "rango": "8-12",
+    "con_holgura": 15
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "17:30",
+    "hora_llegada_destino": "17:40"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 0
+  },
+  "notas": "Disfrutar de las vistas del lago y los Alpes al fondo.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

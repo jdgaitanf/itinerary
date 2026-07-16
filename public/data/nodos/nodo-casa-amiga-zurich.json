@@ -4,15 +4,15 @@
   "nombre": "Casa de la amiga de Steven - Zúrich",
   "oculto": false,
   "direccion": {
-    "calle": "Klusplatz 8",
+    "calle": "Bachmattstrasse 29",
     "ciudad": "Zúrich",
     "codigo_postal": "8048",
     "pais": "Suiza",
     "coordenadas": {
-      "lat": 47.3542,
-      "lng": 8.5162
+      "lat": 47.3635,
+      "lng": 8.5055
     },
-    "maps_link": "https://www.google.com/maps?q=Klusplatz+8+8048+Zurich"
+    "maps_link": "https://www.google.com/maps?q=Bachmattstrasse+29+8048+Zurich"
   },
   "visitas": [
     {
@@ -93,7 +93,18 @@
   "moneda_local": {
     "codigo": "CHF",
     "simbolo": "Fr.",
-    "tasa_referencia": "1 CHF ≈ 4500 COP"
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
   },
-  "tiempo_estimado_visita": "4 noches"
+  "tiempo_estimado_visita": "4 noches",
+  "sources": {
+    "direccion": {
+      "calle": "user",
+      "codigo_postal": "user",
+      "coordenadas": "user",
+      "maps_link": "user"
+    },
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
 }

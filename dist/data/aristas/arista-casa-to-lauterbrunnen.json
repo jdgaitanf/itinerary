@@ -1,0 +1,31 @@
+{
+  "id": "arista-casa-to-lauterbrunnen",
+  "origen_id": "casa-amiga-zurich",
+  "destino_id": "lauterbrunnen",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "SBB",
+    "tipo_vehiculo": "Tren",
+    "detalles": "Caminata 28 min a Zúrich HB (o tranvía). Tren Zúrich HB → Interlaken Ost (08:30-10:30). Tren Interlaken Ost → Lauterbrunnen (10:35-10:45)."
+  },
+  "tiempo_estimado": {
+    "minutos": 173,
+    "rango": "170-175",
+    "con_holgura": 185
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-23",
+    "hora_salida_origen": "08:00",
+    "hora_llegada_destino": "10:45"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 80,
+    "pagado_por": null
+  },
+  "notas": "Salir de casa a las 8:00 para llegar a HB a las 8:28, tomar tren de 8:30.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

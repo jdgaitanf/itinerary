@@ -46,7 +46,7 @@
 }
 
 .dia-card.expanded .dia-card-body {
-  max-height: 9999px;
+  max-height: 2000px;
   overflow: visible;
   opacity: 1;
   padding: 8px 0 4px 0;

@@ -1,0 +1,50 @@
+{
+  "id": "zurich-bahnhofstrasse",
+  "tipo": "atraccion",
+  "nombre": "Bahnhofstrasse",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Zúrich",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 47.3755,
+      "lng": 8.5400
+    },
+    "maps_link": "https://www.google.com/maps?q=Bahnhofstrasse+Zurich"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-21",
+      "clima": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "notas": "Una de las calles comerciales más exclusivas de Europa."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "bahnhofstrasse-walk",
+      "nombre": "Recorrido por Bahnhofstrasse",
+      "tipo": "turismo",
+      "duracion_estimada": "1h",
+      "horario_recomendado": "16:15",
+      "notas": "Escaparates, relojerías y tiendas de lujo."
+    }
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "tiempo_estimado_visita": "1h",
+  "sources": {
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

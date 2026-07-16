@@ -1,0 +1,28 @@
+{
+  "id": "arista-altstadt-to-bahnhof",
+  "origen_id": "zurich-altstadt",
+  "destino_id": "zurich-bahnhofstrasse",
+  "modo": "caminata",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Caminata desde el casco antiguo hasta la Bahnhofstrasse, una de las calles comerciales más exclusivas de Europa."
+  },
+  "tiempo_estimado": {
+    "minutos": 10,
+    "rango": "8-12",
+    "con_holgura": 15
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "16:00",
+    "hora_llegada_destino": "16:10"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 0
+  },
+  "notas": "Recorrido por la principal calle comercial de Zúrich.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

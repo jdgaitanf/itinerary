@@ -1,0 +1,28 @@
+{
+  "id": "arista-pilatus-to-lucerne",
+  "origen_id": "pilatus-kulm",
+  "destino_id": "lucerne",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "Pilatus Bahnen",
+    "tipo_vehiculo": "Teleférico + Bus",
+    "detalles": "Teleférico Pilatus Kulm → Kriens (15:00-15:30). Bus Kriens → Lucerna (15:40-16:10)."
+  },
+  "tiempo_estimado": {
+    "minutos": 70,
+    "rango": "65-75",
+    "con_holgura": 80
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-24",
+    "hora_salida_origen": "15:00",
+    "hora_llegada_destino": "16:10"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 100,
+    "pagado_por": null
+  },
+  "notas": "Descenso por teleférico y bus. Alternativa: descender por el mismo camino (barco + funicular) si se prefiere."
+}

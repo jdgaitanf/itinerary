@@ -1,0 +1,31 @@
+{
+  "id": "arista-jungfrau-to-casa",
+  "origen_id": "jungfraujoch",
+  "destino_id": "casa-amiga-zurich",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "Jungfrau Railways / SBB",
+    "tipo_vehiculo": "Tren",
+    "detalles": "Tren de cremallera Jungfraujoch → Grindelwald (15:00-16:20). Tren Grindelwald → Interlaken Ost (16:30-17:05). Tren Interlaken Ost → Zúrich HB (17:10-19:10). Caminata 28 min a casa (19:10-19:38)."
+  },
+  "tiempo_estimado": {
+    "minutos": 278,
+    "rango": "275-280",
+    "con_holgura": 290
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-22",
+    "hora_salida_origen": "15:00",
+    "hora_llegada_destino": "19:38"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 230,
+    "pagado_por": null
+  },
+  "notas": "Llegada a casa sobre las 19:38.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

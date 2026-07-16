@@ -1,0 +1,28 @@
+{
+  "id": "arista-lauterbrunnen-to-grindelwald",
+  "origen_id": "lauterbrunnen",
+  "destino_id": "grindelwald",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "SBB",
+    "tipo_vehiculo": "Tren",
+    "detalles": "Tren directo o con transbordo en Interlaken Ost. El viaje dura aproximadamente 30 minutos."
+  },
+  "tiempo_estimado": {
+    "minutos": 30,
+    "rango": "28-32",
+    "con_holgura": 35
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-23",
+    "hora_salida_origen": "13:00",
+    "hora_llegada_destino": "13:30"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 15,
+    "pagado_por": null
+  },
+  "notas": "Costo aproximado con tarifa normal."
+}

@@ -1,0 +1,28 @@
+{
+  "id": "arista-casa-to-altstadt",
+  "origen_id": "casa-amiga-zurich",
+  "destino_id": "zurich-altstadt",
+  "modo": "caminata",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Caminata desde Bachmattstrasse 29 hasta el casco antiguo de Zúrich (Altstadt) por la orilla del lago y el centro histórico. Distancia aprox. 2.2 km, 28 min."
+  },
+  "tiempo_estimado": {
+    "minutos": 28,
+    "rango": "25-30",
+    "con_holgura": 35
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "14:00",
+    "hora_llegada_destino": "14:28"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 0
+  },
+  "notas": "Ruta agradable por el paseo del lago.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

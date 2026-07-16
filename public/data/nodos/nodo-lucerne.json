@@ -1,0 +1,58 @@
+{
+  "id": "lucerne",
+  "tipo": "atraccion",
+  "nombre": "Lucerna - Casco Antiguo",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Lucerna",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 47.0500,
+      "lng": 8.3070
+    },
+    "maps_link": "https://www.google.com/maps?q=Lucerne+Switzerland"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-24",
+      "salida": "2026-07-24",
+      "clima": {
+        "temperatura_promedio": "16°C - 24°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "5%",
+        "recomendacion_vestimenta": "Ropa ligera, gafas de sol"
+      },
+      "notas": "Ciudad famosa por su Chapel Bridge (Kapellbrücke) y su casco antiguo. Punto de partida para el ascenso al Pilatus."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "lucerne-bridge",
+      "nombre": "Chapel Bridge y casco antiguo",
+      "tipo": "turismo",
+      "duracion_estimada": "1.5h",
+      "horario_recomendado": "09:30",
+      "notas": "Recorrido por el puente de madera más antiguo de Europa."
+    },
+    {
+      "id": "lucerne-lake",
+      "nombre": "Paseo en barco (opcional)",
+      "tipo": "turismo",
+      "duracion_estimada": "1h",
+      "horario_recomendado": "11:00",
+      "notas": "Barco por el Lago de los Cuatro Cantones. Costo adicional (aprox 30 CHF)."
+    }
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "tiempo_estimado_visita": "2h",
+  "sources": {
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

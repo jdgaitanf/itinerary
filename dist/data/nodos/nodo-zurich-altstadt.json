@@ -1,0 +1,50 @@
+{
+  "id": "zurich-altstadt",
+  "tipo": "atraccion",
+  "nombre": "Casco Antiguo de Zúrich (Altstadt)",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Zúrich",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 47.3732,
+      "lng": 8.5410
+    },
+    "maps_link": "https://www.google.com/maps?q=Altstadt+Zurich"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-21",
+      "clima": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "notas": "Recorrer las calles medievales, visitar la Grossmünster y la Fraumünster."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "altstadt-walk",
+      "nombre": "Paseo por el casco antiguo",
+      "tipo": "turismo",
+      "duracion_estimada": "2h",
+      "horario_recomendado": "14:30",
+      "notas": "Incluye Grossmünster, Fraumünster, y el río Limmat."
+    }
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "tiempo_estimado_visita": "2h",
+  "sources": {
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

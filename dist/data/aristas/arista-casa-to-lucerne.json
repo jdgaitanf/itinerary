@@ -1,0 +1,31 @@
+{
+  "id": "arista-casa-to-lucerne",
+  "origen_id": "casa-amiga-zurich",
+  "destino_id": "lucerne",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "SBB",
+    "tipo_vehiculo": "Tren",
+    "detalles": "Caminata 28 min a Zúrich HB (o tranvía). Tren directo Zúrich HB → Lucerna (08:30-09:30)."
+  },
+  "tiempo_estimado": {
+    "minutos": 88,
+    "rango": "85-90",
+    "con_holgura": 100
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-24",
+    "hora_salida_origen": "08:00",
+    "hora_llegada_destino": "09:30"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 50,
+    "pagado_por": null
+  },
+  "notas": "Salir a las 8:00.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

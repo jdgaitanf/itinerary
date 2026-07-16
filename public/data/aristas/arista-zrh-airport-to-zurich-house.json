@@ -7,24 +7,25 @@
   "transporte": {
     "compania": "SBB (Swiss Federal Railways)",
     "linea": "S2 o S8",
-    "detalles": "Tren desde el aeropuerto de Zúrich a Zúrich HB, luego tranvía o bus a Klusplatz."
+    "detalles": "Tren desde el aeropuerto de Zúrich a Zúrich HB (10 min). Luego caminata 32 min (2.5 km) hasta Bachmattstrasse 29, o tomar el tranvía 5 o 13 hasta la parada 'Bachmattstrasse'."
   },
   "tiempo_estimado": {
-    "minutos": 30,
-    "rango": "25-35",
-    "con_holgura": 40
+    "minutos": 42,
+    "rango": "40-45",
+    "con_holgura": 50
   },
   "logistica_salida": {
     "fecha_salida": "2026-07-21",
     "hora_salida_origen": "11:15",
-    "hora_llegada_destino": "11:45"
+    "hora_llegada_destino": "11:57"
   },
   "costos": {
     "moneda": "CHF",
     "valor": 10
   },
-  "notas": "El tren S2 o S8 conecta directamente el aeropuerto con Zúrich HB cada 10-15 minutos. Desde allí, tranvía 7 o bus 33 a Klusplatz.",
+  "notas": "El tren S2 o S8 conecta directamente el aeropuerto con Zúrich HB cada 10-15 minutos. Desde HB, caminata o tranvía a la casa.",
   "sources": {
-    "modo": "user"
+    "modo": "user",
+    "logistica_salida": "user"
   }
 }

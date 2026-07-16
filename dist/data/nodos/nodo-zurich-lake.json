@@ -1,0 +1,50 @@
+{
+  "id": "zurich-lake",
+  "tipo": "atraccion",
+  "nombre": "Lago de Zúrich (Zürichsee)",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Zúrich",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 47.3400,
+      "lng": 8.5380
+    },
+    "maps_link": "https://www.google.com/maps?q=Lake+Zurich"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-21",
+      "salida": "2026-07-21",
+      "clima": {
+        "temperatura_promedio": "18°C - 25°C",
+        "condiciones": "Parcialmente nublado",
+        "probabilidad_lluvia": "30%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta para la noche"
+      },
+      "notas": "Paseo por la orilla, vistas al lago y los Alpes al fondo."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "lake-walk",
+      "nombre": "Paseo por el lago",
+      "tipo": "turismo",
+      "duracion_estimada": "1.5h",
+      "horario_recomendado": "17:45",
+      "notas": "Disfrutar del atardecer, ver los barcos y patos."
+    }
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "tiempo_estimado_visita": "1.5h",
+  "sources": {
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

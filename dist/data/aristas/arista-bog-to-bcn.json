@@ -20,6 +20,7 @@
   },
   "logistica_salida": {
     "fecha_salida": "2026-07-17",
+    "fecha_llegada": "2026-07-18",
     "hora_salida_origen": "15:20",
     "hora_llegada_destino": "08:30"
   },
@@ -30,6 +31,9 @@
   },
   "notas": "Llegada al día siguiente (18 de julio). Cambio de huso horario: Bogotá (UTC-5) → Barcelona (UTC+2).",
   "sources": {
-    "costos": "user"
+    "costos": "user",
+    "logistica_salida": {
+      "fecha_llegada": "user"
+    }
   }
 }

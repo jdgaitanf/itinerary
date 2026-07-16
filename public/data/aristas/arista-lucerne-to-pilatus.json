@@ -1,0 +1,28 @@
+{
+  "id": "arista-lucerne-to-pilatus",
+  "origen_id": "lucerne",
+  "destino_id": "pilatus-kulm",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "Pilatus Bahnen",
+    "tipo_vehiculo": "Barco + Funicular + Teleférico",
+    "detalles": "Barco de Lucerna a Alpnachstad (10:00-10:50). Funicular de cremallera más empinado del mundo Alpnachstad → Pilatus Kulm (11:00-12:00)."
+  },
+  "tiempo_estimado": {
+    "minutos": 120,
+    "rango": "115-125",
+    "con_holgura": 135
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-24",
+    "hora_salida_origen": "10:00",
+    "hora_llegada_destino": "12:00"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 100,
+    "pagado_por": null
+  },
+  "notas": "Ascenso combinado. El costo incluye barco y funicular. Verificar horarios de salida del barco."
+}

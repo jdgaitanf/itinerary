@@ -1,0 +1,101 @@
+{
+  "id": "jungfraujoch",
+  "tipo": "atraccion",
+  "nombre": "Jungfraujoch - Top of Europe",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Jungfraujoch",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 46.5476,
+      "lng": 7.9817
+    },
+    "maps_link": "https://www.google.com/maps?q=Jungfraujoch"
+  },
+  "contacto": {
+    "web": "https://www.jungfrau.ch"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-22",
+      "salida": "2026-07-22",
+      "reserva": {
+        "codigo_reserva": "(por confirmar)",
+        "confirmada": true,
+        "nombre_titular": "Juan",
+        "plataforma": "Jungfrau Railways",
+        "costo": {
+          "moneda": "CHF",
+          "valor": 230,
+          "pagado_por": null
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "-5°C - 5°C",
+        "condiciones": "Nieve, viento",
+        "probabilidad_lluvia": "20%",
+        "recomendacion_vestimenta": "Ropa de abrigo, guantes, gafas de sol"
+      },
+      "notas": "Reserva con antelación. Llevar ropa de abrigo y calzado con suela de goma. Visitar el Palacio de Hielo, el Sphinx y el glaciar Aletsch."
+    }
+  ],
+  "horarios": {
+    "horario_apertura": "08:00",
+    "horario_cierre": "17:00"
+  },
+  "actividades": [
+    {
+      "id": "jungfrau-sphinx",
+      "nombre": "Mirador Sphinx",
+      "tipo": "aventura",
+      "duracion_estimada": "30 min",
+      "horario_recomendado": "11:00",
+      "notas": "Vistas panorámicas del glaciar Aletsch."
+    },
+    {
+      "id": "jungfrau-ice-palace",
+      "nombre": "Palacio de Hielo",
+      "tipo": "aventura",
+      "duracion_estimada": "30 min",
+      "horario_recomendado": "12:00",
+      "notas": "Laberinto de hielo con esculturas."
+    },
+    {
+      "id": "jungfrau-alpine-sensation",
+      "nombre": "Alpine Sensation",
+      "tipo": "aventura",
+      "duracion_estimada": "20 min",
+      "horario_recomendado": "13:00",
+      "notas": "Recorrido temático sobre la construcción del ferrocarril."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa de abrigo (chaqueta, guantes, gorro)",
+    "Calzado cómodo con suela de goma",
+    "Gafas de sol",
+    "Protector solar"
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "reglas_especiales": [
+    "Último ascenso a las 15:00.",
+    "No se permite el acceso con cochecitos o sillas de ruedas en algunas áreas."
+  ],
+  "tiempo_estimado_visita": "4h",
+  "sources": {
+    "visitas": [
+      {
+        "reserva": {
+          "costo": "ai"
+        }
+      }
+    ],
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

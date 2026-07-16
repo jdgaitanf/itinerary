@@ -1,0 +1,31 @@
+{
+  "id": "arista-grindelwald-to-casa",
+  "origen_id": "grindelwald",
+  "destino_id": "casa-amiga-zurich",
+  "modo": "tren",
+  "oculto": false,
+  "transporte": {
+    "compania": "SBB",
+    "tipo_vehiculo": "Tren",
+    "detalles": "Tren Grindelwald → Interlaken Ost (17:30-18:05). Tren Interlaken Ost → Zúrich HB (18:10-20:10). Caminata 28 min a casa (20:10-20:38)."
+  },
+  "tiempo_estimado": {
+    "minutos": 188,
+    "rango": "185-190",
+    "con_holgura": 200
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-23",
+    "hora_salida_origen": "17:30",
+    "hora_llegada_destino": "20:38"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 80,
+    "pagado_por": null
+  },
+  "notas": "Llegada a casa sobre las 20:38.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "lauterbrunnen",
+  "tipo": "atraccion",
+  "nombre": "Valle de Lauterbrunnen",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Lauterbrunnen",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 46.5936,
+      "lng": 7.9076
+    },
+    "maps_link": "https://www.google.com/maps?q=Lauterbrunnen+Switzerland"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-23",
+      "salida": "2026-07-23",
+      "clima": {
+        "temperatura_promedio": "14°C - 22°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta ligera"
+      },
+      "notas": "Valle famoso por sus 72 cascadas, incluyendo la Staubbach Falls. Ideal para caminatas y fotografía."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "lauterbrunnen-walk",
+      "nombre": "Caminata por el valle",
+      "tipo": "naturaleza",
+      "duracion_estimada": "2h",
+      "horario_recomendado": "11:00",
+      "notas": "Recorrido desde la estación hasta las cascadas."
+    }
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "tiempo_estimado_visita": "2h",
+  "sources": {
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

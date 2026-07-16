@@ -1,0 +1,58 @@
+{
+  "id": "grindelwald",
+  "tipo": "atraccion",
+  "nombre": "Grindelwald - Pueblo Glaciar",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Grindelwald",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 46.6240,
+      "lng": 8.0360
+    },
+    "maps_link": "https://www.google.com/maps?q=Grindelwald+Switzerland"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-23",
+      "salida": "2026-07-23",
+      "clima": {
+        "temperatura_promedio": "14°C - 22°C",
+        "condiciones": "Soleado",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa ligera, chaqueta ligera"
+      },
+      "notas": "Pueblo con vistas espectaculares al Eiger. Opción de tomar el teleférico Eiger Express hasta la estación Eigergletscher."
+    }
+  ],
+  "actividades": [
+    {
+      "id": "grindelwald-village",
+      "nombre": "Recorrido por el pueblo",
+      "tipo": "turismo",
+      "duracion_estimada": "1.5h",
+      "horario_recomendado": "14:30",
+      "notas": "Calles pintorescas, tiendas de souvenirs, vistas al Eiger."
+    },
+    {
+      "id": "grindelwald-eiger-express",
+      "nombre": "Eiger Express (opcional)",
+      "tipo": "aventura",
+      "duracion_estimada": "2h",
+      "horario_recomendado": "15:30",
+      "notas": "Teleférico hasta Eigergletscher para acercarse a la montaña. Costo adicional (aprox 80 CHF)."
+    }
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "tiempo_estimado_visita": "2h",
+  "sources": {
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

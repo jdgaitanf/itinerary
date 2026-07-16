@@ -1,0 +1,92 @@
+{
+  "id": "pilatus-kulm",
+  "tipo": "atraccion",
+  "nombre": "Monte Pilatus - Cumbre",
+  "oculto": false,
+  "direccion": {
+    "ciudad": "Pilatus Kulm",
+    "pais": "Suiza",
+    "coordenadas": {
+      "lat": 46.9790,
+      "lng": 8.2530
+    },
+    "maps_link": "https://www.google.com/maps?q=Pilatus+Kulm"
+  },
+  "contacto": {
+    "web": "https://www.pilatus.ch"
+  },
+  "visitas": [
+    {
+      "entrada": "2026-07-24",
+      "salida": "2026-07-24",
+      "reserva": {
+        "codigo_reserva": "(por confirmar)",
+        "confirmada": true,
+        "nombre_titular": "Juan",
+        "plataforma": "Pilatus Bahnen",
+        "costo": {
+          "moneda": "CHF",
+          "valor": 200,
+          "pagado_por": null
+        }
+      },
+      "clima": {
+        "temperatura_promedio": "5°C - 15°C",
+        "condiciones": "Soleado, viento",
+        "probabilidad_lluvia": "10%",
+        "recomendacion_vestimenta": "Ropa de abrigo, chaqueta, gafas de sol"
+      },
+      "notas": "Ascenso combinado en barco, funicular y teleférico. Vistas impresionantes del lago y los Alpes."
+    }
+  ],
+  "horarios": {
+    "horario_apertura": "08:00",
+    "horario_cierre": "17:00"
+  },
+  "actividades": [
+    {
+      "id": "pilatus-summit",
+      "nombre": "Mirador en la cumbre",
+      "tipo": "aventura",
+      "duracion_estimada": "1h",
+      "horario_recomendado": "12:30",
+      "notas": "Panorama de 360 grados, senderos cortos."
+    },
+    {
+      "id": "pilatus-railway",
+      "nombre": "Funicular más empinado",
+      "tipo": "aventura",
+      "duracion_estimada": "30 min",
+      "horario_recomendado": "13:30",
+      "notas": "Descenso en el ferrocarril de cremallera más empinado del mundo (opcional)."
+    }
+  ],
+  "equipaje_recomendado": [
+    "Ropa de abrigo",
+    "Gafas de sol",
+    "Protector solar"
+  ],
+  "idioma_principal": "Alemán, Inglés",
+  "moneda_local": {
+    "codigo": "CHF",
+    "simbolo": "Fr.",
+    "tasa_referencia": "1 CHF ≈ 4425 COP"
+  },
+  "reglas_especiales": [
+    "Último ascenso a las 15:00.",
+    "El teleférico puede cerrar por viento."
+  ],
+  "tiempo_estimado_visita": "3h",
+  "sources": {
+    "visitas": [
+      {
+        "reserva": {
+          "costo": "ai"
+        }
+      }
+    ],
+    "moneda_local": {
+      "tasa_referencia": "user"
+    }
+  }
+}

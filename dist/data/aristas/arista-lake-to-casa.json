@@ -1,0 +1,28 @@
+{
+  "id": "arista-lake-to-casa",
+  "origen_id": "zurich-lake",
+  "destino_id": "casa-amiga-zurich",
+  "modo": "caminata",
+  "oculto": false,
+  "transporte": {
+    "detalles": "Caminata desde el lago (Bürkliplatz) hasta Bachmattstrasse 29. Distancia aprox. 1.2 km, 15 min."
+  },
+  "tiempo_estimado": {
+    "minutos": 15,
+    "rango": "13-17",
+    "con_holgura": 20
+  },
+  "logistica_salida": {
+    "fecha_salida": "2026-07-21",
+    "hora_salida_origen": "19:30",
+    "hora_llegada_destino": "19:45"
+  },
+  "costos": {
+    "moneda": "CHF",
+    "valor": 0
+  },
+  "notas": "Regreso a casa para cenar.",
+  "sources": {
+    "logistica_salida": "user"
+  }
+}
